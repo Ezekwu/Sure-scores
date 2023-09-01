@@ -1,0 +1,21 @@
+@import 'styles/variables';
+.button {
+  font-size: 1rem;
+  font-style: normal;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  color: white;
+  padding: 0.8rem 1.3rem;
+  border-radius: 14px;
+  background-color: $color-primary;
+  text-transform: capitalize;
+  transition: all .18s ease-in;
+  &:hover {
+    background-color: $color-primary-20;
+    box-shadow: $box-shadow-primary;
+  }
+  &:active{
+    background-color: $color-primary-30;
+  }
+}
