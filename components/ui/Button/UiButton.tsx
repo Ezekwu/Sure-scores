@@ -1,3 +1,4 @@
+"use client" ;
 import styles from './button.module.scss'
 
 // type ButtonVariant = 'primary' | 'grey' | 'purple' | 'green' |'red'
