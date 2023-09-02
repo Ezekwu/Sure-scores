@@ -1,9 +1,12 @@
 @import 'styles/variables';
 
 .main {
-  color: $color-purple;
   padding: 2rem;
   button{
     margin-top: 4rem;
   }
+    
+  div {
+    margin-top: 4rem;
+  } 
 }  
