@@ -31,7 +31,7 @@ export default function UiInput({
   
   return (
     <div className={`input_container ${error}`} >
-      <label htmlFor="input">username</label>
+      <label htmlFor="input">{name}</label>
       <input type="text" id="input" placeholder="Enter username" className='input' {...register(`${name}`)}  name={name}/>
       { error && <span>{`${error}`}</span>}
     </div>

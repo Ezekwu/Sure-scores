@@ -4,17 +4,19 @@ import UiButton from '@/components/ui/Button/UiButton'
 import UiInput from '@/components/ui/Input/UiInput'
 import UiForm from '@/components/ui/Form/UiForm'
 import * as yup from 'yup'
+import { useForm } from 'react-hook-form';
 
 
 
 export default function Home() {
-  const inputErr = 'error'
-  const onSubmit = () => {
-    console.log('hello world');
+
+  const onSubmit = (data: any) => {
+    console.log('data submitted in parent', data);
   }
+
   const schema = yup.object().shape({
     fullname: yup.string().required("add your name werey"),
-    userName: yup.string().required("add your username werey"),
+    occupation: yup.string().required('please what is your occupation')
   });
   
   return (
@@ -24,15 +26,17 @@ export default function Home() {
       <br />
       <UiForm onSubmit={onSubmit} schema={schema}>
         {({errors, register})=>(
-          <div>
+          <>
             <UiInput  
             error={errors?.fullname?.message} 
             register={register} name='fullname'/>
-          
-            <UiButton >
+            <UiInput  
+            error={errors?.occupation?.message} 
+            register={register} name='occupation'/>
+            <UiButton>
               submit
             </UiButton>
-          </div>
+          </>
         )}
       </UiForm>
     </main>

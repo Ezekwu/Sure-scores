@@ -17,7 +17,7 @@ export default function UiButton({
   onClick,
 } : Props) {
   return (
-    <button className={`${styles.button}`}>
+    <button className={`${styles.button}`} type='submit' onClick={onClick}>
       {loading ? <p>loading...</p> : children }
     </button>
   )
