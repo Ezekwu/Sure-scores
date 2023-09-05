@@ -1,0 +1,17 @@
+@import 'styles/variables';
+
+.authlayout{  
+  display: flex;
+
+  
+
+  .formContainer{
+    flex: 1;
+    padding: 15rem 0;
+  }
+  .info{
+    flex: 1;
+    background-color: $color-primary;
+    color: #fff;
+  }
+}    
