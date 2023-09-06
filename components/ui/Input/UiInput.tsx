@@ -1,6 +1,6 @@
 "use client" ;
 
-import './input.scss'
+import styles from  './input.module.scss'
 import { useFormContext, FieldError, Merge, FieldErrorsImpl, UseFormRegister } from 'react-hook-form'
 
 export type InputType = 'text' | 'password' | 'number' | 'phone' | 'date';
@@ -30,10 +30,10 @@ export default function UiInput({
 
   
   return (
-    <div className={`input_container ${error}`} >
+    <div className= {`${styles.input__container} ${error && styles.error}`} >
       <label htmlFor="input">{name}</label>
-      <input type="text" id="input" placeholder="Enter username" className='input' {...register(`${name}`)}  name={name}/>
-      { error && <span>{`${error}`}</span>}
+      <input type="text" id="input" placeholder="Enter username" className={ styles.input  } {...register(`${name}`)}  name={name}/>
+      {  <span className={styles.error__span}>{error && `${error}`}</span>}
     </div>
   )
 }
