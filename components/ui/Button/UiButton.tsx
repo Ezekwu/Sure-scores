@@ -1,5 +1,6 @@
 "use client" ;
 import styles from './button.module.scss'
+import Image from 'next/image';
 
 // type ButtonVariant = 'primary' | 'grey' | 'purple' | 'green' |'red'
 
@@ -19,6 +20,7 @@ export default function UiButton({
   return (
     <button className={`${styles.button}`} type='submit' onClick={onClick}>
       {loading ? <p>loading...</p> : children }
+      
     </button>
   )
 }

@@ -20,19 +20,18 @@ interface Props {
 
 export default function UiInput({
   name,
-  // value,
   error,
   register,
   label,
   placeholder,
-  type
+  type = 'text'
 }: Props) {
 
   
   return (
     <div className= {`${styles.input__container} ${error && styles.error}`} >
-      <label htmlFor="input">{name}</label>
-      <input type="text" id="input" placeholder="Enter username" className={ styles.input  } {...register(`${name}`)}  name={name}/>
+      <label htmlFor="input">{label}</label>
+      <input type="text" id="input" placeholder={placeholder} className={ styles.input  } {...register(`${name}`)}  name={name}/>
       {  <span className={styles.error__span}>{error && `${error}`}</span>}
     </div>
   )

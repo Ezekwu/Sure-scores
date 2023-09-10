@@ -20,6 +20,7 @@ export default function RootLayout({
     <html lang="en">
       <body className={nutino.className}>
         <ReduxProvider>
+          some layout styling and logic
           {children}
         </ReduxProvider>
       </body>

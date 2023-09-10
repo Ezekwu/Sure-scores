@@ -4,9 +4,7 @@
   display: flex;
   
   .formContainer{
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    
     flex: 1;
     background-color: #fff;
     border-radius: 0 24px 24px 0;
@@ -14,6 +12,7 @@
     .formContainer__inner{
       width: 60%;
       margin: 0 auto;
+      padding-top: 7.18rem;
     }
   }
 

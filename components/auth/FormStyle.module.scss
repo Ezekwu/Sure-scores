@@ -1,3 +1,5 @@
+@import 'styles/variables';
+
 .form__wrapper {
   display: flex;
   flex-direction: column;
@@ -5,5 +7,9 @@
 
   button {
     align-self: center;
+  }
+  .signin_up{
+    color: $color-primary;
+    text-align: center;
   }
 }
