@@ -2,10 +2,13 @@ import Image from 'next/image';
 import styles from  './AuthLayout.module.scss';
 import logo from '../../../public/assets/svg/logo.svg';
 import illustration from '../../../public/assets/svg/Illustration.svg';
-import LoginForm from '@/components/auth/LoginForm';
 
 
-export default function AuthLayout() {
+export default function AuthLayout({ 
+  children,
+}: {
+  children: React.ReactNode
+}) {
   return (
     <div className={styles.authlayout}> 
       <section className={styles.info}>
@@ -23,7 +26,7 @@ export default function AuthLayout() {
       </section>
       <section className={styles.formContainer}>
         <div className={styles.formContainer__inner}>
-          <LoginForm />
+          {children}
         </div>
       </section>
     </div>

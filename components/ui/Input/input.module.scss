@@ -9,23 +9,25 @@
     font-size: 0.875rem;
     color: $color-grey-30;
   }
-
-  .input {
-    padding: 0.75rem 1.125rem;
-    border: 1px solid $color-grey-10;
-    border-radius: 14px;
-    outline: none;
-    transition: all .18s ease-in;
-
-    &::placeholder {
-      color: $color-grey-30;
-    }
-
-    &:focus {
-      border: 1px solid $color-primary;
-      box-shadow: 0px 0px 0px 4px #3f8cff24;
+  .input__container {
+    .input {
+      padding: 0.75rem 1.125rem;
+      border: 1px solid $color-grey-10;
+      border-radius: 14px;
+      outline: none;
+      transition: all .18s ease-in;
+  
+      &::placeholder {
+        color: $color-grey-30;
+      }
+  
+      &:focus {
+        border: 1px solid $color-primary;
+        box-shadow: 0px 0px 0px 4px #3f8cff24;
+      }
     }
   }
+  
 
 
 }

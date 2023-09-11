@@ -1,7 +1,9 @@
 "use client" ;
 
 import styles from  './input.module.scss'
-import { useFormContext, FieldError, Merge, FieldErrorsImpl, UseFormRegister } from 'react-hook-form'
+import { useFormContext, FieldError, Merge, FieldErrorsImpl, UseFormRegister } from 'react-hook-form';
+import { use, useState } from 'react';
+import { FaEye, FaEyeSlash } from 'react-icons/fa';
 
 export type InputType = 'text' | 'password' | 'number' | 'phone' | 'date';
 
@@ -27,12 +29,27 @@ export default function UiInput({
   type = 'text'
 }: Props) {
 
-  
+  const [inputType, setInputType] = useState(type);
+  const togglePasswordVisibility = () => {
+    if (inputType === 'password') setInputType('text');
+    else setInputType('password');
+  }
+
+
   return (
     <div className= {`${styles.input__container} ${error && styles.error}`} >
       <label htmlFor="input">{label}</label>
-      <input type="text" id="input" placeholder={placeholder} className={ styles.input  } {...register(`${name}`)}  name={name}/>
-      {  <span className={styles.error__span}>{error && `${error}`}</span>}
+      <div className={styles.input__container}>
+        <input type={inputType} id="input" placeholder={placeholder} className={styles.input} {...register(`${name}`)}  name={name}/>
+        {
+          type === 'password' && (
+            <div onClick={togglePasswordVisibility}>
+              { inputType === 'password' ? <FaEyeSlash /> : <FaEye />}
+            </div>
+          )
+        }
+      </div>
+      {<span className={styles.error__span}>{error && `${error}`}</span>}
     </div>
   )
 }
