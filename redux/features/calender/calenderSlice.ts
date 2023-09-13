@@ -1,5 +1,4 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { RootState } from "@/app/redux/store";
 
 interface CalenderState  {
   value : number

@@ -7,15 +7,18 @@
 
   label {
     font-size: 0.875rem;
+    font-weight: 700;
     color: $color-grey-30;
   }
   .input__container {
+    position: relative;
     .input {
       padding: 0.75rem 1.125rem;
       border: 1px solid $color-grey-10;
       border-radius: 14px;
       outline: none;
       transition: all .18s ease-in;
+      color: $color-grey-30;
   
       &::placeholder {
         color: $color-grey-30;
@@ -24,12 +27,18 @@
       &:focus {
         border: 1px solid $color-primary;
         box-shadow: 0px 0px 0px 4px #3f8cff24;
+        color: black;
       }
     }
+    .icon{
+      color: $color-grey-30;
+      font-size: 1.1rem;
+      cursor: pointer;
+      position: absolute;
+      top: 0.75rem;
+      right: 1.125rem;
+    }
   }
-  
-
-
 }
 
   .error {

@@ -43,9 +43,9 @@ export default function UiInput({
         <input type={inputType} id="input" placeholder={placeholder} className={styles.input} {...register(`${name}`)}  name={name}/>
         {
           type === 'password' && (
-            <div onClick={togglePasswordVisibility}>
+            <div onClick={togglePasswordVisibility} className={styles.icon}>
               { inputType === 'password' ? <FaEyeSlash /> : <FaEye />}
-            </div>
+            </div> 
           )
         }
       </div>

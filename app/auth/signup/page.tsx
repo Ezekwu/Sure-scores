@@ -35,7 +35,7 @@ export default function page() {
             register={register} 
             error={errors?.email?.message}
             name='email'
-            label="Email Adress"
+            label="Email Address"
             placeholder="enter your email"
             />
             <UiInput  
