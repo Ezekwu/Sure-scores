@@ -1,4 +1,5 @@
 export default interface SignUpUser {
-  password?: string;
-  cPassword?: string;
+  email: string
+  password: string;
+  cPassword: string;
 }
