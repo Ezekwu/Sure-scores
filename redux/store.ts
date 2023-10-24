@@ -1,10 +1,11 @@
 import { configureStore } from '@reduxjs/toolkit'
-import calenderSlice from './features/calender/calenderSlice';
-
+import { accountSlice } from './features/account/accountSlice';
 export const store = configureStore({
   reducer: {
-    calender: calenderSlice
-  }
+    [accountSlice.reducerPath] : accountSlice.reducer
+  },
+  middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware().concat(accountSlice.middleware),
 })
 
 export type RootState = ReturnType<typeof store.getState>;

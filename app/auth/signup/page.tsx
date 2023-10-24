@@ -2,21 +2,39 @@
 import dynamic from 'next/dynamic'
 import Image from 'next/image'
 import Link from 'next/link'
+import {useRouter} from 'next/navigation'
 
-const UiButton = dynamic(() => import('../../../components/ui/Button/UiButton'))
-const UiForm = dynamic(() => import('../../../components/ui/Form/UiForm'))
-const UiInput = dynamic(() => import('../../../components/ui/Input/UiInput'))
-const AuthLayout = dynamic(() => import('@/components/layout/AuthLayout/AuthLayout'))
-import styles from '../../../styles/FormStyle.module.scss'
-import arrowRight from '../../../public/assets/icons/arrowRight.svg'
-import loginSchema from '@/utils/validations/loginSchema'
 
+const UiButton = dynamic(() => import('../../../components/ui/Button/UiButton'));
+const UiForm = dynamic(() => import('../../../components/ui/Form/UiForm'));
+const UiInput = dynamic(() => import('../../../components/ui/Input/UiInput'));
+const AuthLayout = dynamic(() => import('@/components/layout/AuthLayout/AuthLayout'));
+
+import styles from '../../../styles/FormStyle.module.scss';
+import arrowRight from '../../../public/assets/icons/arrowRight.svg';
+import loginSchema from '@/utils/validations/loginSchema';
+import { useRegisterUserMutation } from '@/redux/features/account/accountSlice'
+import SignUpUser from '@/types/SignUpUser';
 
 
 
 export default function page() {
-  const onSubmit = () => {
+  const [registerUser, {isError, isLoading, isSuccess}] = useRegisterUserMutation();
+  const router = useRouter();
 
+  const onSubmit = (userDetails:SignUpUser) => {
+    try {
+      registerUser(userDetails);
+      if(isSuccess){
+        router.push('/dashboard')
+      } else if (isError) {
+      
+    }
+    } catch (error) {
+      console.log(error);
+    }
+    
+    
   }
 
   return (
