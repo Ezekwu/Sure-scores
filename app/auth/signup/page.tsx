@@ -14,20 +14,33 @@ import arrowRight from '../../../public/assets/icons/arrowRight.svg';
 import loginSchema from '@/utils/validations/loginSchema';
 import { useRegisterUserMutation } from '@/redux/features/account/accountSlice'
 import SignUpUser from '@/types/SignUpUser';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 
 
 export default function page() {
-  const [registerUser, {isError, isLoading, isSuccess}] = useRegisterUserMutation();
+  const [registerUser, {isError, isLoading, isSuccess, error}] = useRegisterUserMutation();
   const router = useRouter();
+  
 
   const onSubmit = (userDetails:SignUpUser) => {
     registerUser(userDetails)
-    .then(()=>{
-      router.push('/dashboard')
-    }).catch((error)=>{
-      console.log(error)
-    })
+      .unwrap()
+      .then(()=>{
+        router.push('/dashboard')
+      })
+      .catch((err: { message: string }) => {
+        let msg: string = err.message;
+
+        if (err.message === 'FirebaseError: Firebase: Error (auth/email-already-in-use).') {
+          msg = ' A user with this email already exists';
+        }
+        toast(msg, { type: 'error' })
+        console.log(err.message);
+      })
+  
+    
   }
 
   return (
@@ -76,6 +89,7 @@ export default function page() {
           </div>
         )}
       </UiForm> 
+      <ToastContainer />
     </AuthLayout>
   )
 }

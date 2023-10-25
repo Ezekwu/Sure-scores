@@ -9,17 +9,16 @@ export const accountSlice = createApi({
     registerUser: builder.mutation({
        queryFn: async (authUser: SignUpUser) => {
         await api.createUserWithEmailAndPassword(authUser.email, authUser.password)
-          .then((userCredentials)=> {
-            const userObj = {
-              email: authUser.email,
-              id: userCredentials.uid
-            }
-            localStorage.setItem('uid', userObj.id);
-            api.createOrUpdateUserDetails(userObj)
-
-          }).catch((error)=>{
-            console.log(error);
-          })
+        .then((userCredentials)=> {
+          const userObj = {
+            email: authUser.email,
+            id: userCredentials.uid
+          }
+          localStorage.setItem('uid', userObj.id);
+          api.createOrUpdateUserDetails(userObj)
+        }).catch((error)=>{
+          throw new Error(error)
+        })
         return {data: null}
       },
       invalidatesTags:['User'],

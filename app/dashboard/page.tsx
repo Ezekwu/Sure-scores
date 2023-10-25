@@ -9,11 +9,10 @@ export default function page() {
   useEffect(()=>{
     const userId = localStorage.getItem('uid');
     if(!userId) {
-      router.push('/auth/login')
+      router.push('/auth/signup')
     }
   },[])
    
-
   return (
     <div>welcome, </div>
   )

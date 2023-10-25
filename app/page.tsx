@@ -5,6 +5,9 @@ import UiButton from '@/components/ui/Button/UiButton'
 import UiInput from '@/components/ui/Input/UiInput'
 import UiForm from '@/components/ui/Form/UiForm'
 
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 import * as yup from 'yup'
 import { useForm } from 'react-hook-form';
 
@@ -12,6 +15,7 @@ import { useForm } from 'react-hook-form';
 
 
 export default function Home() {
+  const notify = () => toast("Wow so easy!");
 
   const onSubmit = (data: any) => {
     console.log('data submitted in parent', data);
@@ -27,6 +31,8 @@ export default function Home() {
       Whereas recognition of the inherent dignity
       <br />
       <br />
+      <button onClick={notify}>Notify!</button>
+        <ToastContainer />
       <UiForm onSubmit={onSubmit} schema={schema}>
         {({errors, register})=>(
           <>
