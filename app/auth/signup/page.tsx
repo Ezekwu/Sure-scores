@@ -4,7 +4,6 @@ import Image from 'next/image'
 import Link from 'next/link'
 import {useRouter} from 'next/navigation'
 
-
 const UiButton = dynamic(() => import('../../../components/ui/Button/UiButton'));
 const UiForm = dynamic(() => import('../../../components/ui/Form/UiForm'));
 const UiInput = dynamic(() => import('../../../components/ui/Input/UiInput'));
@@ -23,18 +22,12 @@ export default function page() {
   const router = useRouter();
 
   const onSubmit = (userDetails:SignUpUser) => {
-    try {
-      registerUser(userDetails);
-      if(isSuccess){
-        router.push('/dashboard')
-      } else if (isError) {
-      
-    }
-    } catch (error) {
-      console.log(error);
-    }
-    
-    
+    registerUser(userDetails)
+    .then(()=>{
+      router.push('/dashboard')
+    }).catch((error)=>{
+      console.log(error)
+    })
   }
 
   return (
@@ -73,7 +66,8 @@ export default function page() {
             type='password'
             />
             <UiButton>
-              Sign Up
+              {isLoading ? 'loading...' : 'Sign Up'}
+            
               <Image  src={arrowRight} alt="arrow right"/>
             </UiButton>
             <Link className={styles.signin_up} href='./login'>

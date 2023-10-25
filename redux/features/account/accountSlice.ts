@@ -2,39 +2,50 @@ import { fakeBaseQuery, createApi } from '@reduxjs/toolkit/query/react';
 import User from '@/types/User';
 import SignUpUser from '@/types/SignUpUser';
 import api from '../../../api/index';
-
 export const accountSlice = createApi({
   baseQuery: fakeBaseQuery(),
   tagTypes: ['User'],
   endpoints : (builder) => ({
-
     registerUser: builder.mutation({
        queryFn: async (authUser: SignUpUser) => {
-         api.createUserWithEmailAndPassword(authUser.email, authUser.password)
+        await api.createUserWithEmailAndPassword(authUser.email, authUser.password)
           .then((userCredentials)=> {
-            const itemToRemove = [authUser.cPassword, authUser.password]
-            const userObj =  Object.fromEntries(
-              Object.entries(authUser).filter(([key]) => !itemToRemove.includes(key))
-            );
+            const userObj = {
+              email: authUser.email,
+              id: userCredentials.uid
+            }
+            localStorage.setItem('uid', userObj.id);
+            api.createOrUpdateUserDetails(userObj)
 
-            userObj.id = userCredentials.uid;
-            localStorage.setItem('uid', userObj.uid);
-
+          }).catch((error)=>{
+            console.log(error);
           })
-        return {data: null}
-      }
-    }),
-
-    createOrUpdateUser: builder.mutation({
-      queryFn: async (user: User) => {
-        api.createOrUpdateUserDetails(user)
         return {data: null}
       },
       invalidatesTags:['User'],
     }),
-    
-  }),
+
+    createOrUpdateUser: builder.mutation({
+      queryFn: async (user: User) => {
+        await api.createOrUpdateUserDetails(user)
+        return {data: null}
+      },
+      invalidatesTags:['User'],
+    }),
+
+    getLoggedInUser: builder.query({
+      queryFn: async () => {
+        const userId = localStorage.getItem('uid')
+        let user
+        if(userId){
+          user = api.getUser(userId)
+        }
+        return {data: user}
+      },
+    })
+  }), 
   
+
 })
 
-export const { useRegisterUserMutation, useCreateOrUpdateUserMutation } = accountSlice;
+export const { useRegisterUserMutation, useCreateOrUpdateUserMutation, useGetLoggedInUserQuery } = accountSlice;
