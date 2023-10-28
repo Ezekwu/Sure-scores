@@ -11,6 +11,12 @@ class Api {
     .then(({ user }) => user)
   }
 
+  loginUserWithEmaiAndPassword (email: string, password: string) {
+    return signInWithEmailAndPassword(auth, email, password)
+    .then(({user})=> user)
+
+  }
+
   createOrUpdateUserDetails (data: User) {
     return this.setDoc('user', data.id, data)
   }

@@ -4,10 +4,10 @@ import Image from 'next/image'
 import Link from 'next/link'
 import {useRouter} from 'next/navigation'
 
-const UiButton = dynamic(() => import('../../../components/ui/Button/UiButton'));
-const UiForm = dynamic(() => import('../../../components/ui/Form/UiForm'));
-const UiInput = dynamic(() => import('../../../components/ui/Input/UiInput'));
-const AuthLayout = dynamic(() => import('@/components/layout/AuthLayout/AuthLayout'));
+import UiButton from '../../../components/ui/Button/UiButton'
+import UiForm from '../../../components/ui/Form/UiForm'
+import UiInput from '../../../components/ui/Input/UiInput'
+import AuthLayout from '@/components/layout/AuthLayout/AuthLayout'
 
 import styles from '../../../styles/FormStyle.module.scss';
 import arrowRight from '../../../public/assets/icons/arrowRight.svg';

@@ -1,5 +1,6 @@
 "use client" ;
 
+import { useId } from 'react';
 import styles from  './input.module.scss'
 import { useFormContext, FieldError, Merge, FieldErrorsImpl, UseFormRegister } from 'react-hook-form';
 import { use, useState } from 'react';
@@ -30,6 +31,7 @@ export default function UiInput({
 }: Props) {
 
   const [inputType, setInputType] = useState(type);
+  const inputId = useId();
   const togglePasswordVisibility = () => {
     if (inputType === 'password') setInputType('text');
     else setInputType('password');
@@ -38,9 +40,9 @@ export default function UiInput({
 
   return (
     <div className= {`${styles.input__container} ${error && styles.error}`} >
-      <label htmlFor="input">{label}</label>
+      <label htmlFor={inputId}>{label}</label>
       <div className={styles.input__container}>
-        <input type={inputType} id="input" placeholder={placeholder} className={styles.input} {...register(`${name}`)}  name={name}/>
+        <input type={inputType} id={inputId} placeholder={placeholder} className={styles.input} {...register(`${name}`)}  name={name}/>
         {
           type === 'password' && (
             <div onClick={togglePasswordVisibility} className={styles.icon}>

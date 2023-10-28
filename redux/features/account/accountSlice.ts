@@ -9,10 +9,10 @@ export const accountSlice = createApi({
     registerUser: builder.mutation({
        queryFn: async (authUser: SignUpUser) => {
         await api.createUserWithEmailAndPassword(authUser.email, authUser.password)
-        .then((userCredentials)=> {
+        .then((user)=> {
           const userObj = {
             email: authUser.email,
-            id: userCredentials.uid
+            id: user.uid
           }
           localStorage.setItem('uid', userObj.id);
           api.createOrUpdateUserDetails(userObj)
@@ -32,6 +32,19 @@ export const accountSlice = createApi({
       invalidatesTags:['User'],
     }),
 
+    loginUser: builder.mutation({
+      queryFn: async (authUser: {email:string, password:string}) => {
+        await api.loginUserWithEmaiAndPassword(authUser.email, authUser.password)
+        .then((user)=>{
+          localStorage.setItem('uid', user.uid)
+        })
+        .catch((error)=>{
+          throw new Error(error)
+        })
+        return {data: null}
+      }
+    }),
+
     getLoggedInUser: builder.query({
       queryFn: async () => {
         const userId = localStorage.getItem('uid')
@@ -47,4 +60,9 @@ export const accountSlice = createApi({
 
 })
 
-export const { useRegisterUserMutation, useCreateOrUpdateUserMutation, useGetLoggedInUserQuery } = accountSlice;
+export const { 
+  useRegisterUserMutation, 
+  useCreateOrUpdateUserMutation, 
+  useGetLoggedInUserQuery, 
+  useLoginUserMutation
+} = accountSlice;
