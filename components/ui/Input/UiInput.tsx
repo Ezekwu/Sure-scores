@@ -36,10 +36,10 @@ export default function UiInput({
     if (inputType === 'password') setInputType('text');
     else setInputType('password');
   }
-
+ 
 
   return (
-    <div className= {`${styles.input__container} ${error && styles.error}`} >
+    <div className= {`${styles.input__container} ${error && styles.error}`} >  
       <label htmlFor={inputId}>{label}</label>
       <div className={styles.input__container}>
         <input type={inputType} id={inputId} placeholder={placeholder} className={styles.input} {...register(`${name}`)}  name={name}/>

@@ -1,5 +1,4 @@
 import './globals.css'
-import '../styles/_variables.scss'
 import type { Metadata } from 'next'
 import  { Inter, Nunito_Sans, Nunito,  }   from 'next/font/google'
 import { ReduxProvider } from '@/redux/provider'

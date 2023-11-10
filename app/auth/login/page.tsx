@@ -24,7 +24,7 @@ export default function page() {
     loginUser(userDetails)
     .unwrap()
     .then(()=>{
-      router.push('/dashboard')
+      router.push('/home')
     })
     .catch((err: { message: string })=>{
       let msg

@@ -28,7 +28,7 @@ export default function page() {
     registerUser(userDetails)
       .unwrap()
       .then(()=>{
-        router.push('/dashboard')
+        router.push('/home')
       })
       .catch((err: { message: string }) => {
         let msg: string = err.message;

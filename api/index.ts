@@ -1,10 +1,12 @@
-import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword } from 'firebase/auth';
+import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, GoogleAuthProvider, signInWithPopup } from 'firebase/auth';
 import { doc, getDoc, setDoc } from 'firebase/firestore';
 import db from './firebaseConfig';
 
 import User from '@/types/User';
 
 const auth = getAuth();
+const provider = new GoogleAuthProvider();
+
 class Api {
   createUserWithEmailAndPassword (email: string, password: string) {
     return createUserWithEmailAndPassword(auth, email, password)
@@ -13,8 +15,13 @@ class Api {
 
   loginUserWithEmaiAndPassword (email: string, password: string) {
     return signInWithEmailAndPassword(auth, email, password)
-    .then(({user})=> user)
+    .then(({ user }) => user)
 
+  }
+
+  SignUpWithGoogle () {
+    return signInWithPopup(auth, provider)
+    .then(({ user }) => user)
   }
 
   createOrUpdateUserDetails (data: User) {
@@ -25,7 +32,7 @@ class Api {
     return this.getDoc('user', userId)
   }
 
-  private  setDoc (
+  private  setDoc(
     collectionName: string,
     id: string,
     data: unknown,

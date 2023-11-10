@@ -10,12 +10,15 @@ export const accountSlice = createApi({
        queryFn: async (authUser: SignUpUser) => {
         await api.createUserWithEmailAndPassword(authUser.email, authUser.password)
         .then((user)=> {
+
           const userObj = {
             email: authUser.email,
-            id: user.uid
-          }
+            id: user.uid,
+            name: user.displayName!
+          };
+
           localStorage.setItem('uid', userObj.id);
-          api.createOrUpdateUserDetails(userObj)
+          api.createOrUpdateUserDetails(userObj);
         }).catch((error)=>{
           throw new Error(error)
         })
@@ -45,6 +48,32 @@ export const accountSlice = createApi({
       }
     }),
 
+    LoginWithGoogle: builder.mutation({
+      queryFn: async () => {
+        await api.SignUpWithGoogle()
+        // .then(async(user) => {
+        //   const userId = user.uid;
+        //   localStorage.setItem('uid', userId);
+
+        //   const userObj = {
+        //     email: user.email!,
+        //     id: user.uid,
+        //     name: user.displayName!
+        //   }
+        //   const existingUser = await api.getUser(userId);
+
+        //   if(!existingUser) {
+        //     await api.createOrUpdateUserDetails(userObj);
+        //   }
+
+        // })
+        .catch((error) => {
+          throw new Error(error)
+        })
+        return {data: null}
+      }
+    }),
+
     getLoggedInUser: builder.query({
       queryFn: async () => {
         const userId = localStorage.getItem('uid')
@@ -64,5 +93,6 @@ export const {
   useRegisterUserMutation, 
   useCreateOrUpdateUserMutation, 
   useGetLoggedInUserQuery, 
-  useLoginUserMutation
+  useLoginUserMutation,
+  useLoginWithGoogleMutation
 } = accountSlice;

@@ -4,8 +4,9 @@ import styles from './page.module.scss'
 import UiButton from '@/components/ui/Button/UiButton'
 import UiInput from '@/components/ui/Input/UiInput'
 import UiForm from '@/components/ui/Form/UiForm'
-
-import { ToastContainer, toast } from 'react-toastify';
+import Toast from '@/components/ui/Toast/Toast';
+import { ToastContainer } from 'react-toastify';
+import '../styles/ToastStyle.css'
 import 'react-toastify/dist/ReactToastify.css';
 
 import * as yup from 'yup'
@@ -15,8 +16,6 @@ import { useForm } from 'react-hook-form';
 
 
 export default function Home() {
-  const notify = () => toast("Wow so easy!");
-
   const onSubmit = (data: any) => {
     console.log('data submitted in parent', data);
   }
@@ -31,7 +30,9 @@ export default function Home() {
       Whereas recognition of the inherent dignity
       <br />
       <br />
-      <button onClick={notify}>Notify!</button>
+      <button onClick={()=>{
+        Toast.success('this should be red')
+      }}>notify</button>
         <ToastContainer />
       <UiForm onSubmit={onSubmit} schema={schema}>
         {({errors, register})=>(
