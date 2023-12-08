@@ -1,3 +1,52 @@
+@import 'styles/variables';
+
 .dashboardlayout{
- background-color: red;
+  display: flex;
+  gap: 3rem;
+  padding: 1.25rem;
+  height: 100vh;
+  background-color: $color-primary-10;
+
+  .navWrapper{
+    height: 100vh;
+    background-color: white;
+    border: 1px solid red;
+    padding: 2.5rem 0rem 2.5rem 1.5rem;
+    border-radius: 24px;
+    .logo {
+      width: 40px;
+      height: 40px;
+      margin-bottom: 2.6rem;
+    }
+
+    nav {
+      display: flex;
+      flex-direction: column;
+      gap: 0.67rem;
+    }
+
+    a {
+      text-decoration: none;
+      color: $color-grey-30;
+
+      .link_wrapper{
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+        padding: 0.5rem;
+        padding-right: 2.68rem;
+
+        &.active{
+          border: 1px solid red;
+        }
+        svg {
+          fill: $color-grey-30;
+        }
+      }
+    }
+    
+    
+  }
+
+  
 }

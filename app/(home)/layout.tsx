@@ -1,5 +1,5 @@
 import styles from './layout.module.scss';
-import Link from "next/link";
+import Navbar from '@/components/layout/AuthLayout/Navbar/Navbar';
 
 export default function DashboardLayout({
   children,
@@ -9,20 +9,7 @@ export default function DashboardLayout({
   
   return (
     <section className={styles.dashboardlayout}>
-      <nav>
-        <Link href='/dashboard'>
-          <p>Dashboard</p>
-        </Link>
-        <Link href='/projects'>
-          <p>Projects</p>
-        </Link>
-        <Link href='/calender'>
-          <p>Calender</p>
-        </Link>
-        <Link href='/infoportal'>
-          <p>Info Portal</p>
-        </Link>
-      </nav>
+      <Navbar />
       {children}
     </section>
   )
