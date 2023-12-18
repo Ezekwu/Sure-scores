@@ -6,17 +6,51 @@
 
 .rbc-month-view {
   border: none !important;
-  border-color: red !important;
 }
 
 .rbc-row-bg {
   border-color: #E6EBF5 !important;
 }
 
-.rbc-day-bg {
+.rbc-day-bg, .rbc-off-range-bg {
   border-color:#E6EBF5 !important;
+  padding: 1rem 0rem;
 }
 
 .rbc-off-range-bg {
   background: transparent;
 }
+
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.main{
+  border: 4px green;
+}
+.rbc-header {
+  border: none;
+  padding: .5rem;
+  display: flex;
+  border-top: 1px solid #E6EBF5;
+  border-color: #E6EBF5 !important;
+}
+
+.rbc-header > span{
+  background-color:#F4F9FD;
+  color: #7D8592;
+  padding: 0.15rem 0.5rem;
+  font-size: 0.875rem;
+  font-weight: 600;
+  border-radius: 7px;
+  position: absolute;
+  top: 15px;
+}
+
+.rbc-date-cell {
+  position: relative;
+}
+
+.rbc-month-row+.rbc-month-row {
+  border-color: #E6EBF5 !important;}

@@ -9,7 +9,7 @@ export default function DashboardLayout({
   return (
     <section className={styles.dashboardlayout}>
       <Navbar />
-      {children}
+        {children}
     </section>
   )
 }

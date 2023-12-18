@@ -49,7 +49,7 @@ const navLinks: NavLinks[] = [
         <div>
           <Image src={Logo} alt='work room logo' className={styles.logo}/>
           <nav>
-            {navLinks.map((link)=>(
+            {navLinks.map((link) => (
               <Link key={link.name} href={link.route}>
                 <div className={`${styles.link_wrapper} ${currentPath === link.route && styles.active}`} key={link.name}> 
                   {link.icon}
