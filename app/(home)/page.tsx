@@ -10,10 +10,12 @@ export default function page() {
     const userId = localStorage.getItem('uid');
     if(!userId) {
       router.push('/auth/signup')
+    } else {
+      router.push('/dashboard')
     }
   },[])
    
   return (
-    <div></div>
+    <div>hello world</div>
   )
 }

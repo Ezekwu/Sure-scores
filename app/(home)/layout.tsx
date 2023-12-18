@@ -1,6 +1,5 @@
 import styles from './layout.module.scss';
-import Navbar from '@/components/layout/AuthLayout/Navbar/Navbar';
-
+import Navbar from '@/components/layout/Navbar/Navbar';
 export default function DashboardLayout({
   children,
 }: {

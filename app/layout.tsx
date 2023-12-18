@@ -2,6 +2,8 @@ import './globals.css'
 import type { Metadata } from 'next'
 import  { Inter, Nunito_Sans, Nunito,  }   from 'next/font/google'
 import { ReduxProvider } from '@/redux/provider'
+import 'react-big-calendar/lib/css/react-big-calendar.css';
+
 
 const nutino = Nunito({ subsets: ['latin'] })
 

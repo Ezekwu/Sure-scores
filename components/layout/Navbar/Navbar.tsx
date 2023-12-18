@@ -3,7 +3,8 @@ import DashboardSvg from '@/public/assets/icons/DashboardSvg';
 import ProjectsSvg from '@/public/assets/icons/ProjectsSvg';
 import CalenderSvg from '@/public/assets/icons/CalenderSvg';
 import FileSvg from '@/public/assets/icons/FileSvg';
-import Logo from '../../../../public/assets/images/logo-blue.png'
+import Logo from '../../../public/assets/images/logo-blue.png'
+
 
 
 import Link from "next/link";
@@ -29,8 +30,8 @@ const navLinks: NavLinks[] = [
       icon:   <ProjectsSvg />
     },
     {
-      name: 'Calender',
-      route: '/calender',
+      name: 'Calendar',
+      route: '/calendar',
       icon:   <CalenderSvg />
     },
     {

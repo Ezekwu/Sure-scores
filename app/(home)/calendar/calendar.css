@@ -1,0 +1,22 @@
+
+.rbc-calendar {
+  border-radius: 24px !important;
+  background-color: #fff;
+}
+
+.rbc-month-view {
+  border: none !important;
+  border-color: red !important;
+}
+
+.rbc-row-bg {
+  border-color: #E6EBF5 !important;
+}
+
+.rbc-day-bg {
+  border-color:#E6EBF5 !important;
+}
+
+.rbc-off-range-bg {
+  background: transparent;
+}
