@@ -1,0 +1,13 @@
+.react-time-picker__clock{
+  display: none;
+}
+
+.react-time-picker {
+}
+
+.react-time-picker__wrapper {
+  padding: 0.75rem 1.125rem;
+  border: 1px solid #D8E0F0 !important;
+  border-radius: 14px;
+  box-shadow: 0px 1px 2px 0px rgba(184, 200, 224, 0.22);
+}
