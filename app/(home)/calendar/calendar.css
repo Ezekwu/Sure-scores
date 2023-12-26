@@ -53,4 +53,9 @@ header {
 }
 
 .rbc-month-row+.rbc-month-row {
-  border-color: #E6EBF5 !important;}
+  border-color: #E6EBF5 !important;
+}
+
+.rbc-row-content {
+  z-index: 0;
+}
