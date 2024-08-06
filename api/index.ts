@@ -8,7 +8,7 @@ import EventResponse from '@/types/EventResponse';
 
 const auth = getAuth();
 const provider = new GoogleAuthProvider();
-
+  
 class Api {
   async createUserWithEmailAndPassword (email: string, password: string) {
     return await createUserWithEmailAndPassword(auth, email, password)
