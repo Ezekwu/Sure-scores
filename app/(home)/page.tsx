@@ -1,21 +1,17 @@
 'use client'
 import { useEffect } from "react";
 import {useRouter} from 'next/navigation'
-import { useGetLoggedInUserQuery } from "@/redux/features/account/accountSlice";
+import { useGetLoggedInUserQuery } from "@/redux/features/Account";
+import UiIcon from "@/components/ui/Icon/UiIcon";
 
-export default function page() {
+export default function Page() {
   const router = useRouter();
-  //   const { isError, isLoading, isSuccess, data } = useGetLoggedInUserQuery(2)
-  useEffect(()=>{
-    const userId = localStorage.getItem('uid');
-    if(!userId) {
-      router.push('/auth/signup')
-    } else {
-      router.push('/dashboard')
-    }
-  },[])
+  const { isError, isLoading, isSuccess, data } = useGetLoggedInUserQuery({})
+  
    
   return (
-    <div>hello world</div>
-  )
+    <div>
+      
+    </div>
+  );
 }

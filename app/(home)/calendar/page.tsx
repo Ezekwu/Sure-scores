@@ -3,56 +3,54 @@
 import { useState } from "react"
 import BigCalendar from "@/components/layout/Calendar/BigCalendar"
 import UiButton from "@/components/ui/Button/UiButton"
-import UiTimeInput from "@/components/ui/TimeInput/UiTimeInput"
-import UiModal from "@/components/ui/Modal/UiModal"
-import UiInput from "@/components/ui/Input/UiInput"
-import UiForm from "@/components/ui/Form/UiForm"
-import eventSchema from '../../../utils/validations/eventSchema'
+import AddEvent from "@/components/Event/AddEvent/AddEvent"
 import './calendar.css'
 import PlusSvg from "@/public/assets/icons/PlusSvg"
 import styles from './calendar.module.scss'
-export default function page() {
-  const [modalVisibility, setModalVisibility] = useState(false);
+import useToggle from "@/utils/hooks/useToggle"
+import EventResponse from "@/types/EventResponse"
 
-  function openModal () {
-    return setModalVisibility(true)
+export default function Page() {
+  const [selectedCellDate, setSelectedCellDate] = useState<Date>();
+  const [activeEvent, setActiveEvent] = useState<EventResponse>();
+  const addEventVisible = useToggle();
+
+  function handleActiveEvent(event: EventResponse) {
+    setActiveEvent(event);
   }
 
-  function clodeModal () {
-    return setModalVisibility(false)
-  }
-
-  function onSubmit (data: any) {
-    console.log(data);
+  function clearActiveEvent() {
+    setActiveEvent(undefined)
   }
 
   return (
     <div className={styles.main}>
-      <UiModal isOpen={modalVisibility} closeModal={clodeModal} title="Add Event" >
-         <div>
-            <UiForm onSubmit={onSubmit} schema={eventSchema}>
-              {({errors, register, control})=>(
-                <div>
-                  <UiTimeInput control={control} name="time"/>
-                  <UiButton>
-                    submit
-                </UiButton>
-                </div>
-              
-              )}
-                
-            </UiForm>
-         </div>
-      </UiModal>
       <header>
         <h2>Calendar</h2>
-        <UiButton onClick={openModal}>
+        <UiButton onClick={() => addEventVisible.on()}>
           <PlusSvg />
           Add Event
         </UiButton>
-        {/* <UiTimeInput  /> */}
       </header>
-      <BigCalendar />
+      <BigCalendar
+        activeEvent={activeEvent}
+        handleActiveEvent={(event) => handleActiveEvent(event)}
+        clearActiveEvent={clearActiveEvent}
+        getActiveEvent={(event) => handleActiveEvent(event)}
+        openAddEventModal={() => addEventVisible.on()}
+        getClickedCellValue={(value) => setSelectedCellDate(value)}
+      />
+      <AddEvent
+        isOpen={addEventVisible.value}
+        onClose={() => {
+          addEventVisible.off();
+          setSelectedCellDate(undefined);
+          clearActiveEvent();
+        }}
+        closeEventDetailsModal={() => {}}
+        date={selectedCellDate}
+        defaultEvent={activeEvent}
+      />
     </div>
-  )
+  );
 }

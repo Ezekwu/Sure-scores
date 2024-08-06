@@ -1,0 +1,85 @@
+@import 'styles/variables';
+
+.customEvent{
+  background-color: $color-primary-10;
+  border-radius: 14px;
+  padding: 0.31rem;
+  display: flex;
+  align-items: center;
+  gap: 0.875rem;
+  cursor: pointer;
+  
+
+  &:hover{
+    background-color: $color-primary-15;
+  }
+
+
+  .category{
+    height: 40px;
+    min-width: 4px;
+    border-radius: 2px;
+  }
+
+  .team_event{
+    background-color: $color-yellow;
+  }
+
+  .cooperate_event{
+    background-color: $color-primary;
+  }
+
+  .birthday{
+    background-color: $color-purple-20;
+  }
+
+  .leisure{
+    background-color: $color-eggplant;
+  }
+
+  .details{
+    max-width: 90%;
+    padding-right: 0.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+
+    .title {
+      color: $color-primary-40;
+      font-size: 0.87rem;
+      font-weight: 700;
+      width: 100%;
+      text-wrap: wrap;
+      overflow: hidden;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+    }
+    .time_priority{
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      .time {
+        color: $color-grey-40;
+        font-size: 0.75rem;
+      }
+    }
+
+    .high{
+      svg{
+        fill: $color-red;
+      }
+    }
+
+    .low {
+      svg {
+        fill: $color-primary;
+      }
+    }
+
+    .medium {
+      svg {
+        fill: $color-yellow;
+      }
+    }
+  }
+}

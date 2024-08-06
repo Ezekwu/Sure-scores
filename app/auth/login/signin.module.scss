@@ -1,0 +1,17 @@
+@import 'styles/variables';
+
+.signin{
+  .form_container {
+    max-width: 406px;
+    margin: 0 auto;
+    button {
+      width: fit-content;
+      margin: 0 auto;
+    }
+
+    svg{
+      fill: #fff;
+      stroke: #fff;
+    }
+  }
+}

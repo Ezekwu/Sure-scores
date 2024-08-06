@@ -1,6 +1,7 @@
 import * as yup from 'yup';
+import { isRequiredMessage, isEmail } from './validationMessages';
 
 export default yup.object({
-  email: yup.string().email('This field requires a valid email').required('This field is required'),
-  password: yup.string().required('This field is required').min(8),
+  email: yup.string().email(isEmail).required(isRequiredMessage),
+  password: yup.string().required(isRequiredMessage).min(8),
 })

@@ -1,0 +1,40 @@
+@import 'styles/variables';
+
+.customDateCell{
+  padding: 1.7rem 0.5rem 0 6px;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  position: relative;
+  
+  .overlap_event{
+    margin-top: -28px;
+    position: relative;
+    border: 2px solid #fff;
+    border-radius: 16px;
+  }
+
+  .extraEvents{
+    position: absolute;
+    bottom: 6px;
+    right: 6px;
+    font-size: 0.75rem;
+    background-color: $color-primary;
+    color: #fff;
+    width: 24px;
+    height: 24px;
+    border-radius: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    border: none;
+    outline: none;
+    z-index: 3;
+    transition: all .2s ease-in;
+
+    &:hover{
+      background-color: $color-primary-20;
+    }
+  }
+}

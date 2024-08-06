@@ -8,21 +8,23 @@
   label {
     font-size: 0.875rem;
     font-weight: 700;
-    color: $color-grey-30;
+    color: $color-grey-40;
   }
   .input__container {
     position: relative;
+
     .input {
+      height: 49px;
       padding: 0.75rem 1.125rem;
       border: 1px solid $color-grey-10;
       border-radius: 14px;
       outline: none;
       transition: all .18s ease-in;
-      color: $color-grey-30;
+      color: $color-grey-40;
       box-shadow: 0px 1px 2px 0px rgba(184, 200, 224, 0.22);
   
       &::placeholder {
-        color: $color-grey-30;
+        color: $color-grey-40;
       }
   
       &:focus {
@@ -31,8 +33,11 @@
         color: black;
       }
     }
+    .react-international-phone-input{
+      width: 100% !important;
+    }
     .icon{
-      color: $color-grey-30;
+      color: $color-grey-40;
       font-size: 1.1rem;
       cursor: pointer;
       position: absolute;
@@ -48,11 +53,11 @@
     }
 
     .input {
-      border: 1px solid $color-red;
+      border: 1px solid $color-red !important;
 
       &:focus {
         border: 1px solid $color-red;
-        box-shadow: 0px 0px 0px 4px #f6515f11;
+        box-shadow: 0px 0px 0px 4px #f6515f11 !important;
       }
     }
     

@@ -1,0 +1,12 @@
+.addEvent_form {
+  button {
+    align-self: flex-start;
+  }
+
+  .flex {
+    display: flex;
+    gap: 1rem;
+    justify-content: space-between;
+    align-items: center;
+  }
+}

@@ -1,95 +1,163 @@
 'use client'
-import dynamic from 'next/dynamic'
-import Image from 'next/image'
-import Link from 'next/link'
-import {useRouter} from 'next/navigation'
 
-import UiButton from '../../../components/ui/Button/UiButton'
-import UiForm from '../../../components/ui/Form/UiForm'
-import UiInput from '../../../components/ui/Input/UiInput'
-import AuthLayout from '@/components/layout/AuthLayout/AuthLayout'
-
-import styles from '../../../styles/FormStyle.module.scss';
-import arrowRight from '../../../public/assets/icons/arrowRight.svg';
-import loginSchema from '@/utils/validations/loginSchema';
-import { useRegisterUserMutation } from '@/redux/features/account/accountSlice'
+import { useMemo } from 'react';
+import dynamic from 'next/dynamic';
+import {useRouter} from 'next/navigation';
+import AuthLayout from '../Authlayout';
 import SignUpUser from '@/types/SignUpUser';
-import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { useState } from 'react';
+import { Step } from '@/components/ui/Steps/UiSteps';
+import UiButton from '@/components/ui/Button/UiButton';
+import styles from './signup.module.scss';
+import Link from 'next/link';
+import ArrowRightSvg from '@/public/assets/icons/ArrowRightSvg';
+import ArrowLeftSvg from '@/public/assets/icons/ArrowLeftSvg';
+import UiForm from '@/components/ui/Form/UiForm';
+import RegistrationSchema from '@/utils/validations/RegistrationSchema';
+import CompanyDetailsSchema from '@/utils/validations/CompanyDetailsSchema';
+import PersonalDetailsSchema from '@/utils/validations/PersonalDetailsSchema';
+import { useRegisterUserMutation } from '@/redux/features/Account';
+import UiIcon from '@/components/ui/Icon/UiIcon';
+
+const RegisterationForm = dynamic(() => import('@/components/auth/RegisterationForm'));
+const CompanyDetailsForm = dynamic(() => import('@/components/auth/CompanyDetailsForm'));
+const PersonalDetailsForm = dynamic(() => import('@/components/auth/PersonalDetailsForm'));
 
 
-
-export default function page() {
-  const [registerUser, {isError, isLoading, isSuccess, error}] = useRegisterUserMutation();
+export default function Page() {
+  const [activeStepIndex, setActiveStepIndex] = useState(0)
   const router = useRouter();
-  
+  const [registerUser, {isLoading}] = useRegisterUserMutation();
+  const steps: Step[] = [
+    {
+      content: 'Submit your email phone and password',
+      title: 'Register to work room',
+    },
+    {
+      content: 'Tell us about yourself',
+      title: 'Tell us about yourself',
+    },
+    {
+      content: 'Tell us about your company',
+      title: 'Tell us about your company',
+    },
+  ];
 
-  const onSubmit = (userDetails:SignUpUser) => {
-    registerUser(userDetails)
-      .unwrap()
-      .then(()=>{
-        router.push('/home')
-      })
-      .catch((err: { message: string }) => {
-        let msg: string = err.message;
-
-        if (err.message === 'FirebaseError: Firebase: Error (auth/email-already-in-use).') {
-          msg = ' A user with this email already exists';
-        }
-        toast(msg, { type: 'error' })
-        console.log(err.message);
-      })
-  
-    
+  function goNext() {
+    if(activeStepIndex < (steps.length -1)){
+      setActiveStepIndex((prevState) => prevState + 1)
+    }
   }
 
+  function goPrevious() {
+    if(activeStepIndex > 0) {
+      setActiveStepIndex((prevState) => prevState - 1);
+    }
+  }
+
+  const activeSchema = useMemo(() => {
+    switch (activeStepIndex) {
+      case 0:
+        return RegistrationSchema;
+      case 1:
+        return PersonalDetailsSchema;
+      case 2:
+        return CompanyDetailsSchema;
+      default:
+        break;
+    }
+  }, [activeStepIndex]);
+
+  const onSubmit = (userDetails: SignUpUser) => {
+    if (activeStepIndex === 2) {      
+      registerUser(userDetails)
+        .unwrap()
+        .then(() => {
+          console.log('got in here sucessfullt');
+          router.push('/dashboard');
+        })
+    } else {
+      goNext();
+    }
+  };
+
   return (
-    <AuthLayout>
-      <h2 style={{
-          textAlign: 'center',
-          fontSize: '1.3rem',
-          marginBottom: '2rem',
-        }}>
-          Register to Woorkroom
-      </h2>
-      <UiForm onSubmit={onSubmit} schema={loginSchema}>
-        {({errors, register})=>(
-          <div className={styles.form__wrapper}>
-            <UiInput  
-            register={register} 
-            error={errors?.email?.message}
-            name='email'
-            label="Email Address"
-            placeholder="enter your email"
-            />
-            <UiInput  
-            register={register} 
-            error={errors?.password?.message}
-            name='password'
-            label="Create Password"
-            placeholder="enter your password"
-            type='password'
-            />
-            <UiInput  
-            register={register} 
-            error={errors?.password?.message}
-            name='confirm-password'
-            label="Confirm Password"
-            placeholder="confirm your password"
-            type='password'
-            />
-            <UiButton>
-              {isLoading ? 'loading...' : 'Sign Up'}
-            
-              <Image  src={arrowRight} alt="arrow right"/>
-            </UiButton>
-            <Link className={styles.signin_up} href='./login'>
-              Alredy have an account? sign in.
-            </Link>
+    <div className={styles.signup}>
+      <AuthLayout steps={steps} currentStepIndex={activeStepIndex}>
+        <section>
+          <div
+            style={{
+              textAlign: 'center',
+            }}
+          >
+            <p
+              style={{
+                fontSize: '0.875rem',
+                fontWeight: 'bold',
+                color: '#3F8CFF',
+              }}
+            >
+              Step {activeStepIndex + 1}/{steps.length}
+            </p>
+            <h2
+              style={{
+                fontSize: '1.3rem',
+                marginBottom: '2rem',
+              }}
+            >
+              {steps[activeStepIndex].title}
+            </h2>
           </div>
-        )}
-      </UiForm> 
-      <ToastContainer />
-    </AuthLayout>
-  )
+          <div>
+            <UiForm onSubmit={onSubmit} schema={activeSchema}>
+              {({ errors, register, control }) => (
+                <div>
+                  <div className={styles.form_container}>
+                    {activeStepIndex === 0 && (
+                      <RegisterationForm
+                        control={control}
+                        errors={errors}
+                        register={register}
+                      />
+                    )}
+                    {activeStepIndex === 1 && (
+                      <PersonalDetailsForm
+                        control={control}
+                        errors={errors}
+                        register={register}
+                      />
+                    )}
+                    {activeStepIndex === 2 && (
+                      <CompanyDetailsForm
+                        control={control}
+                        errors={errors}
+                        register={register}
+                      />
+                    )}
+                  </div>
+                  <section className={styles.buttons_container}>
+                    {activeStepIndex === 0 ? (
+                      <Link className={styles.signin_up} href="./login">
+                        Alredy have an account? sign in.
+                      </Link>
+                    ) : (
+                      <UiButton type="button" variant='primary-text'   onClick={goPrevious}>
+                        <UiIcon icon='ArrowLeft'  size='24'/>
+                        Previous
+                      </UiButton>
+                    )}
+                    <UiButton loading={isLoading}>
+                      {activeStepIndex === 2 ? 'submit' : 'next'}{' '}
+                      <ArrowRightSvg />
+                    </UiButton>
+                  </section>
+                </div>
+              )}
+            </UiForm>
+          </div>
+        </section>
+      </AuthLayout>
+    </div>
+  );
 }

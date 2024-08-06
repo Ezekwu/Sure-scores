@@ -1,0 +1,27 @@
+@import 'styles/variables';
+
+.signup{
+  .form_container{
+    width: 100%;
+    max-width: 406px;
+    margin: 0 auto;
+    padding-bottom: 4rem;
+    min-height: 65vh;
+  }
+  .buttons_container{
+    width: 100%;
+    border-top: 1px solid $color-grey-15;
+    padding: 1.125rem 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: auto;
+
+    
+
+    a{
+      color: $color-primary;
+      text-decoration: none;
+    }
+  }
+}

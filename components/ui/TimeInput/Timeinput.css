@@ -3,11 +3,79 @@
 }
 
 .react-time-picker {
+  width: 100%;
 }
 
 .react-time-picker__wrapper {
+  width: 100%;
   padding: 0.75rem 1.125rem;
+  height: 49px;
   border: 1px solid #D8E0F0 !important;
   border-radius: 14px;
   box-shadow: 0px 1px 2px 0px rgba(184, 200, 224, 0.22);
 }
+
+.react-time-picker__wrapper:focus-within{
+  border: 1px solid #3F8CFF !important;
+  box-shadow: 0px 0px 0px 4px #3f8cff24;
+  color: black;
+  transition: all .18s ease-in;
+}
+
+.react-time-picker__button{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 24px;
+  height: 24px;
+  padding: 0 !important;
+}
+
+.wrapper {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+
+label{
+  font-size: 0.875rem;
+  font-weight: 700;
+  color: #7D8592;
+}
+
+.error label {
+  color: #F65160;
+}
+
+.error-message{
+  color: #F65160;
+  font-size: 0.75rem;
+}
+
+.error .react-time-picker__wrapper{
+  border: 1px solid #F65160 !important;
+}
+
+.error .react-time-picker__wrapper:focus-within{
+  border: 1px solid #F65160;
+  box-shadow: 0px 0px 0px 4px #f6515f11 !important;
+  transition: all .18s ease-in;
+}
+
+.react-time-picker__inputGroup__leadingZero {
+  color: #7D8592;
+  font-size: 0.78rem;
+}
+
+.react-time-picker__inputGroup__input {
+  color: #7D8592 !important;
+  outline: none !important;
+  font-size: 0.78rem !important;
+}
+
+.react-time-picker__inputGroup__divider {
+  color: #7D8592 !important;
+}
+

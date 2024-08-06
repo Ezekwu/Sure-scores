@@ -4,20 +4,16 @@
   display: flex;
   gap: 1.8rem;
   padding: 1rem;
+  background-color: $color-primary-10;
   height: 100vh;
   max-height: 100vh;
-  background-color: $color-primary-10;
-
-  .children {
-    border: 1px solid red;
-    width: 100%;
-  }
 
   .navWrapper{
     height: 100vh;
     background-color: white;
     padding: 2.5rem 0rem 2.5rem 1.5rem;
     border-radius: 24px;
+
     .logo {
       width: 40px;
       height: 40px;
@@ -32,7 +28,7 @@
 
     a {
       text-decoration: none;
-      color: $color-grey-30;
+      color: $color-grey-40;
 
       .link_wrapper{
         display: flex;
@@ -45,12 +41,68 @@
           border: 1px solid red;
         }
         svg {
-          fill: $color-grey-30;
+          fill: $color-grey-40;
         }
       }
     }
     
     
+  }
+
+    .notification_profile {
+      display: flex;
+      justify-content: end;
+      height: 48px;
+  
+      .wrapper {
+        display: flex;
+        align-items: flex-start;
+        gap: 1.5rem;
+  
+        .notification {
+          width: 48px;
+          height: 48px;
+          background-color: #ffff;
+          border-radius: 14px;
+          padding: 0;
+          outline: none;
+          border: none;
+          cursor: pointer;
+          box-shadow: 0px 6px 58px 0px rgba(196, 203, 214, 0.1036);
+        }
+  
+        .header {
+          display: flex;
+          align-items: center;
+          gap: 0.625rem;
+  
+          .image {
+            width: 30px;
+            height: 30px;
+            background-color: rgb(231, 231, 253);
+            border-radius: 100%;
+          }
+        }
+      }
+  
+  
+    }
+
+  .children{
+    overflow-y:auto;
+    width: 100%;
+    &::-webkit-scrollbar-track {
+      background: transparent;
+    }
+  
+    &::-webkit-scrollbar-thumb {
+      background: #D3DBEB;
+      border-radius: 4px;
+    }
+  
+    &::-webkit-scrollbar {
+      width: 10px;
+    }
   }
 
   

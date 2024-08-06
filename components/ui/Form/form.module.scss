@@ -1,0 +1,14 @@
+@import 'styles/variables';
+
+.form__wrapper {
+    & > div{
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+        a {
+          color: $color-primary;
+          text-align: center;
+          text-decoration: none;
+        }
+    }
+}

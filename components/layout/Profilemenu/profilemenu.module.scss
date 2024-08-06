@@ -1,0 +1,46 @@
+@import 'styles/variables';
+
+.profieMenu{
+  background-color: #fff;
+  border-radius: 14px;
+  height: auto;
+  font-size: 1rem;
+  z-index: 3;
+  position: relative;
+
+  .trigger{
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    border-radius: 14px;
+    padding: 0.5625rem 1rem 0.5625rem 1.1875rem; 
+    background-color: #fff;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    font-size: 1rem;
+  }
+
+  svg{
+    fill: $color-primary-40;
+  }
+
+  ul{
+    list-style-type: none;
+    padding: 0.5rem;
+  
+    .list_wrapper{
+      border-top: 1px solid #E6EBF5;
+      padding-top: 0.5rem;
+      li {
+          padding: 0.68rem 2.125rem 0.68rem 0.68rem;
+          cursor: pointer;
+          &:hover {
+            background-color: #3F8CFF1F;
+            border-radius: 14px;
+            font-weight: 500;
+          }
+        }
+    }
+  }
+}

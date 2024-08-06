@@ -1,0 +1,18 @@
+
+.form__wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  border: 3px solid orange;
+
+  button {
+    align-self: center;
+  }
+
+  .signin_up {
+    color:#3F8CFF;
+    text-align: center;
+    text-decoration: none;
+  }
+}
+

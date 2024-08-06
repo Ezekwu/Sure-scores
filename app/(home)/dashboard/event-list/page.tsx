@@ -1,0 +1,83 @@
+'use client';
+import Link from 'next/link';
+import EventDetailsCard from '@/components/Event/EventDetailsCard/EventDetailsCard';
+import AddEvent from '@/components/Event/AddEvent/AddEvent';
+import UiButton from '@/components/ui/Button/UiButton';
+import { useGetEventsQuery } from '@/redux/features/Events';
+import styles from './page.module.scss'
+import UiIcon from '@/components/ui/Icon/UiIcon';
+import useToggle from '@/utils/hooks/useToggle';
+import EventResponse from '@/types/EventResponse';
+import { useState } from 'react';
+import EventDetails from '@/components/Event/EventDetails';
+
+export default function Page() {
+  const [activeEvent, setActiveEvent] = useState<EventResponse | null>(null);
+  const { data: events, isLoading } = useGetEventsQuery();
+  const isEditEventVisible = useToggle();
+  const isEventDetailsVisible = useToggle();
+
+  function openEventDetails() {
+    isEventDetailsVisible.on()
+  }
+
+  function closeEventDetails() {
+    isEventDetailsVisible.off()
+  }
+
+  function openEditEvent() {
+    isEditEventVisible.on();
+  }
+
+  function closeEditEvent () {
+    isEditEventVisible.off()
+    setActiveEvent(null);
+  }
+
+  return (
+    <div className={styles.wrapper}>
+      <header>
+        <Link href="/dashboard">
+          <UiIcon icon="ArrowLeft" size="24" />
+          <p>Back to Dashboard</p>
+        </Link>
+        <div className={styles.title_addEvent}>
+          <h2>Nearest Events</h2>
+          <UiButton onClick={openEditEvent}>
+            <UiIcon icon="Plus" size="24" />
+            <p>Add Event</p>
+          </UiButton>
+        </div>
+      </header>
+      <section className={styles.eventsList}>
+        {events?.map((event) => (
+          <div
+            onClick={() => {
+              openEventDetails();
+              setActiveEvent(event);
+              console.log(event);
+              
+            }}
+            key={event.id}
+            className={styles.eventDetails_wrapper}
+          >
+            <EventDetailsCard event={event} truncateTitle showCategoryIcon />
+          </div>
+        ))}
+      </section>
+      <EventDetails
+        event={activeEvent!}
+        isOpen={isEventDetailsVisible.value}
+        onClose={closeEventDetails}
+        clearActiveEvent={() => setActiveEvent(null)}
+        openAddEventModal={openEditEvent}
+      />
+      <AddEvent
+        closeEventDetailsModal={() => isEventDetailsVisible.off()}
+        isOpen={isEditEventVisible.value}
+        onClose={closeEditEvent}
+        defaultEvent={activeEvent!}
+      />
+    </div>
+  );
+}

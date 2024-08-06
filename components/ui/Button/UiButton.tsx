@@ -1,26 +1,36 @@
 "use client" ;
 import styles from './button.module.scss'
-import Image from 'next/image';
 
-// type ButtonVariant = 'primary' | 'grey' | 'purple' | 'green' |'red'
+type ButtonVariant = 'primary' | 'primary-text' | 'secondary' | 'grey' | 'purple' | 'green' |'red' | 'white' | 'danger-secondary'
+type WeightVariant = 'normal' | 'semi-bold' | 'bold';
+type Size = 'normal' | 'icon'
 
 interface Props {
   children?: React.ReactNode;
   disabled?: boolean;
   loading?: boolean;
+  type?: 'submit' | 'button';
+  variant?: ButtonVariant;
+  weightVariant?: WeightVariant;
+  size?: Size
   onClick?: (e?: any) => void;
 }
 
 export default function UiButton({ 
   children,
+  type = 'submit',
   disabled= false, 
+  variant = 'primary',
+  size = 'normal',
+  weightVariant = 'normal',
   loading= false, 
   onClick,
 } : Props) {
+  const classNames = `${styles.button} ${styles[variant]} ${styles[`font-${weightVariant}`]} ${styles[size]}`;
+
   return (
-    <button className={`${styles.button}`} type='submit' onClick={onClick}>
-      {loading ? <p>loading...</p> : children }
-      
+    <button className={classNames} type={type} onClick={onClick}>
+      {loading ? <p>loading...</p> : children}
     </button>
-  )
+  );
 }

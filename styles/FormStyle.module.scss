@@ -3,14 +3,11 @@
 .form__wrapper {
   display: flex;
   flex-direction: column;
-  gap: 2rem;
+  gap: 1rem;
 
-  button {
-    align-self: center;
-  }
   .signin_up{
     color: $color-primary;
     text-align: center;
     text-decoration: none;
   }
-}
+} 

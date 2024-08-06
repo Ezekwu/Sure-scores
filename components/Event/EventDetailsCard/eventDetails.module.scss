@@ -1,0 +1,187 @@
+@import 'styles/variables';
+
+.eventDetails{
+  
+  .eventDetails_wrapper{
+    display: flex;
+    gap: 2rem;
+    justify-content: space-between;
+
+    .col_1 {
+      .category_details{
+        display: flex;
+        flex-wrap: wrap;
+        gap: 1.125rem;
+
+        .details {
+          .title_date {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            gap: 1.625rem;
+      
+            .category_title {
+              display: flex;
+              align-items: center;
+              gap: 10px;
+      
+              .title {
+                font-weight: bold;
+                font-size: 1rem;
+                line-height: 1.5rem;
+                color: $color-primary-40;
+                max-width: 100%;
+                align-self: cen;
+              }
+      
+              .titleTruncated {
+                display: -webkit-box;
+                -webkit-box-orient: vertical;
+                -webkit-line-clamp: 2;
+                line-clamp: 2;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                line-height: 1.5;
+                max-height: 3em;
+              }
+      
+              .categoryIcon {
+                border: 1px solod red;
+                align-self: flex-start;
+              }
+            }
+      
+      
+            .date {
+              margin-top: auto;
+              font-size: 0.875rem;
+              color: $color-grey-30;
+            }
+          }
+        }
+        
+        .category {
+          min-height: 80px;
+          min-width: 4px;
+          border-radius: 2px;
+        }
+      
+        .team_event {
+          background-color: $color-yellow;
+        }
+      
+        .cooperate_event {
+          background-color: $color-primary;
+        }
+      
+        .birthday {
+          background-color: $color-purple-20;
+        }
+      
+        .leisure {
+          background-color: $color-eggplant;
+        }
+      }
+    }
+
+    .col_2 {
+      align-self: flex-start;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      gap: 17px;
+
+      .time{
+        background-color: $color-primary-10;
+        border-radius: 8px;
+        width: fit-content;
+        padding: 6px 8px;
+        display: flex;
+        align-items: center;
+        gap: 2px;
+        
+
+        p{
+          font-weight: bold;
+          font-size: 0.75rem;
+          color: $color-grey-40;
+          text-wrap: nowrap;
+        }
+        
+      }
+
+      .priority{
+        align-self: flex-end;
+        h4{
+          font-weight: normal;
+          font-size: 0.875rem;
+          color: $color-grey-30;
+          margin-bottom: 3px;
+        }
+        .priority_arrow{
+          display: flex;
+          align-items: center;
+          gap: 3px;
+        }
+      }
+
+      .high {
+        p {
+          color: $color-red;
+        }
+
+        svg {
+          fill: $color-red;
+        }
+      }
+
+      .low {
+        p {
+          color: $color-primary;
+        }
+
+        svg {
+          fill: $color-primary;
+        }
+      }
+
+      .medium {
+        p {
+          color: $color-yellow;
+        }
+
+        svg {
+          fill: $color-yellow;
+        }
+      }
+    }
+
+    .dashboard_gap {
+      gap: 2.06rem;
+    }
+  }
+
+  .description {
+    font-size: 0.875rem;
+    margin-top: 1rem;
+    flex-shrink: 1;
+
+    h4 {
+      color: $color-primary-40;
+    }
+
+    p {
+      color: $color-grey-40;
+      word-break: break-all;
+    }
+  }
+
+  .edit_delete {
+    display: flex;
+    gap: 10px;
+    justify-content: flex-end;
+    margin-top: 1rem;
+  }
+}
+
+

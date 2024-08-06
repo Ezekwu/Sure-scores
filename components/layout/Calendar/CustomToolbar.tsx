@@ -1,23 +1,22 @@
 import ArrowLeftSvg from '../../../public/assets/icons/ArrowLeftSvg'
 import ArrowRightSvg from '../../../public/assets/icons/ArrowRightSvg'
+import UiIcon from '@/components/ui/Icon/UiIcon'
 import styles from './CustomToolbar.module.scss'
-
-
-const currentDate = new Date();
-const options = { month: 'long', year: 'numeric' };
-const formattedDate = currentDate.toLocaleDateString('en-US', options);
-
 
 
 export default function CustomToolbar  ({onNavigate, label}:any) {
 
-  return(
+  return (
     <div className={styles.main}>
       <div className={styles.wrapper}>
-        <div onClick={() => onNavigate('PREV')} ><ArrowLeftSvg/></div>
+        <div onClick={() => onNavigate('PREV')}>
+          <UiIcon icon="ArrowLeft" size="24" />
+        </div>
         <p onClick={() => onNavigate('TODAY')}>{label}</p>
-        <div onClick={() => onNavigate('NEXT')}><ArrowRightSvg /></div>
+        <div onClick={() => onNavigate('NEXT')}>
+          <UiIcon icon="ArrowRight" size="24" />
+        </div>
       </div>
     </div>
-  )
+  );
 }
