@@ -6,5 +6,5 @@ export default interface SignUpUser {
   company_field: string;
   company_name: string;
   use_for_service: string;
-  user_description: string;
+  user_role: string;
 }

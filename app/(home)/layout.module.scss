@@ -46,13 +46,16 @@
       }
     }
     
-    
   }
 
-    .notification_profile {
+    .notification_organisation_profile {
       display: flex;
-      justify-content: end;
+      justify-content: space-between;
       height: 48px;
+
+      .organisation{
+        width: 370px;
+      }
   
       .wrapper {
         display: flex;

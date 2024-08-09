@@ -3,7 +3,7 @@ import { Control, FieldErrors, FieldValues, UseFormRegister, Controller } from "
 import UiSelect from "../ui/Select/UiSelect";
 import styles from '@/styles/FormStyle.module.scss';
 import { Option } from "../ui/Select/UiSelect";
-import { roles } from "@/utils/constants";
+import {  expertiseLevel } from "@/utils/constants";
 import UiInput from "../ui/Input/UiInput";
 
 
@@ -28,9 +28,9 @@ export default function PersonalDetailsForm({control, errors, register}:Props) {
       value: 'Personal Use',
     },
   ];
-  const userDescriptionOtions: Option[] = roles.map((role) => ({
-    label: role,
-    value: role,
+  const roleLevelOptions: Option[] = expertiseLevel.map((level) => ({
+    label: level,
+    value: level,
   }));
 
   return (
@@ -42,6 +42,29 @@ export default function PersonalDetailsForm({control, errors, register}:Props) {
         label="Name"
         placeholder="enter your name"
       />
+      <UiInput
+        register={register}
+        error={errors?.user_role?.message}
+        name="user_role"
+        label="Role"
+        placeholder="enter your role"
+      />
+      <Controller
+        name="role_level"
+        control={control}
+        render={({ field: { name, onChange, value } }) => (
+          <UiSelect
+            label="level of expertise?"
+            name={name}
+            error={errors.role_level?.message}
+            onChange={onChange}
+            options={roleLevelOptions}
+            register={register}
+            value={value}
+            control={control}
+          />
+        )}
+      />
       <Controller
         name="use_for_service"
         control={control}
@@ -52,22 +75,6 @@ export default function PersonalDetailsForm({control, errors, register}:Props) {
             error={errors.use_for_service?.message}
             onChange={onChange}
             options={serviceUseOptions}
-            register={register}
-            value={value}
-            control={control}
-          />
-        )}
-      />
-      <Controller
-        name="user_description"
-        control={control}
-        render={({ field: { name, onChange, value } }) => (
-          <UiSelect
-            label="What describes you best?"
-            name={name}
-            error={errors.user_description?.message}
-            onChange={onChange}
-            options={userDescriptionOtions}
             register={register}
             value={value}
             control={control}

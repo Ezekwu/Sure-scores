@@ -3,7 +3,6 @@ import Image from 'next/image';
 import UiSteps from '@/components/ui/Steps/UiSteps';
 import UiIcon from '@/components/ui/Icon/UiIcon';
 import styles from './AuthLayout.module.scss';
-import logo from '../../public/assets/svg/logo.svg';
 import illustration from '@/public/assets/images/Illustration.png';;
 import { usePathname } from 'next/navigation';
 import { Step } from '@/components/ui/Steps/UiSteps';

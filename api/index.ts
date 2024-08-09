@@ -1,10 +1,12 @@
 import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, GoogleAuthProvider, signInWithPopup } from 'firebase/auth';
-import { doc, getDoc, getDocs, setDoc, addDoc, collection,  updateDoc, deleteDoc, QueryConstraint, query, orderBy} from 'firebase/firestore';
+import { doc, getDoc, getDocs, setDoc, addDoc, collection,  updateDoc, deleteDoc, QueryConstraint, query, orderBy, where} from 'firebase/firestore';
 import db from './firebaseConfig';
 import { CookieValueTypes } from 'cookies-next';
 import User from '@/types/User';
 import CustomEventType from '@/types/CustomEvent';
 import EventResponse from '@/types/EventResponse';
+import Company from '@/types/Company';
+import CompanyMember from '@/types/CompanyMember';
 
 const auth = getAuth();
 const provider = new GoogleAuthProvider();
@@ -36,6 +38,27 @@ class Api {
 
   getEvents (): Promise<EventResponse[]> {
     return this.getDocs('events', [orderBy('created_at', 'desc')])
+  }
+
+  createCompany(data: Company): Promise<Company> {
+    return this.addDoc('companies', data)
+  }
+
+  getCompany(companyId: string): Promise<Company> {
+    return this.getDoc('companies', companyId)
+  }
+
+  getCompanies(orgIds: string[]): Promise<Company[]> {
+    return this.getDocs('companies', [where('__name__', 'in', orgIds)] )
+  }
+
+  addMember(data: CompanyMember, companyId: string
+  ) {
+    return this.setDoc(`companies/${companyId}/members`, data.id, data )
+  }
+
+  getMembers(companyId: string):Promise<CompanyMember[]>{
+    return this.getDocs(`companies/${companyId}/members`)
   }
 
   addEvent (data: CustomEventType) {
@@ -81,10 +104,13 @@ class Api {
     return await setDoc(doc(db, collectionName, id), data);
   }
 
-  private async addDoc(collectionName: string, data: unknown) {
+  private async addDoc<T extends { id?: string }>(collectionName: string, data: T):Promise<T> {
     const docRef = await addDoc(collection(db, collectionName), data);
     const docId = docRef.id;
-    return await updateDoc(docRef, {id: docId})
+    const dataWithId = {...data, id: docId};
+
+     await setDoc(docRef, dataWithId) 
+     return dataWithId 
   }
 
   private async deleteDoc(collectionName: string, id: string) {

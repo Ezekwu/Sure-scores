@@ -20,10 +20,10 @@ export default function Page() {
 
   const onSubmit = (userDetails: {email: string, password: string}) => {
     loginUser(userDetails)
-    .unwrap()
-    .then(()=>{
-      router.push('/home')
-    })
+      .unwrap()
+      .then(() => {
+        router.push('/home');
+      })
   }
 
   return (

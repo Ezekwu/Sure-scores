@@ -1,7 +1,7 @@
-import { EventProps, Event } from "react-big-calendar";
+import { Event } from "react-big-calendar";
 import { EventCategory } from "./enums/EventCategory";
 import { Priority } from "./enums/Priority";
-import { Timestamp, FieldValue } from "firebase/firestore";
+import { FieldValue } from "firebase/firestore";
 
 export default interface CustomEventType extends Event {
   id: string;

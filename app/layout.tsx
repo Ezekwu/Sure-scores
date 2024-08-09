@@ -3,6 +3,7 @@ import type { Metadata } from 'next'
 import  { Nunito_Sans }   from 'next/font/google'
 import { ReduxProvider } from '@/redux/provider'
 import 'react-big-calendar/lib/css/react-big-calendar.css';
+import { Toaster } from 'react-hot-toast';
 
 const nutino = Nunito_Sans({ subsets: ['latin'] });
 export const metadata: Metadata = {  
@@ -20,6 +21,7 @@ export default function RootLayout({
       <body className={nutino.className}>
         <ReduxProvider>
           {children}
+          <Toaster/>
         </ReduxProvider>
       </body>
     </html>

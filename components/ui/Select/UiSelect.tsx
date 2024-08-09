@@ -7,6 +7,7 @@ import UiIcon from '../Icon/UiIcon';
 export interface Option {
   label: React.ReactNode;
   value: string | number;
+  func?:() => void; 
 }
 
 interface Props {

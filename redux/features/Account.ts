@@ -1,10 +1,12 @@
 import { fakeBaseQuery, createApi } from '@reduxjs/toolkit/query/react';
 import User from '@/types/User';
+import Company from '@/types/Company';
 import SignUpUser from '@/types/SignUpUser';
 import api from '../../api/index';
 import { Toast } from '@/utils/toast';
-import {setCookie, getCookie} from 'cookies-next'
-import { setAuthToken, removeAuthToken } from '@/utils/cookieMthods';
+import { getCookie} from 'cookies-next'
+import { setAuthToken } from '@/utils/cookieMthods';
+import CompanyMember from '@/types/CompanyMember';
 
 export const accountSlice = createApi({
   baseQuery: fakeBaseQuery(),
@@ -12,33 +14,53 @@ export const accountSlice = createApi({
   tagTypes: ['User'],
   endpoints : (builder) => ({
     registerUser: builder.mutation({
-    queryFn: async (authUser: SignUpUser) => {
-      try {
-        const user = await api.createUserWithEmailAndPassword(authUser.email, authUser.password);
-        const userObj: User = {
-          email: authUser.email,
-          id: user.uid,
-          name: authUser.name,
-          company_field: authUser.company_field,
-          company_name: authUser.company_name,
-          phone: authUser.phone,
-          use_for_service: authUser.use_for_service,
-          user_description: authUser.user_description,
-        };
-        
-        setAuthToken(user.uid);
-        await api.createOrUpdateUserDetails(userObj);
-        return { data: null };
-      } catch (err) {
-        let msg: string = (err as { message: string }).message;
-        if (msg === 'Firebase: Error (auth/email-already-in-use).') {
-          msg = 'A user with this email already exists';
+      queryFn: async (authUser: SignUpUser) => {
+        try {
+          const user = await api.createUserWithEmailAndPassword(authUser.email, authUser.password);
+          const userObj: User = {
+            email: authUser.email,
+            id: user.uid,
+            name: authUser.name,
+            phone: authUser.phone,
+            use_for_service: authUser.use_for_service,
+            user_role: authUser.user_role,
+            organizations: ['']
+          };
+
+          const memberObj: CompanyMember = {
+            email: authUser.email,
+            id: user.uid,
+            name: authUser.name,
+            phone: authUser.phone,
+            user_role: authUser.user_role,
+            member_type: 'admin'
+          } 
+
+          const companyObj: Company = {
+            name: authUser.company_name,
+            sector: authUser.company_field,
+            id:'',
+          }
+          
+          setAuthToken(user.uid);
+          const createdCompany = await api.createCompany(companyObj);
+          await api.createOrUpdateUserDetails({...userObj, organizations: [createdCompany.id]});
+          await api.addMember(memberObj, createdCompany.id);
+
+          return { data: null };
+        } catch (err) {
+          let msg: string = (err as { message: string }).message;
+          if (msg === 'Firebase: Error (auth/email-already-in-use).') {
+            msg = 'A user with this email already exists';
+          } else if(msg === 'Firebase: Error (auth/network-request-failed).'){
+            msg = 'Network error, please try again'
+          }
+            
+          Toast.error({msg: `${msg}`})
+          return { error: { status: 'CUSTOM_ERROR', data: msg } };
         }
-        Toast.error({msg: `${err}`})
-        return { error: { status: 'CUSTOM_ERROR', data: msg } };
-      }
-    },
-    invalidatesTags: ['User'],
+      },
+      invalidatesTags: ['User'],
     }),
 
     createOrUpdateUser: builder.mutation({
@@ -75,12 +97,23 @@ export const accountSlice = createApi({
         if(token){
           user = await api.getUser(token)
         }
-        // const user = await api.getUser(token)
         return {data: user}
       },
+    }),
+    
+    getUserCompanies : builder.query<Company[], string[]>({
+      queryFn: async(orgIds: string[]) => {
+        try {
+          const companies = await api.getCompanies(orgIds)
+          return {data: companies}
+        } catch (error) {
+          return { error: {data: error}};
+        }
+      }
     })
   }), 
-  
+
+
 
 })
 
@@ -89,4 +122,5 @@ export const {
   useCreateOrUpdateUserMutation, 
   useGetLoggedInUserQuery, 
   useLoginUserMutation,
+  useGetUserCompaniesQuery,
 } = accountSlice;
