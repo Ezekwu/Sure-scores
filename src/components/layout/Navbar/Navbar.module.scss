@@ -1,0 +1,138 @@
+@import 'styles/variables';
+
+.navWrapper {
+  background-color: white;
+  width: 200px;
+  border-radius: 24px;
+  box-shadow: $box-shadow-grey;
+  display: flex;
+  flex-direction: column;
+  padding: 2.5rem 0 2.5rem 1rem;
+  
+  gap: 2.6rem;
+  .logo_wrapper{
+    .logo {
+      width: 40px;
+      height: 40px;
+    }
+  }
+  .overflow_container{
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    overflow-y: auto;
+    overflow-x: hidden;
+    .bottom_column {
+      padding-right: 1rem;
+      .support {
+        border-radius: 24px;
+        margin-right: 1rem;
+        width: 168px;
+        background: #3f8cff1a;
+        padding-bottom: 1.25rem;
+        display: flex;
+        align-items: center;
+        flex-direction: column;
+        gap: 1rem;
+  
+  
+        img {
+          margin-top: -25%;
+        }
+      }
+  
+      span {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+        color: $color-grey-40;
+        cursor: pointer;
+        margin-top: 3.1rem;
+  
+        svg {
+          fill: $color-grey-40;
+        }
+  
+        &:hover {
+          color: $color-primary;
+  
+          svg {
+            fill: $color-primary !important;
+          }
+        }
+      }
+    }
+    nav {
+      display: flex;
+      flex-direction: column;
+      gap: 0.67rem;
+      margin-bottom: 6rem;
+    }
+
+    a {
+      text-decoration: none;
+      border-radius: 2px;
+      height: 44px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+
+      .link_wrapper {
+        color: $color-grey-40;
+        font-weight: 600;
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+        padding: 0.5rem 0 0.5rem 0.5rem;
+
+        border-radius: 10px;
+        width: 190px;
+        transition: $transition;
+
+        svg {
+          fill: $color-grey-40;
+        }
+
+        &.active {
+          background-color: $color-primary-10;
+          color: $color-primary;
+
+          svg {
+            fill: $color-primary !important;
+          }
+        }
+
+        &:hover {
+          background-color: $color-primary-10;
+          color: $color-primary;
+            svg {
+                fill: $color-primary !important;
+              }
+        }
+      }
+
+      .active_indicator {
+        min-width: 4px;
+        border-radius: 2px;
+        height: 90%;
+        background-color: $color-primary;
+      }
+    }
+
+    &::-webkit-scrollbar-track {
+      background: transparent;
+    }
+
+    &::-webkit-scrollbar-thumb {
+      background: #D3DBEB;
+      border-radius: 4px;
+    }
+
+    &::-webkit-scrollbar {
+      width: 6px;
+    }
+  }
+
+}
