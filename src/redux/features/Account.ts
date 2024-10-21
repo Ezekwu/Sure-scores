@@ -4,12 +4,13 @@ import Company from '@/src/types/Company';
 import SignUpUser from '@/src/types/SignUpUser';
 import api from '../../api/index';
 import { Toast } from '@/src/utils/toast';
-import { getCookie } from 'cookies-next'
+import { CookieValueTypes, getCookie } from 'cookies-next'
 import { setAuthToken } from '@/src/utils/cookieMthods';
 import CompanyMember from '@/src/types/CompanyMember';
 import CompanyRef from '@/src/types/CompanyRef';
-import { doc, updateDoc, arrayUnion } from "firebase/firestore";
+import { doc, updateDoc, arrayUnion, Timestamp } from "firebase/firestore";
 import db from '@/src/api/firebaseConfig';
+import { serializeField } from '@/src/utils/helperFunctions';
 
 export const accountSlice = createApi({
   baseQuery: fakeBaseQuery(),
@@ -44,7 +45,6 @@ export const accountSlice = createApi({
             birthday: authUser.birthday,
             gender: authUser.gender
           } 
-
           const companyObj: Company = {
             name: authUser.company_name,
             sector: authUser.company_field,
@@ -56,7 +56,6 @@ export const accountSlice = createApi({
           await api.createCompanyRef({
             id: createdCompany.id,
             name: createdCompany.name,
-            member_ids:[userObj.id]
           }, createdCompany.id)
           await api.createOrUpdateUserDetails({...userObj, organizations: [createdCompany.id]});
           await api.addMember(memberObj, createdCompany.id);
@@ -85,6 +84,24 @@ export const accountSlice = createApi({
       invalidatesTags:['User'],
     }),
 
+    getLoggedInUser: builder.query({
+      queryFn: async () => {
+        try {
+          const token = getCookie('auth-token')      
+          if(!token) throw new Error('no token provided');
+
+          const user = await api.getUser(token);
+          const serializedUser = serializeField(user, 'birthday');
+          
+          return {data: serializedUser}
+          
+        } catch (error) {
+          return { error: {data: error as Error}};
+        }
+      },
+      providesTags: ['User']
+    }),
+
     loginUser: builder.mutation({
       queryFn: async (authUser: {email: string, password: string}) => {
         try {
@@ -101,29 +118,29 @@ export const accountSlice = createApi({
           Toast.error({msg})
           return { error: { status: 'CUSTOM_ERROR', data: msg } };
         }
-      }
+      },
+      invalidatesTags:['User'],
     }),
 
-    getLoggedInUser: builder.query({
-      queryFn: async () => {
-        try {
-          const token = getCookie('auth-token')
-          let user
-          if(token){
-            user = await api.getUser(token)
-          }
-          return {data: user}
-        } catch (error) {
-          return { error: {data: error as Error}};
-        }
-      },
-    }),
-    
     getUserCompaniesRef : builder.query<CompanyRef[], string[]>({
       queryFn: async(orgIds: string[]) => {
         try {
           const companies = await api.getCompaniesRef(orgIds);
           return {data: companies}
+        } catch (error) {
+          return { error: {data: error}};
+        }
+      }
+    }),
+
+    getActiveCompany: builder.query<Company, CookieValueTypes>({
+      queryFn: async (orgId: CookieValueTypes) => {
+        try {
+          if(!orgId) {
+            return {data: undefined}
+          }
+          const activeCompany = await api.getCompany(orgId)
+          return {data: activeCompany}
         } catch (error) {
           return { error: {data: error}};
         }
@@ -154,5 +171,6 @@ export const {
   useGetLoggedInUserQuery, 
   useLoginUserMutation,
   useGetUserCompaniesRefQuery,
+  useGetActiveCompanyQuery,
   useAddUserOrganizationMutation
 } = accountSlice;

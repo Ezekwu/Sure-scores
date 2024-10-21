@@ -1,5 +1,4 @@
 'use client'
-import Image from "next/image"
 import Link from "next/link"
 import { useRouter, useSearchParams } from "next/navigation"
 import '../../../../styles/global.css'
@@ -22,48 +21,50 @@ export default function Page() {
   const inviteToken = searchParams.get('invite-token');
   const [loginUser, { isLoading }] = useLoginUserMutation();
   const [addMember] = useAddMemberMutation();
-  const { data: loggedInUser, isLoading: isUserLoading } =
-    useGetLoggedInUserQuery({});
-  
   const [addOrganisation] = useAddUserOrganizationMutation();
   const router = useRouter();
-
-  const onSubmit = (userDetails: { email: string; password: string }) => {
-    loginUser(userDetails)
+  
+  const onSubmit = async (loginDetails: { email: string; password: string }) => {
+    loginUser(loginDetails)
       .unwrap()
       .then((user) => {
         if (inviteToken) {
-          const acceptInvite = async () => {
-            const alredyInCompany = await api.doesDocumentExist(
-              `companies/${inviteToken}/members`,
-              user?.uid!,
-            );
-            if (!alredyInCompany && loggedInUser) {
-              addMember({
-                member: {
-                  id: loggedInUser?.id,
-                  birthday: loggedInUser.birthday,
-                  email: loggedInUser.email,
-                  level: loggedInUser.level,
-                  member_type: 'member',
-                  name: loggedInUser.name,
-                  phone: loggedInUser.phone,
-                  user_role: loggedInUser.user_role,
-                  gender: loggedInUser.gender,
-                },
-                companyId: inviteToken,
-              });
-              addOrganisation(inviteToken);
-              setCookie('active_companyId', inviteToken, {
-                maxAge: 30 * 24 * 60 * 60,
-              });
-            }
-          };
-          acceptInvite();
+          router.push(`/invite?token=${inviteToken}`);
+          // const acceptInvite = async () => {
+          //   const loggedInUser = await api.getUser(user?.uid);
+          //   const alredyInCompany = await api.doesDocumentExist(
+          //     `companies/${inviteToken}/members`,
+          //     user?.uid!,
+          //   );
+          //   if (!alredyInCompany && loggedInUser) {
+          //     console.log('stage two');
+          //     addMember({
+          //       member: {
+          //         id: loggedInUser?.id,
+          //         birthday: loggedInUser.birthday,
+          //         email: loggedInUser.email,
+          //         level: loggedInUser.level,
+          //         member_type: 'member',
+          //         name: loggedInUser.name,
+          //         phone: loggedInUser.phone,
+          //         user_role: loggedInUser.user_role,
+          //         gender: loggedInUser.gender,
+          //       },
+          //       companyId: inviteToken,
+          //     });
+          //     console.log('stage three');
+          //     addOrganisation(inviteToken);
+          //     setCookie('active_companyId', inviteToken, {
+          //       maxAge: 30 * 24 * 60 * 60,
+          //     });
+          //     console.log('stage four');
+          //   }
+          // };
+          // acceptInvite();
+          // window.location.reload();
+        } else{
+          router.push('/dashboard');
         }
-
-        window.location.reload();
-        router.push('/dashboard');
       });
   };
 

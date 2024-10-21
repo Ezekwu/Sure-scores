@@ -4,7 +4,6 @@ import UiModal from '../../ui/Modal/UiModal';
 import styles from './addEvent.module.scss';
 import eventSchema from '@/src/utils/validations/eventSchema';
 import UiInput from '@/src/components/ui/Input/UiInput';
-import { Controller } from 'react-hook-form';
 import UiSelect, { Option } from '@/src/components/ui/Select/UiSelect';
 import UidatePicker from '@/src/components/ui/DatePicker/UiDatePicker';
 import UiTimeInput from '@/src/components/ui/TimeInput/UiTimeInput';
@@ -18,7 +17,7 @@ import {
 import CustomEventType from '@/src/types/CustomEvent';
 import { Toast } from '@/src/utils/toast';
 import EventResponse from '@/src/types/EventResponse';
-import { Timestamp, serverTimestamp } from 'firebase/firestore';
+import { serverTimestamp } from 'firebase/firestore';
 
 interface Props {
   isOpen: boolean;

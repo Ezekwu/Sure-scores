@@ -15,8 +15,6 @@ interface Props {
 export default function UiDropdown({options, value, onChange}: Props) {
   const isMenuVisible = useToggle();
 
-  
-
   function selectOption(value: string | number) {
     onChange(value);
     isMenuVisible.off()

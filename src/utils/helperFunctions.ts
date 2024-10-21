@@ -1,8 +1,9 @@
 import { Icons } from "@/src/components/ui/Icon/UiIcon";
 import { Priority } from "@/src/types/enums/Priority";
 import moment from "moment";
+import { Timestamp } from "firebase/firestore";
 
-export function formatDate(date: string, format: string) {
+export function formatDate(date: string | Date, format: string) {
   const dateObject = moment(date);
   if (!dateObject.isValid()) {
     return
@@ -10,27 +11,6 @@ export function formatDate(date: string, format: string) {
   return dateObject.format(format);
 }
 
-
-// export function formatTimeDifference(time1: string, time2: string) {
-//   const toMinutes = (time: string) => {
-//     const [hours, minutes] = time.split(':').map(Number);
-    
-//     const formatedHours =  hours % 12 || 12;
-//     return hours * 60 + minutes;
-//   };
-
-//   const minutes1 = toMinutes(time1);
-//   const minutes2 = toMinutes(time2);
-
-//   let difference = Math.abs(minutes2 - minutes1);
-
-//   if (difference >= 60) {
-//     const hours = Math.floor(difference / 60);
-//     return `${hours}h`;
-//   } else {
-//     return `${difference}m`;
-//   }
-// }
 export function formatTimeDifference(time1: string, time2: string) {
   // Helper function to convert time to total minutes
   const toMinutes = (time: string) => {
@@ -83,6 +63,17 @@ export function getPriorityArrow(priority: Priority): Icons {
     return 'ArrowDown';
   }
   return 'ArrowUp';
+}
+
+export function serializeField<T extends object, K extends keyof T>(object: T, field: K) {
+  if(object[field] instanceof Timestamp){
+    return {
+      ...object, 
+      [field]: (object[field]).toDate().toDateString(),
+    }
+  } else {
+    return object
+  }
 }
 
 

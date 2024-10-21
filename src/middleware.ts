@@ -5,11 +5,11 @@ export function middleware(request: NextRequest) {
   const protectedRoutes = ['/dashboard', '/calendar', '/infoportal', '/projects', '/team'];
   
  
-  if (currentUser && !protectedRoutes.some((route) => request.nextUrl.pathname.startsWith(route))) {
+  if (currentUser && !protectedRoutes.some((route) => request.nextUrl.pathname.startsWith(route)) && !request.nextUrl.pathname.startsWith('/invite')) {
     return Response.redirect(new URL('/dashboard', request.url))
   }
  
-  if (!currentUser && !request.nextUrl.pathname.startsWith('/auth')) {
+  if (!currentUser && !request.nextUrl.pathname.startsWith('/auth') && !request.nextUrl.pathname.startsWith('/invite')) {
     return Response.redirect(new URL('/auth/login', request.url))
   }
 }

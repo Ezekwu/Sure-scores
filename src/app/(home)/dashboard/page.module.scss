@@ -57,12 +57,12 @@
     gap: 1.87rem; 
 
     h3 {
-        color: $color-primary-40;
-        font-size: 1.37rem;
-        line-height: 30px;
-      }
+      color: $color-primary-40;
+      font-size: 1.37rem;
+      line-height: 30px;
+    }
       
-    a {
+    .view_all{
       position: relative;
       text-decoration: none;
       color: $color-primary;
@@ -119,8 +119,13 @@
         align-items: center;
         padding-left: 0.75rem;
         padding-right: 2px;
+      }
 
-      
+      .team_grid {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);        
+        gap: 1rem;
+        margin-top: 1.25rem;
       }
     }
     .events{

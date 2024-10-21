@@ -1,0 +1,108 @@
+@import 'styles/variables';
+
+.sideBar{
+  grid-column: span 1;
+  border-radius: 24px;
+  background-color: #fff;
+  box-shadow: 0px 6px 58px 0px #C4CBD61A;
+  padding: 1rem 0;
+  position: relative;
+
+  header {
+    padding: 1.5rem;
+    padding-bottom: 1.81rem;
+    border-bottom: 1px solid $color-grey-15;
+
+    img {
+      width: 64px;
+      height: 64px;
+      border-radius: 50%;
+      margin-bottom: 1rem;
+    }
+
+    h3{
+      font-size: 1.37rem;
+      line-height: 1.8rem;
+      color: $color-primary-40;
+      font-weight: 700;
+      margin-bottom: 0.31rem;
+    }
+    p {
+      font-size: 0.87rem;
+      color: $color-primary-40;
+    
+    }
+
+    button {
+      position: absolute;
+      top: 1rem;
+      right: 1rem;
+    }
+  }
+
+  section {
+    padding: 1.4rem;
+    padding-top: 1.75rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1.87rem;
+
+    & > div {
+      h4 {
+        color: $color-primary-40;
+        font-size: 1.12rem;
+        line-height: 1.62rem;
+        margin-bottom: 0.75rem;
+      }
+
+    label {
+      font-size: 0.875rem;
+      font-weight: 700;
+      color: $color-grey-40;
+      line-height: 1.5rem;      
+    }
+
+    .field {
+      display: flex;
+      flex-direction: column;
+      gap: 1.18rem;
+    }
+
+      .input_wrapper{
+        position: relative;
+      
+        .icon {
+          background-color: #fff;
+          padding: 0 .3rem;
+          position: absolute;
+          top: 1.2rem;
+          right: .9rem;
+
+          svg {
+            fill: $color-grey-40;
+          }
+          
+        }
+        input {
+          height: 49px;
+          width: 100%;
+          padding: 0.75rem 1.125rem;
+          border: 1px solid $color-grey-10;
+          border-radius: 14px;
+          outline: none;
+          transition: all .18s ease-in;
+          color: $color-grey-40;
+          box-shadow: 0px 1px 2px 0px rgba(184, 200, 224, 0.22);
+          margin-top: 0.43rem;
+        }
+      }
+
+      .main_info{
+        display: flex;
+        flex-direction: column;
+        gap: 1.18rem;
+      }
+
+    }
+  }
+}

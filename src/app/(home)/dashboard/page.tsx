@@ -4,7 +4,9 @@ import styles from './page.module.scss';
 import UiIcon from '@/src/components/ui/Icon/UiIcon';
 import Link from 'next/link';
 import EventDetailsCard from '@/src/components/Event/EventDetailsCard/EventDetailsCard';
+import MemberCard from '@/src/components/Team/MemberCard/MemberCard';
 import { useGetLoggedInUserQuery } from '@/src/redux/features/Account';
+import { useGetMembersQuery } from '@/src/redux/features/Team';
 import { getAuth } from 'firebase/auth';
 import { formatDate } from '@/src/utils/helperFunctions';
 import { useGetEventsQuery } from '@/src/redux/features/Events';
@@ -21,11 +23,12 @@ export default function Page() {
       skip: !compId,
     },
   );
+  const {data: members, isLoading: membersLoading} = useGetMembersQuery(companyId);
   const firstName = loggedInUser?.name?.split(' ')[0];
   const user = getAuth();
   const creationDate = formatDate(user.currentUser?.metadata.creationTime!, 'MMM D, YYYY');
   const currentDate = formatDate(new Date().toDateString(), 'MMM D, YYYY');
-  const isLoading = userLoading || eventsLoading;
+  const isLoading = userLoading || eventsLoading || membersLoading;
 
   useEffect(() => {
     const newCompanyId = getCookie('active_companyId');
@@ -56,10 +59,21 @@ export default function Page() {
         <section className={styles.team_events_container}>
           <div className={styles.team}>
             <div className={styles.team_header}>
-              <h3>Workload</h3>
-              <Link href="">
+              <h3>Team</h3>
+              <Link className={styles.view_all} href="./team">
                 View all <UiIcon icon="CaretRight" size="24" />
               </Link>
+            </div>
+            <div className={styles.team_grid}>
+              {members?.map((member) => (
+                <Link href={`/team/${member.id}`} key={member.id}>
+                  <MemberCard
+                    member={member}
+                    simplified
+                    backgroundColor="#F4F9FD"
+                  />
+                </Link>
+              ))}
             </div>
           </div>
           <div className={styles.events}>
@@ -69,7 +83,10 @@ export default function Page() {
               <div>
                 <div className={styles.events_header}>
                   <h3>Nearest Events</h3>
-                  <Link href="/dashboard/event-list">
+                  <Link
+                    className={styles.view_all}
+                    href="/dashboard/event-list"
+                  >
                     View all <UiIcon icon="CaretRight" size="24" />
                   </Link>
                 </div>

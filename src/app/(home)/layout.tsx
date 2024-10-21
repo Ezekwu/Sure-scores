@@ -12,7 +12,7 @@ import {
 import ProfileMenu, {
   Options,
 } from '@/src/components/layout/Profilemenu/ProfileMenu';
-import { useMemo, useState, useEffect } from 'react';
+import { useState } from 'react';
 import { getCookie, setCookie } from 'cookies-next';
 
 export default function DashboardLayout({
@@ -21,7 +21,6 @@ export default function DashboardLayout({
   children: React.ReactNode;
 }) {
   const {data: loggedInUser, isLoading: loggedInUserLoading} = useGetLoggedInUserQuery({});
-  
   const companyIds = loggedInUser?.organizations;
   const { data: companiesRef, isLoading: companiesLoading, isError: isCompanyError } = useGetUserCompaniesRefQuery(companyIds!, { skip: !companyIds });
   const isLoading = companiesLoading || loggedInUserLoading;
@@ -39,41 +38,36 @@ export default function DashboardLayout({
     },
   ];  
 
-  const companiesOptions = useMemo(
-    () =>
-      companiesRef?.map((companyRef) => ({
-        label: companyRef.name,
-        value: companyRef.id,
-      })),
-    [companiesRef],
-  );
-
-  const content = useMemo(() => {
+  function companiesOptions() {
+    return companiesRef?.map((companyRef) => ({
+      label: companyRef.name,
+      value: companyRef.id,
+    }));
+  }
+  
+  const content = () => {
     return (
       <div className={styles.header}>
         <div className={styles.image}></div>
         <p>{loggedInUser?.name}</p>
       </div>
     );
-  }, [loggedInUser]);
+  }
   
-  useEffect(() => {
+  function setActiveCompany() {
     if (companiesLoading || isCompanyError) return;
 
-    if (!activeCompanyId && companiesRef?.length! > 0) {
-      const firstCompanyId = companiesRef![0].id;
+    if (!activeCompId && companyIds?.length! > 0) {
+      const firstCompanyId = companyIds![0];
       setCookie('active_companyId', firstCompanyId, {
         maxAge: 30 * 24 * 60 * 60,
       });
       setActiveCompId(firstCompanyId);
     }
-  }, [
-    companiesLoading,
-    isCompanyError,
-    activeCompanyId,
-    companiesRef,
-    activeCompId,
-  ]);
+  }
+
+  setActiveCompany();
+    
 
   if (isLoading ) {
     return 'loading....';
@@ -89,14 +83,14 @@ export default function DashboardLayout({
               <UiDropdown
                 value={activeCompId!}
                 onChange={() => {}}
-                options={companiesOptions!}
+                options={companiesOptions()!}
               />
             </div>
             <div className={styles.wrapper}>
               <button className={styles.notification}>
                 <UiIcon icon="Bell" size="20" />
               </button>
-              <ProfileMenu header={content} options={profileMenuOptions} />
+              <ProfileMenu header={content()} options={profileMenuOptions} />
             </div>
           </div>
           {children}

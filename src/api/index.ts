@@ -13,11 +13,8 @@ import CompanyRef from '@/src/types/CompanyRef';
 const auth = getAuth();
 const provider = new GoogleAuthProvider();
 const activeCompanyId = getCookie('active_companyId');
-console.log(activeCompanyId);
 
 
-
-  
 class Api {
   async createUserWithEmailAndPassword (email: string, password: string) {
     return await createUserWithEmailAndPassword(auth, email, password)
@@ -50,8 +47,12 @@ class Api {
     return this.setDoc('companyRefs', companyId, companyRef)
   }
 
-  getCompany(companyId: string): Promise<Company> {
-    return this.getDoc('companies', companyId)
+  getCompany(companyId: CookieValueTypes): Promise<Company> {
+    return this.getDoc('companies', companyId!)
+  }
+
+  getCompanyRef(companyId: CookieValueTypes): Promise<CompanyRef> {
+    return this.getDoc('companyRefs', `${companyId}`)
   }
 
   getCompaniesRef(orgIds: string[]): Promise<CompanyRef[]> {    
@@ -67,13 +68,12 @@ class Api {
     return this.getDocs(`companies/${companyId}/members`)
   }
 
-  getMember() {
-    return this.getDoc
+  getMember(companyId: CookieValueTypes, memberId: string): Promise<CompanyMember> {
+    return this.getDoc(`companies/${companyId}/members`, memberId)
   }
 
 
   getEvents (companyId:CookieValueTypes): Promise<EventResponse[]> {
-    
     return this.getDocs(`companies/${companyId}/events`, [orderBy('created_at', 'desc')])
   }
 

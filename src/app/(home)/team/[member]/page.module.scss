@@ -1,0 +1,35 @@
+@import 'styles/variables';
+
+.wrapper {
+  margin-top: 3.125rem;
+
+    .back_link {
+      color: $color-primary;
+      text-decoration: none;
+      font-weight: 500;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      margin-bottom: 0.5rem;
+  
+      svg {
+        fill: $color-primary;
+        transition: all .18s ease-in;
+      }
+  
+      &:hover {
+        color: $color-primary-30;
+  
+        svg {
+          fill: $color-primary-30;
+        }
+      }
+    }
+
+  h2{
+    color: $color-primary-40;
+    font-size: 2.25rem;
+    line-height: 3rem;
+    margin-bottom: 1.75rem;
+  }
+}

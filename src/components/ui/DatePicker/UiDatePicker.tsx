@@ -30,10 +30,8 @@ export default function UidatePicker ({ control, name, label, error, date }: Pro
 
   function toggleCalendar() {
     return isCalendarVisible.toggle()
-  }
-
+  }  
   
-
   return (
     <OutsideClickHandler
       onOutsideClick={(e) => {

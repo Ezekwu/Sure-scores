@@ -1,14 +1,16 @@
-
 import Image from 'next/image';
-import UiModal from '../ui/Modal/UiModal';
-import UiInput from '../ui/Input/UiInput';
-import UiForm from '../ui/Form/UiForm';
+import UiModal from '../../ui/Modal/UiModal';
+import UiInput from '../../ui/Input/UiInput';
+import UiForm from '../../ui/Form/UiForm';
 import AddMemberImg from '@/public/assets/images/add-member.png';
 import styles from './addmember.module.scss';
-import UiButton from '../ui/Button/UiButton';
+import UiButton from '../../ui/Button/UiButton';
 import AddmemberSchema from '@/src/utils/validations/AddmemberSchema';
 import useToggle from '@/src/utils/hooks/useToggle';
 import { Toast } from '@/src/utils/toast';
+import { useGetLoggedInUserQuery } from '@/src/redux/features/Account';
+import { useGetActiveCompanyQuery } from '@/src/redux/features/Account';
+import { getCookie } from 'cookies-next';
 
 interface Props {
   isOpen: boolean;
@@ -16,23 +18,27 @@ interface Props {
 }
 
 export default function AddMember({ isOpen, onClose }: Props) {
+  const activeCompanyId = getCookie('active_companyId');
+  const {data} = useGetLoggedInUserQuery({})
+  const {data: activeCompany} = useGetActiveCompanyQuery(activeCompanyId);
   const loading = useToggle();
+  
   async function OnSubmit(formData: { email: string }) {
     try {
       loading.on()
-      const response =  await fetch('/api/invite', {
+      const response = await fetch('/api/invite', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-      },
+        },
 
-      body: JSON.stringify({
-        inviteEmail: formData.email,
-        senderCompany: 'Codexx',
-        senderName: 'Jeremiah',
-        companyId: ''
-      }),
-    });
+        body: JSON.stringify({
+          inviteEmail: formData.email,
+          companyName: activeCompany?.name,
+          senderName: data?.name,
+          companyId: activeCompanyId,
+        }),
+      });
 
       if(!response.ok){
         Toast.error({msg:'error  invite'})

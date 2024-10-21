@@ -7,16 +7,19 @@ interface Props {
   closeModal: () => void;
   title?: React.ReactNode;
   children: React.ReactNode;
+  isFullWidth?: boolean;
 }
 
-export default  function UiModal ({ isOpen, title, closeModal, children} : Props) {
+export default  function UiModal ({ isOpen, title, isFullWidth = false, children, closeModal } : Props) {
   if (!isOpen) {
     return null
   }
   return (
     <div className={styles.modal}>
       <div className={styles.overlay} onClick={closeModal} />
-      <div className={styles.main_wrapper}>
+      <div
+        className={`${styles.main_wrapper} ${isFullWidth && styles.main_wrapper_full}`}
+      >
         <div className={styles.main}>
           <div className={styles.wrapper}>
             <header>

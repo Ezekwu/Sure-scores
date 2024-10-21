@@ -1,0 +1,79 @@
+@import 'styles/variables';
+
+.addProject {
+  padding-top: 1.3rem;
+  
+  .top_row{
+    display: flex;
+    gap: 3.1rem;
+    margin-bottom: 1.5rem;
+
+    .form_col{
+      flex: 0 0 55%;
+      max-width: 464px;
+      .addProject_form {
+        
+        .date_container {
+          display: flex;
+          gap: 1rem;
+    
+          &>div {
+            width: 100%;
+          }
+        }
+      }
+    }
+
+    .project_avatar_link_col { 
+
+      .project_avatar {
+        width: 100%;
+        border: 1px solid $color-grey-20;
+        border-radius: 24px;
+        padding: 1.6rem;
+        flex-basis: 45%;
+        max-width: 350px;
+        align-self: flex-start;
+
+        h3 {
+          color: $color-primary-40;
+          font-size: 1.125rem;
+          line-height: 1.6rem;
+          margin-bottom: 0.5rem;
+        }
+
+        p {
+          font-size: 1rem;
+          line-height: 1.5rem;
+          color: $color-grey-40;
+        }
+
+        .avatar_grid {
+          display: grid;
+          grid-template-columns: repeat(4, 1fr);
+          gap: 1.3rem;
+          margin-top: 1.5rem;
+          width: fit-content;
+
+          img{
+            cursor: pointer;
+          }
+          
+        }
+      }
+
+      .attach_link{
+        display: flex;
+        gap: 1.6rem;
+        margin-top: 1.5rem;
+      }
+    }
+
+  }
+
+  .bottom_row{
+    button {
+      margin-left: auto;
+    }
+  }
+}

@@ -14,11 +14,11 @@ export interface Header {
 interface Props {
   data: Row[];
   headers: Header[];
-  leadItem?: boolean;
+  leadCell?: boolean;
   options?: boolean;
 }
 
-export default function UiTable({data, headers, leadItem, options}: Props) {
+export default function UiTable({data, headers, leadCell, options}: Props) {
   return (
     <table className={styles.table}>
       <tbody>
@@ -26,7 +26,9 @@ export default function UiTable({data, headers, leadItem, options}: Props) {
           {data?.map((item) => (
             <tr key={item.id}>
               <div className={styles.table_row}>
-                {leadItem && <td className={styles.lead}>{item['lead']}</td>}
+                {leadCell && (
+                  <td className={styles.lead}>{item['leadCell']}</td>
+                )}
                 {headers.map((header, index) => (
                   <td key={index}>
                     <p className={styles.title}>{header.title}</p>
@@ -34,8 +36,8 @@ export default function UiTable({data, headers, leadItem, options}: Props) {
                   </td>
                 ))}
                 {options && (
-                  <UiButton  variant='secondary' size='icon'>
-                    <UiIcon icon='ThreeDots' size='24'/>
+                  <UiButton variant="secondary" size="icon">
+                    <UiIcon icon="ThreeDots" size="24" />
                   </UiButton>
                 )}
               </div>

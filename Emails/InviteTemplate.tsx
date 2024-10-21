@@ -89,7 +89,7 @@ export default function InviteTemplate({ companyName, inviter, token }: Props) {
           <Button
             //@ts-ignore
             style={styles.button}
-            href={`http://localhost:3000/auth/invite?token=${token}`}
+            href={`http://localhost:3000/invite?token=${token}`}
           >
             Join
           </Button>

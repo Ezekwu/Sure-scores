@@ -1,0 +1,46 @@
+@import 'styles/variables';
+
+.wrapper {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));  
+  column-gap: 1.87rem;
+  height: 100%;
+
+  main {
+    grid-column: span 3;
+
+    .tab{
+      width: fit-content;
+    }
+
+    .empty_state {
+      margin-top: 3rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      
+      img {
+        width: 350px;
+        height: 320px;
+        margin-bottom: 2.4rem;
+      }
+      p {
+        color: $color-primary-40;
+        font-size: 1.3rem;
+        font-weight: 700;
+        line-height: 1.8rem;
+        margin-bottom: 1.5rem;
+      }
+    }
+
+    .team_grid{
+      display: grid;
+      grid-template-columns: repeat(4, 190px);
+      gap: 1.87rem;
+      margin-top: 1.5rem;
+
+    }
+  }
+}

@@ -1,0 +1,17 @@
+@import 'styles/variables';
+
+.wrapper{
+  margin-top: 3.12rem;
+
+  & > header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    h2{
+      color: $color-primary-40;
+      font-size: 2.25rem;
+      line-height: 3rem;
+    }
+  }
+}

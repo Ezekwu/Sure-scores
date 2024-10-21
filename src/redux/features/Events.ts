@@ -4,8 +4,6 @@ import EventResponse from '@/src/types/EventResponse';
 import { fakeBaseQuery, createApi } from '@reduxjs/toolkit/query/react';
 import { CookieValueTypes } from 'cookies-next';
 
-
-
 export const eventSlice = createApi({
   baseQuery: fakeBaseQuery(),
   reducerPath: 'eventApi',

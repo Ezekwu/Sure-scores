@@ -10,7 +10,7 @@ export default interface User {
   user_role: string,  
   organizations : string[],
   img?: string;
-  birthday: Date;
+  birthday: Date | string;
   level: ExpertiseLevel,
   gender: Gender;
 }

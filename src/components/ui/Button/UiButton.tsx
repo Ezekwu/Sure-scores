@@ -1,7 +1,7 @@
 "use client" ;
 import styles from './button.module.scss'
 
-type ButtonVariant = 'primary' | 'primary-text' | 'secondary' | 'grey' | 'purple' | 'green' |'red' | 'white' | 'danger-secondary'
+type ButtonVariant = 'primary' | 'primary-text' | 'secondary' | 'grey' | 'purple' | 'green' |'red' | 'white' | 'danger-secondary' | 'light-blue' | 'egg-plant'
 type WeightVariant = 'normal' | 'semi-bold' | 'bold';
 type Size = 'normal' | 'icon'
 

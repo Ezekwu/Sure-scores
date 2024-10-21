@@ -1,4 +1,5 @@
 @import 'styles/variables';
+
 .button {
   display: flex;
   justify-content: space-between;
@@ -9,13 +10,16 @@
   border: none;
   outline: none;
   cursor: pointer;
+  height: 48px;
   padding: 0.8rem 1.3rem;
   border-radius: 14px;
   text-transform: capitalize;
   transition: all .18s ease-in;
   opacity: 1;
 }
-//
+
+//sizes
+
 .icon{
   min-width: 44px;
   height: 44px;
@@ -24,6 +28,7 @@
   justify-content: center;
   align-items: center;
 }
+
 // button variants
 
 .primary{
@@ -90,6 +95,35 @@
     stroke: $color-red;
   }
 }
+
+.light-blue{
+  background-color: $color-light-blue-10;
+
+  &:hover {
+    background-color: #1191ae1a;
+  }
+  
+
+  svg {
+    fill: $color-light-blue;
+    stroke: $color-light-blue;
+  }
+}
+
+.egg-plant{
+  background-color: $color-eggplant-10;
+
+  &:hover {
+    background-color: #6d5dd323;
+  }
+  
+  svg {
+    fill: $color-eggplant;
+    stroke: $color-eggplant;
+  }
+}
+
+
 
 
 // font weights
