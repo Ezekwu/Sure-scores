@@ -1,0 +1,99 @@
+@import 'styles/variables';
+@import 'styles/mixins';
+
+.wrapper{
+  display: flex;
+  gap: 1.87rem;
+  max-height: 94vh;
+  
+  aside{
+    background: #fff;
+    height: 94vh;
+    width: 30%;
+    max-width: 265px;
+    border-radius: 24px;
+    box-shadow: 0px 6px 58px 0px #C4CBD61A;
+
+    header {
+      border-bottom: 1px solid $color-grey-15;
+      padding: 1.5rem;
+      padding-bottom: 1.2rem;
+      color: $color-primary-40;
+      font-weight: bold;
+    }
+
+    .project_list {
+      padding: 0.5rem 0rem;
+      padding-left: 0.5rem;
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+
+      .project{
+        display: flex;
+        gap: 0.5rem;
+        justify-content: space-between;
+        cursor: pointer;
+        transition: $transition;
+        
+        & > div{
+          border-radius: 14px;
+          padding: 0.62rem 1rem;
+          transition: $transition;
+          width: 100%;
+    
+          &:hover {
+            background-color: $color-primary-10;
+          }
+
+          &.active_project {
+            background-color: $color-primary-10;
+
+            .project_name{
+              font-weight: bold;
+              transition: $transition;
+            }
+          }
+
+          .project_number {
+            font-size: 0.75rem;
+            line-height: 1rem;
+            color: $color-grey-30;
+            margin-bottom: 0.25rem;
+          }
+        
+          .project_name {
+            font-weight: 400;
+          }
+        
+          a {
+            display: none
+          }
+        
+          .active_project_link {
+            @include view-all-link;
+            display: flex;
+            margin-top: 0.5rem;
+          }
+        }
+
+        .active_indicator {
+          max-width: 4px;
+          width: 4px;
+          border-radius: 2px;
+          min-height: 100%;
+          background-color: $color-primary;
+        }
+      }
+
+      
+    }
+  }
+
+  main {
+    width: 100%;
+    flex-grow: 1;
+    overflow-y: auto;
+    @include scrollable-container;
+  }
+}

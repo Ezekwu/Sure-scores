@@ -20,7 +20,7 @@ export default function UiForm({ onSubmit, children, schema, defaultValues } : P
     formState: { errors },
     control,
   } = useForm({
-    resolver: yupResolver(schema),
+    resolver: schema && yupResolver(schema),
     defaultValues: defaultValues,
   });
 

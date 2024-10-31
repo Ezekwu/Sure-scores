@@ -35,3 +35,24 @@
     }
   }
 }
+
+.error {
+  label {
+    color: $color-red;
+  }
+
+  textarea {
+    border: 1px solid $color-red !important;
+
+    &:focus {
+      border: 1px solid $color-red;
+      box-shadow: 0px 0px 0px 4px #f6515f11 !important;
+    }
+  }
+
+  .error__span {
+    
+    color: $color-red;
+    font-size: 0.75rem;
+  }
+}

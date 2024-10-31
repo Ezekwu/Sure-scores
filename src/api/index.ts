@@ -1,5 +1,5 @@
 import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, GoogleAuthProvider, signInWithPopup } from 'firebase/auth';
-import { doc, getDoc, getDocs, setDoc, addDoc, collection, deleteDoc, QueryConstraint, query, orderBy, where} from 'firebase/firestore';
+import { doc, getDoc, getDocs, setDoc, addDoc, collection, deleteDoc, QueryConstraint, query, orderBy, where } from 'firebase/firestore';
 import db from './firebaseConfig';
 import { CookieValueTypes } from 'cookies-next';
 import { getCookie } from 'cookies-next';
@@ -9,6 +9,7 @@ import EventResponse from '@/src/types/EventResponse';
 import Company from '@/src/types/Company';
 import CompanyMember from '@/src/types/CompanyMember';
 import CompanyRef from '@/src/types/CompanyRef';
+import Project from '../types/Project';
 
 const auth = getAuth();
 const provider = new GoogleAuthProvider();
@@ -56,7 +57,7 @@ class Api {
   }
 
   getCompaniesRef(orgIds: string[]): Promise<CompanyRef[]> {    
-    return this.getDocs('companyRefs', [where('__name__', 'in', orgIds)] )
+    return this.getDocs('companyRefs', [where('__name__', 'in', orgIds), ] )
   }
 
   addMember(member: CompanyMember, companyId: string
@@ -74,7 +75,7 @@ class Api {
 
 
   getEvents (companyId:CookieValueTypes): Promise<EventResponse[]> {
-    return this.getDocs(`companies/${companyId}/events`, [orderBy('created_at', 'desc')])
+    return this.getDocs(`companies/${companyId}/events`, [orderBy('created_at', 'desc'), ])
   }
 
   addEvent (data: CustomEventType) {
@@ -88,6 +89,38 @@ class Api {
   deleteEvent(eventId: string) {
     return this.deleteDoc(`companies/${activeCompanyId}/events`, eventId)
   }
+
+  getProjects(): Promise<Project[]> {
+    return this.getDocs(`companies/${activeCompanyId}/projects`)
+  }
+
+  getProject(projectId: string): Promise<Project> {
+    return this.getDoc(`companies/${activeCompanyId}/projects`, projectId)
+  } 
+
+  addProject(project: Project) {    
+    return this.addDoc(`companies/${activeCompanyId}/projects`, project)
+  }
+
+  // serializeFields<T extends DocumentData>(fileldsToserialize: (keyof T)[]): FirestoreDataConverter<T> {
+  //   return {
+  //     toFirestore(data: WithFieldValue<T>) {
+  //       return data;
+  //     },
+
+  //     fromFirestore(snapshot) {
+  //       const data = snapshot.data() as T;
+
+  //       fileldsToserialize.forEach((field) => {
+  //         if (data[field] as unknown instanceof Timestamp) {
+  //           data[field] = data[field].toDate().toDateString(); 
+  //         }
+  //       });
+  //       return data as T;
+  //     },
+  //   };
+  // }
+
 
   async doesDocumentExist(  
     collectionName: string,
@@ -115,7 +148,7 @@ class Api {
   }
 
   private async getDocs<T>(collectionName: string, queryConstraints?: QueryConstraint[]): Promise<T[]> {
-    const collectionRef = collection(db, collectionName);
+    const collectionRef = collection(db, collectionName)
     const q = queryConstraints ? query(collectionRef, ...queryConstraints) : collectionRef;
     
     const querySnapshot = await getDocs(q);

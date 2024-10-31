@@ -24,6 +24,7 @@
     left: 50%;
     transform: translate(-50%, -50%);
     width: 41.67%;
+    min-width: 500px;
     max-width: 580px;
     max-height: 90%; 
     overflow: hidden;
@@ -66,6 +67,7 @@
         h2 {
           color: $color-primary-40;
           font-size: 1.3rem;
+
         }
 
         button {

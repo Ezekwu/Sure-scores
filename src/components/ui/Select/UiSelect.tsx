@@ -14,10 +14,6 @@ export interface Option {
 interface Props {
   label?: string;
   placeholder?: string;
-  /** The name property should always be the same as the model value. example if the input belongs to
-   * formData.confirm_password, the name prop should be confirm_password.
-   */
-  // If there is a need to add extra classes that are not in sync with the design. This is a hack.
   injectedClasses?: string;
   name: string;
   control?: Control<FieldValues>;

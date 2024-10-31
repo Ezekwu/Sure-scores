@@ -9,9 +9,10 @@
     "lint": "next lint",
     "email": "email dev",
     "type-check": "tsc --noEmit"
-
   },
   "dependencies": {
+    "@cloudinary/react": "^1.13.0",
+    "@cloudinary/url-gen": "^1.21.0",
     "@hookform/resolvers": "^3.3.1",
     "@react-email/components": "0.0.22",
     "@react-email/render": "^0.0.17",
@@ -27,6 +28,7 @@
     "firebase": "^10.3.0",
     "framer-motion": "^11.2.12",
     "moment": "^2.30.1",
+    "nanoid": "^5.0.8",
     "next": "^14.2.4",
     "node-fetch": "^3.3.2",
     "nodemailer": "^6.9.14",

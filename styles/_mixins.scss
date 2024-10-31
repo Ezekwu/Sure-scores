@@ -1,0 +1,60 @@
+@mixin view-all-link {
+  position: relative;
+  text-decoration: none;
+  color: $color-primary;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  width: fit-content;
+
+  svg {
+    fill: $color-primary;
+  }
+
+  &::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: -2px;
+    width: 100%;
+    height: 2px;
+    background-color: $color-primary;
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.2s ease;
+  }
+
+  &:hover::after {
+    transform: scaleX(1);
+  }
+
+  &:active {
+    color: $color-primary-30;
+
+    svg {
+      fill: $color-primary-30;
+    }
+  }
+
+  &:active::after {
+    background-color: $color-primary-30;
+  }
+}
+
+@mixin scrollable-container {
+  overflow-y: auto;
+  width: 100%;
+
+  &::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: #D3DBEB;
+    border-radius: 4px;
+  }
+
+  &::-webkit-scrollbar {
+    width: 10px;
+  }
+}

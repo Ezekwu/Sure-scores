@@ -1,0 +1,58 @@
+@import '/styles/variables';
+
+.linkTag {
+  position: relative;
+
+  .link {
+    display: flex;
+    gap: .5rem;
+    background-color: $color-light-blue-10;
+    color: $color-light-blue;
+    padding: 0 0.8rem;
+    display: flex;
+    align-items: center;
+    height: 40px;
+    border-radius: 10px;
+    text-transform: capitalize;
+    transition: $transition;
+
+    
+
+    &:hover {
+      background-color: #0aa4c622;
+      text-decoration: underline;
+    }
+  }
+
+  svg {
+    fill: $color-light-blue;
+    stroke: $color-light-blue;
+  }
+  
+  button {
+    border: none;
+    outline: none;
+    position: absolute;
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    right: -6%;
+    top: -20%;
+    background-color: rgba(0, 0, 0, 0.155);
+    transition: $transition;
+    cursor: pointer;
+    z-index: 2;
+
+    &:hover{
+      background-color: rgba(0, 0, 0, 0.242);
+    }
+
+    svg {
+      fill: white;
+      stroke: white;
+    }
+  }
+}

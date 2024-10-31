@@ -2,6 +2,7 @@ import { Icons } from "@/src/components/ui/Icon/UiIcon";
 import { Priority } from "@/src/types/enums/Priority";
 import moment from "moment";
 import { Timestamp } from "firebase/firestore";
+import { customAlphabet } from 'nanoid';
 
 export function formatDate(date: string | Date, format: string) {
   const dateObject = moment(date);
@@ -54,6 +55,16 @@ export function formatTo12Hour(time: string) {
   return `${formattedHours}:${formattedMinutes} ${meridiem}`;
 }
 
+export function formatFileSize (sizeInBytes: number){
+  if (sizeInBytes < 1024) {
+    return sizeInBytes + ' bytes';
+  } else if (sizeInBytes < 1024 * 1024) {
+    return (sizeInBytes / 1024).toFixed(2) + ' KB';
+  } else {
+    return (sizeInBytes / (1024 * 1024)).toFixed(2) + ' MB';
+  }
+};
+
 export function getPriorityArrow(priority: Priority): Icons {
   if (priority === Priority.high) {
     return 'ArrowUp';
@@ -74,6 +85,17 @@ export function serializeField<T extends object, K extends keyof T>(object: T, f
   } else {
     return object
   }
+}
+
+export function truncateString(string: string, length:number) {
+  if(string.length > length){
+    return string.substring(0, length) + '...'
+  }
+}
+
+export function generateProjectNumber() {
+  const nanoid = customAlphabet('1234567890', 7);
+  return `PN${nanoid()}`
 }
 
 

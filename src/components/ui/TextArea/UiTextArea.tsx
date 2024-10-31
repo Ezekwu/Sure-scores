@@ -16,9 +16,15 @@ export default function UiTextArea ({ label, name, error, placeholder, register}
   const textAreaId = useId();
   
   return (
-    <div className={styles.textarea_wrapper}>
+    <div className={`${styles.textarea_wrapper} ${error && styles.error}`}>
       <label htmlFor={textAreaId}>{label}</label>
-      <textarea id={textAreaId} placeholder={placeholder} {...register(`${name}`)} name={name}></textarea>
+      <textarea
+        id={textAreaId}
+        placeholder={placeholder}
+        {...register(`${name}`)}
+        name={name}
+      ></textarea>
+      {<span className={styles.error__span}>{error && `${error}`}</span>}
     </div>
-  )
+  );
 }
