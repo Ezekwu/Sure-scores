@@ -111,7 +111,8 @@
 
       .priority{
         align-self: flex-end;
-        h4{
+
+        h4 {
           font-weight: normal;
           font-size: 0.875rem;
           color: $color-grey-30;
@@ -122,37 +123,39 @@
           align-items: center;
           gap: 3px;
         }
+        
+        .high {
+          p {
+            color: $color-red;
+          }
+
+          svg {
+            fill: $color-red;
+          }
+        }
+
+        .low {
+          p {
+            color: $color-primary;
+          }
+
+          svg {
+            fill: $color-primary;
+          }
+        }
+
+        .medium {
+          p {
+            color: $color-yellow;
+          }
+
+          svg {
+            fill: $color-yellow;
+          }
+        }
       }
 
-      .high {
-        p {
-          color: $color-red;
-        }
-
-        svg {
-          fill: $color-red;
-        }
-      }
-
-      .low {
-        p {
-          color: $color-primary;
-        }
-
-        svg {
-          fill: $color-primary;
-        }
-      }
-
-      .medium {
-        p {
-          color: $color-yellow;
-        }
-
-        svg {
-          fill: $color-yellow;
-        }
-      }
+      
     }
 
     .dashboard_gap {

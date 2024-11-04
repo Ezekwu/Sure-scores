@@ -3,6 +3,8 @@ import Link from './Link'
 import { Priority } from "./enums/Priority";
 import Task from "./Task";
 import { CloudinaryResponse } from "../utils/hooks/useCloudinaryUpload";
+import { FileData } from "../components/ui/FilePreview/UiFilePreview";
+
 
 export default interface Project {
   id: string;
@@ -10,10 +12,11 @@ export default interface Project {
   name: string;
   avatar: string | undefined;
   start_date: string;
-  created_at: FieldValue |Timestamp;
+  dead_line: string;
+  created_at: FieldValue | string;
   priority: Priority;
   links: Link[];
-  files: CloudinaryResponse[] | undefined;
+  files: FileData[] | undefined;
   description: string;
   tasks: Task[]
 }

@@ -45,7 +45,7 @@ export default function ProjectList({projects}: Props) {
                 <h4 className={styles.project_name}>{project.name}</h4>
                 <Link
                   className={`${isActiveProject(project.id) && styles.active_project_link}`}
-                  href={`/projects/${project.id}`}
+                  href={`/projects/${project.id}/tasks`}
                 >
                   View details <UiIcon size="24" icon="CaretRight" />
                 </Link>
@@ -59,7 +59,7 @@ export default function ProjectList({projects}: Props) {
       </aside>
       <main>
         {isTaskEmpty ? (
-          <EmptyState
+          <div><EmptyState
             text="There are no tasks in this project yet Let's add them"
             img={NoProject}
             cta={
@@ -68,7 +68,8 @@ export default function ProjectList({projects}: Props) {
                 <UiIcon size="24" icon="Plus" /> Add Task
               </UiButton>
             }
-          />
+          /></div>
+          
         ) : (
           <div></div>
         )}

@@ -14,7 +14,7 @@
   padding: 0.8rem 1.3rem;
   border-radius: 14px;
   text-transform: capitalize;
-  transition: all .18s ease-in;
+  transition: $transition;
   opacity: 1;
 }
 
@@ -65,7 +65,7 @@
   color: $color-primary-40;
 
   &:hover{
-    background-color: #e1e8ef;
+    background-color: #e1e8ef94;
   }
 
   svg {

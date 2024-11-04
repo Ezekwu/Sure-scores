@@ -19,7 +19,7 @@ interface Props {
 export default function UiButton({ 
   children,
   type = 'submit',
-  disabled= false, 
+  disabled = false, 
   variant = 'primary',
   size = 'normal',
   weightVariant = 'normal',

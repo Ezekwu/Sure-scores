@@ -17,7 +17,7 @@ import Link from '@/src/types/Link';
 import UiLinkTag from '@/src/components/ui/LinkTag/UiLinkTag';
 import UiFileUpload from '@/src/components/ui/FileUpload/UiFileUpload';
 import UiFilePreview from '../../ui/FilePreview/UiFilePreview';
-import { FilePreview } from '../../ui/FilePreview/UiFilePreview';
+import { FileData } from '../../ui/FilePreview/UiFilePreview';
 import { formatFileSize } from '@/src/utils/helperFunctions';
 import UiSelect, { Option } from '../../ui/Select/UiSelect';
 import { Priority } from '@/src/types/enums/Priority';
@@ -39,7 +39,7 @@ export default function AddProject({isOpen, onClose}: Props) {
   const [uploadedAvatar, setUploadedAvatar] = useState<File[] | null>(null);
   const [previewUploadedAvatar, setPreviewUploadedAvatar] = useState<string>();
   const [files, setFiles] = useState<File[]>([]);
-  const [filesPreview, setFilesPreview] = useState < FilePreview[]>([]);
+  const [filesPreview, setFilesPreview] = useState<FileData[]>([]);
   const [projectAvatar, setProjectAvatar] = useState<string>();
   const isInsertLinkVisible = useToggle();
   const  isManualLoading = useToggle();
@@ -93,7 +93,7 @@ export default function AddProject({isOpen, onClose}: Props) {
     if(uploadedAvatar){
        const avatarUploadData = await uploadFiles(uploadedAvatar);
        if (avatarUploadData) {
-        uploadedAvatarUrl = avatarUploadData[0].secure_url;
+        uploadedAvatarUrl = avatarUploadData[0].src;
        }
     }
 
@@ -281,7 +281,7 @@ export default function AddProject({isOpen, onClose}: Props) {
                       {filesPreview.map((preview, index) => (
                         <UiFilePreview
                           key={preview.src}
-                          filePreview={preview}
+                          fileData={preview}
                           isUploadPreview
                           index={index}
                           removeFile={removeFile}
@@ -294,6 +294,7 @@ export default function AddProject({isOpen, onClose}: Props) {
                           key={link.url}
                           link={link}
                           index={index}
+                          isRemovable
                           removeLink={removeLink}
                         />
                       ))}
@@ -314,7 +315,7 @@ export default function AddProject({isOpen, onClose}: Props) {
               </div>
             </section>
             <section className={styles.bottom_row}>
-              <UiButton loading={isLoading}>Save Project</UiButton>
+              <UiButton loading={loading}>Save Project</UiButton>
             </section>
           </div>
         )}

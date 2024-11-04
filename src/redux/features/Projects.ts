@@ -24,8 +24,9 @@ export const projectSlice = createApi({
   getProject: builder.query<Project, string>({
     queryFn: async (projectId: string) => {
       try {
-        const project = await api.getProject(projectId)
-        return {data: project}
+        const project = await api.getProject(projectId);
+        const serializedProject = serializeField(project, 'created_at')
+        return {data: serializedProject}
       } catch (error) {
         return {error: error}
       }
@@ -36,6 +37,7 @@ export const projectSlice = createApi({
     queryFn: async (project: Project) => {
       try {
         const addedProject = await api.addProject(project);
+        
         return {data: addedProject}
       } catch (error) {
         return {error: error}

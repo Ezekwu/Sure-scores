@@ -22,9 +22,20 @@
       font-weight: bold;
       font-size: 0.87rem;
       margin-bottom: 2px;
+      display: -webkit-box;
+      -webkit-box-orient: vertical;
+      -webkit-line-clamp: 2;
+      line-clamp: 2;
+      overflow: hidden;
+      text-overflow: ellipsis;
     }
 
     .file_size{
+      font-size: 0.7rem;
+      color: $color-grey-30;
+    }
+
+    .created_at{
       font-size: 0.7rem;
       color: $color-grey-30;
     }

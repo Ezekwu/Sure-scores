@@ -1,9 +1,11 @@
 import { useState } from "react";
+import { FileData } from "@/src/components/ui/FilePreview/UiFilePreview";
 
  export type CloudinaryResponse = {
   created_at: string;
   secure_url: string;
-  resource_type: 'image' | 'raw'
+  resource_type: 'image' | 'raw';
+  original_filename: string;
 }
 
 export default function useCloudinaryUpload() {
@@ -11,7 +13,7 @@ export default function useCloudinaryUpload() {
 
   async function uploadFiles(files: File[]) {
     try {
-      const urls : Promise<CloudinaryResponse[]> = Promise.all(
+      const urls : Promise<FileData[]> = Promise.all(
         files.map(async (file) => {
           const formData = new FormData();
 
@@ -25,8 +27,13 @@ export default function useCloudinaryUpload() {
              throw new Error('Failed to upload file')
           }
 
-          const {created_at, resource_type, secure_url}: CloudinaryResponse = await response.json();
-          return {created_at, resource_type, secure_url}
+          const data : CloudinaryResponse = await response.json();
+          return {
+            name: data.original_filename,
+            src: data.secure_url,
+            type: data.resource_type,
+            created_at: data.created_at
+          }
         })
       )
       return urls;

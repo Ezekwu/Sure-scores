@@ -1,0 +1,37 @@
+@import 'styles/variables';
+
+.priority{
+  display: flex;
+  align-items: center;
+  gap: 3px;
+}
+
+.high {
+  p {
+    color: $color-red;
+  }
+
+  svg {
+    fill: $color-red;
+  }
+}
+
+.low {
+  p {
+    color: $color-primary;
+  }
+
+  svg {
+    fill: $color-primary;
+  }
+}
+
+.medium {
+  p {
+    color: $color-yellow;
+  }
+
+  svg {
+    fill: $color-yellow;
+  }
+}

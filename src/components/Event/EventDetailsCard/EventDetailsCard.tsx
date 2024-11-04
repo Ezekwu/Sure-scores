@@ -118,7 +118,9 @@ export default function EventDetailsCard({
         >
           <div className={`${styles[event.priority]} ${styles.priority}`}>
             {fullDetails && <h4>Priority</h4>}
-            <div className={styles.priority_arrow}>
+            <div
+              className={`${styles.priority_arrow} ${styles[event.priority]}`}
+            >
               <UiIcon icon={getPriorityArrow(event?.priority)} size="24" />
               {fullDetails && (
                 <p className={styles.priority}>{event.priority}</p>
