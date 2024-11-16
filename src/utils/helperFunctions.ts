@@ -77,10 +77,11 @@ export function getPriorityArrow(priority: Priority): Icons {
 }
 
 export function serializeField<T extends object, K extends keyof T>(object: T, field: K) {
-  if(object[field] instanceof Timestamp){
+  const value: any = object[field];
+  if(value instanceof Timestamp){
     return {
       ...object, 
-      [field]: (object[field]).toDate().toDateString(),
+      [field]: value.toDate().toDateString(),
     }
   } else {
     return object
