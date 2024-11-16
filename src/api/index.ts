@@ -16,7 +16,7 @@ const provider = new GoogleAuthProvider();
 const activeCompanyId = getCookie('active_companyId');
 
 
-class Api {
+class ApiService {
   async createUserWithEmailAndPassword (email: string, password: string) {
     return await createUserWithEmailAndPassword(auth, email, password)
     .then(({ user }) => user)
@@ -32,7 +32,7 @@ class Api {
     .then(({ user }) => user)
   }
 
-  createOrUpdateUserDetails (data: User) {
+  createOrUpdateUser (data: User) {
     return this.setDoc('users', data.id, data)
   }
 
@@ -178,4 +178,5 @@ class Api {
   }
 }
 
-export default new Api();
+const Api = new ApiService();
+export {Api}

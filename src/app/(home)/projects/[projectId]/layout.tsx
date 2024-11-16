@@ -95,8 +95,8 @@ export default function ProjectDetailsLayout({ children }: { children: React.Rea
             <div>
               <h3>Attachments({attacmentLength})</h3>
               <div className={styles.files}>
-                {project?.files?.map((file) => (
-                  <UiFilePreview fileData={file} />
+                {project?.files?.map((file, index) => (
+                  <UiFilePreview key={index} fileData={file} />
                 ))}
               </div>
               <div className={styles.links}>

@@ -3,7 +3,6 @@ import UiButton from "../Button/UiButton";
 import UiIcon from "../Icon/UiIcon";
 import styles from './fileUpload.module.scss';
 
- 
 interface Props {
   fileType?: 'image' | 'document';
   acceptMultiple?: boolean;
@@ -55,24 +54,5 @@ export default function UiFileUpload({fileType, acceptMultiple, onSetFiles, chil
         </UiButton>
       )}
     </div>
-    // <Controller
-    //   name={name}
-    //   control={control}
-    //   render={({ field }) => (
-    //     <div>
-    //       <input
-    //         multiple={acceptMultiple}
-    //         accept={
-    //           fileType ? fileTypes[fileType] : 'image/*,.pdf,.doc,.docx,.txt'
-    //         }
-    //         type='file'
-    //         onChange={(e)=> {
-    //           handleChange(e);
-    //           field.onChange(e.target.files);
-    //         }}
-    //       />
-    //     </div>
-    //   )}
-    // />
   );
 }

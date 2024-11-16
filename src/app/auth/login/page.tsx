@@ -9,10 +9,8 @@ import UiIcon from '@/src/components/ui/Icon/UiIcon';
 import AuthLayout from "../Authlayout"
 import loginSchema from '../../../utils/validations/loginSchema'
 import styles from './signin.module.scss'
-import { useLoginUserMutation, useGetLoggedInUserQuery, useAddUserOrganizationMutation, useLazyGetLoggedInUserQuery } from '@/src/redux/features/Account';
+import { useLoginUserMutation, useAddUserOrganizationMutation } from '@/src/redux/features/Account';
 import { useAddMemberMutation } from "@/src/redux/features/Team";
-import { setCookie } from 'cookies-next';
-import api from "@/src/api"
 
 
 
@@ -20,8 +18,6 @@ export default function Page() {
   const searchParams = useSearchParams();
   const inviteToken = searchParams.get('invite-token');
   const [loginUser, { isLoading }] = useLoginUserMutation();
-  const [addMember] = useAddMemberMutation();
-  const [addOrganisation] = useAddUserOrganizationMutation();
   const router = useRouter();
   
   const onSubmit = async (loginDetails: { email: string; password: string }) => {

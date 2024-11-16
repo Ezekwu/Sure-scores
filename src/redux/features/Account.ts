@@ -2,7 +2,7 @@ import { fakeBaseQuery, createApi } from '@reduxjs/toolkit/query/react';
 import User from '@/src/types/User';
 import Company from '@/src/types/Company';
 import SignUpUser from '@/src/types/SignUpUser';
-import api from '../../api/index';
+import {Api} from '../../api/index';
 import { Toast } from '@/src/utils/toast';
 import { CookieValueTypes, getCookie } from 'cookies-next'
 import { setAuthToken } from '@/src/utils/cookieMthods';
@@ -20,7 +20,7 @@ export const accountSlice = createApi({
     registerUser: builder.mutation({
       queryFn: async (authUser: SignUpUser) => {
         try {
-          const user = await api.createUserWithEmailAndPassword(authUser.email, authUser.password);
+          const user = await Api.createUserWithEmailAndPassword(authUser.email, authUser.password);
           const userObj: User = {
             email: authUser.email,
             id: user.uid,
@@ -52,13 +52,13 @@ export const accountSlice = createApi({
           }
           
           setAuthToken(user.uid);
-          const createdCompany = await api.createCompany(companyObj);
-          await api.createCompanyRef({
+          const createdCompany = await Api.createCompany(companyObj);
+          await Api.createCompanyRef({
             id: createdCompany.id,
             name: createdCompany.name,
           }, createdCompany.id)
-          await api.createOrUpdateUserDetails({...userObj, organizations: [createdCompany.id]});
-          await api.addMember(memberObj, createdCompany.id);
+          await Api.createOrUpdateUser({...userObj, organizations: [createdCompany.id]});
+          await Api.addMember(memberObj, createdCompany.id);
 
           return { data: null };
         } catch (err) {
@@ -78,7 +78,7 @@ export const accountSlice = createApi({
 
     createOrUpdateUser: builder.mutation({
       queryFn: async (user: User) => {
-        await api.createOrUpdateUserDetails(user)
+        await Api.createOrUpdateUser(user)
         return {data: null}
       },
       invalidatesTags:['User'],
@@ -90,7 +90,7 @@ export const accountSlice = createApi({
           const token = getCookie('auth-token')      
           if(!token) throw new Error('no token provided');
 
-          const user = await api.getUser(token);
+          const user = await Api.getUser(token);
           const serializedUser = serializeField(user, 'birthday');
           
           return {data: serializedUser}
@@ -105,7 +105,7 @@ export const accountSlice = createApi({
     loginUser: builder.mutation({
       queryFn: async (authUser: {email: string, password: string}) => {
         try {
-          const user = await api.loginUserWithEmaiAndPassword(authUser.email, authUser.password)
+          const user = await Api.loginUserWithEmaiAndPassword(authUser.email, authUser.password)
           setAuthToken(user.uid);
           return {data: user}
         } catch (error) {
@@ -125,7 +125,7 @@ export const accountSlice = createApi({
     getUserCompaniesRef : builder.query<CompanyRef[], string[]>({
       queryFn: async(orgIds: string[]) => {
         try {
-          const companies = await api.getCompaniesRef(orgIds);
+          const companies = await Api.getCompaniesRef(orgIds);
           return {data: companies}
         } catch (error) {
           return { error: {data: error}};
@@ -139,7 +139,7 @@ export const accountSlice = createApi({
           if(!orgId) {
             return {data: undefined}
           }
-          const activeCompany = await api.getCompany(orgId)
+          const activeCompany = await Api.getCompany(orgId)
           return {data: activeCompany}
         } catch (error) {
           return { error: {data: error}};

@@ -5,7 +5,7 @@ import { getCookie, setCookie } from 'cookies-next';
 import { useGetLoggedInUserQuery, useAddUserOrganizationMutation } from '@/src/redux/features/Account';
 import { useDispatch } from 'react-redux';
 import { useAddMemberMutation } from '@/src/redux/features/Team';
-import api from '@/src/api';
+import {Api} from '@/src/api';
 
 
 export default function Invite() {
@@ -28,7 +28,7 @@ export default function Invite() {
       if (!authToken) {
         router.push(`/auth/login?invite-token=${token}`);
       } else {
-        const alredyInCompany = await api.doesDocumentExist(
+        const alredyInCompany = await Api.doesDocumentExist(
           `companies/${token}/members`,
           authToken,
         );

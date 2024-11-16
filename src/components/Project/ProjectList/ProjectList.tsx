@@ -33,6 +33,7 @@ export default function ProjectList({projects}: Props) {
         <div className={styles.project_list}>
           {projects.map((project) => (
             <div
+              key={project.id}
               onClick={() => onSetActiveProject(project)}
               className={styles.project}
             >

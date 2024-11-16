@@ -1,4 +1,4 @@
-import api from "@/src/api";
+import {Api} from "@/src/api";
 import { fakeBaseQuery, createApi } from '@reduxjs/toolkit/query/react';
 import CompanyMember from "@/src/types/CompanyMember";
 import { CookieValueTypes } from "cookies-next";
@@ -14,7 +14,7 @@ export const teamSlice = createApi({
     getMembers: builder.query<CompanyMember[], CookieValueTypes>({
       queryFn: async (companyId: CookieValueTypes) => {
         try {
-          const members = await api.getMembers(companyId)
+          const members = await Api.getMembers(companyId)
           const serializedMembers = members.map((member)=> {
             return serializeField(member, "birthday")
           })
@@ -29,7 +29,7 @@ export const teamSlice = createApi({
     getMember: builder.query({
       queryFn: async({companyId, memberId}: {companyId: CookieValueTypes, memberId: string}) => {
         try {
-          const member = await api.getMember(companyId, memberId);
+          const member = await Api.getMember(companyId, memberId);
           const serializedMember = serializeField(member, "birthday");
           return {data: serializedMember}
         } catch (error) {
@@ -41,7 +41,7 @@ export const teamSlice = createApi({
     addMember: builder.mutation({
       queryFn: async ({ member, companyId }: { member: CompanyMember, companyId: string }) => {
         try {
-          const newMember = await api.addMember(member, companyId);
+          const newMember = await Api.addMember(member, companyId);
 
           return {data: newMember}
         } catch (error) {
@@ -54,7 +54,7 @@ export const teamSlice = createApi({
     getCompanyRef: builder.query<CompanyRef, CookieValueTypes>({
       queryFn: async(companyId: CookieValueTypes) => {
         try {
-          const companyRef = await api.getCompanyRef(companyId);
+          const companyRef = await Api.getCompanyRef(companyId);
           return {data: companyRef}
         } catch (error) {
           return {error: error}        
