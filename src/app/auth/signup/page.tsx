@@ -1,8 +1,8 @@
 'use client'
 
-import { useMemo, Suspense } from 'react';
+import { useMemo, useEffect } from 'react';
 import dynamic from 'next/dynamic';
-import {useRouter, useSearchParams} from 'next/navigation';
+import {useRouter} from 'next/navigation';
 import AuthLayout from '../Authlayout';
 import SignUpUser from '@/src/types/SignUpUser';
 import { useState } from 'react';
@@ -17,7 +17,6 @@ import CompanyDetailsSchema from '@/src/utils/validations/CompanyDetailsSchema';
 import PersonalDetailsSchema from '@/src/utils/validations/PersonalDetailsSchema';
 import { useRegisterUserMutation } from '@/src/redux/features/Account';
 import UiIcon from '@/src/components/ui/Icon/UiIcon';
-import UiLoader from '@/src/components/ui/Loader/UiLoader';
 
 const RegisterationForm = dynamic(
   () => import('@/src/components/auth/RegisterationForm'),
@@ -31,8 +30,8 @@ const PersonalDetailsForm = dynamic(
 
 export default function Page() {
   const [activeStepIndex, setActiveStepIndex] = useState(0);
-  const searchParams = useSearchParams();
-  const inviteToken = searchParams.get('invite-token');
+  const [inviteToken, setIniteToken] = useState<string | null>(null);
+  
   const router = useRouter();
   const [registerUser, {isLoading}] = useRegisterUserMutation();
   const steps: Step[] = [
@@ -91,87 +90,93 @@ export default function Page() {
     }
   };  
 
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      const params = new URLSearchParams(window.location.search);
+      setIniteToken(params.get('invite-token'));
+    }
+  }, []);
+
+
   return (
-    <Suspense fallback={<UiLoader/>}>
-      <div className={styles.signup}>
-        <AuthLayout steps={steps} currentStepIndex={activeStepIndex}>
-          <section>
-            <div
+    <div className={styles.signup}>
+      <AuthLayout steps={steps} currentStepIndex={activeStepIndex}>
+        <section>
+          <div
+            style={{
+              textAlign: 'center',
+            }}
+          >
+            <p
               style={{
-                textAlign: 'center',
+                fontSize: '0.875rem',
+                fontWeight: 'bold',
+                color: '#3F8CFF',
               }}
             >
-              <p
-                style={{
-                  fontSize: '0.875rem',
-                  fontWeight: 'bold',
-                  color: '#3F8CFF',
-                }}
-              >
-                Step {activeStepIndex + 1}/{steps.length}
-              </p>
-              <h2
-                style={{
-                  fontSize: '1.3rem',
-                  marginBottom: '2rem',
-                }}
-              >
-                {steps[activeStepIndex].title}
-              </h2>
-            </div>
-            <div>
-              <UiForm onSubmit={onSubmit} schema={activeSchema}>
-                {({ errors, register, control }) => (
-                  <div>
-                    <div className={styles.form_container}>
-                      {activeStepIndex === 0 && (
-                        <RegisterationForm
-                          control={control}
-                          errors={errors}
-                          register={register}
-                        />
-                      )}
-                      {activeStepIndex === 1 && (
-                        <PersonalDetailsForm
-                          control={control}
-                          errors={errors}
-                          register={register}
-                        />
-                      )}
-                      {activeStepIndex === 2 && !inviteToken && (
-                        <CompanyDetailsForm
-                          control={control}
-                          errors={errors}
-                          register={register}
-                        />
-                      )}
-                    </div>
-                    <section className={styles.buttons_container}>
-                      {activeStepIndex === 0 ? (
-                        <Link className={styles.signin_up} href="./login">
-                          Alredy have an account? sign in.
-                        </Link>
-                      ) : (
-                        <UiButton
-                          type="button"
-                          variant="primary-text"
-                          onClick={goPrevious}
-                        >
-                          <UiIcon icon="ArrowLeft" size="24" />
-                          Previous
-                        </UiButton>
-                      )}
-                      <UiButton loading={isLoading}>
-                        {isLastStep ? 'submit' : 'next'} <ArrowRightSvg />
-                      </UiButton>
-                    </section>
+              Step {activeStepIndex + 1}/{steps.length}
+            </p>
+            <h2
+              style={{
+                fontSize: '1.3rem',
+                marginBottom: '2rem',
+              }}
+            >
+              {steps[activeStepIndex].title}
+            </h2>
+          </div>
+          <div>
+            <UiForm onSubmit={onSubmit} schema={activeSchema}>
+              {({ errors, register, control }) => (
+                <div>
+                  <div className={styles.form_container}>
+                    {activeStepIndex === 0 && (
+                      <RegisterationForm
+                        control={control}
+                        errors={errors}
+                        register={register}
+                      />
+                    )}
+                    {activeStepIndex === 1 && (
+                      <PersonalDetailsForm
+                        control={control}
+                        errors={errors}
+                        register={register}
+                      />
+                    )}
+                    {activeStepIndex === 2 && !inviteToken && (
+                      <CompanyDetailsForm
+                        control={control}
+                        errors={errors}
+                        register={register}
+                      />
+                    )}
                   </div>
-                )}
-              </UiForm>
-            </div>
-          </section>
-        </AuthLayout>
-      </div>
-    </Suspense>
+                  <section className={styles.buttons_container}>
+                    {activeStepIndex === 0 ? (
+                      <Link className={styles.signin_up} href="./login">
+                        Alredy have an account? sign in.
+                      </Link>
+                    ) : (
+                      <UiButton
+                        type="button"
+                        variant="primary-text"
+                        onClick={goPrevious}
+                      >
+                        <UiIcon icon="ArrowLeft" size="24" />
+                        Previous
+                      </UiButton>
+                    )}
+                    <UiButton loading={isLoading}>
+                      {isLastStep ? 'submit' : 'next'} <ArrowRightSvg />
+                    </UiButton>
+                  </section>
+                </div>
+              )}
+            </UiForm>
+          </div>
+        </section>
+      </AuthLayout>
+    </div>
   );
 }

@@ -1,6 +1,6 @@
 'use client'
-import { useSearchParams, useRouter } from 'next/navigation';
-import { Suspense, useEffect, useState } from 'react';
+import { useRouter } from 'next/navigation';
+import { useEffect, useState } from 'react';
 import { getCookie, setCookie } from 'cookies-next';
 import { useGetLoggedInUserQuery, useAddUserOrganizationMutation } from '@/src/redux/features/Account';
 import { useDispatch } from 'react-redux';
@@ -10,10 +10,9 @@ import UiLoader from '@/src/components/ui/Loader/UiLoader';
 
 
 export default function Invite() {
-  const searchParams = useSearchParams();
   const router = useRouter();
   const dispatch = useDispatch();
-  const token = searchParams.get('token');
+  const [token, setToken] = useState<string | null>(null);
   const authToken = getCookie('auth-token');
   const {data: user, isLoading: isUserLoading, refetch: refetchLoggedInUser} = useGetLoggedInUserQuery({});
   const [addMember,] = useAddMemberMutation();
@@ -68,10 +67,15 @@ export default function Invite() {
     addOrganisation,
     refetchLoggedInUser,
   ]);
+
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      const params = new URLSearchParams(window.location.search);
+      setToken(params.get('invite-token'));
+    }
+  }, []);
      
   return (
-    <Suspense fallback={<UiLoader />}>
-      <div>processing...</div>
-    </Suspense>
+    <div>processing...</div>
   );
 }
