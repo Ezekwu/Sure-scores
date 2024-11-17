@@ -1,11 +1,12 @@
 'use client'
 import { useSearchParams, useRouter } from 'next/navigation';
-import { useEffect, useState } from 'react';
+import { Suspense, useEffect, useState } from 'react';
 import { getCookie, setCookie } from 'cookies-next';
 import { useGetLoggedInUserQuery, useAddUserOrganizationMutation } from '@/src/redux/features/Account';
 import { useDispatch } from 'react-redux';
 import { useAddMemberMutation } from '@/src/redux/features/Team';
 import {Api} from '@/src/api';
+import UiLoader from '@/src/components/ui/Loader/UiLoader';
 
 
 export default function Invite() {
@@ -14,7 +15,6 @@ export default function Invite() {
   const dispatch = useDispatch();
   const token = searchParams.get('token');
   const authToken = getCookie('auth-token');
-  const companyId = getCookie('active_companyId');
   const {data: user, isLoading: isUserLoading, refetch: refetchLoggedInUser} = useGetLoggedInUserQuery({});
   const [addMember,] = useAddMemberMutation();
   const [addOrganisation, {isLoading}] = useAddUserOrganizationMutation();
@@ -69,5 +69,9 @@ export default function Invite() {
     refetchLoggedInUser,
   ]);
      
-  return <div>processing...</div>;
+  return (
+    <Suspense fallback={<UiLoader />}>
+      <div>processing...</div>
+    </Suspense>
+  );
 }
