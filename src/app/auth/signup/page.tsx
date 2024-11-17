@@ -1,6 +1,6 @@
 'use client'
 
-import { useMemo } from 'react';
+import { useMemo, Suspense } from 'react';
 import dynamic from 'next/dynamic';
 import {useRouter, useSearchParams} from 'next/navigation';
 import AuthLayout from '../Authlayout';
@@ -91,84 +91,86 @@ export default function Page() {
   };  
 
   return (
-    <div className={styles.signup}>
-      <AuthLayout steps={steps} currentStepIndex={activeStepIndex}>
-        <section>
-          <div
-            style={{
-              textAlign: 'center',
-            }}
-          >
-            <p
+    <Suspense>
+      <div className={styles.signup}>
+        <AuthLayout steps={steps} currentStepIndex={activeStepIndex}>
+          <section>
+            <div
               style={{
-                fontSize: '0.875rem',
-                fontWeight: 'bold',
-                color: '#3F8CFF',
+                textAlign: 'center',
               }}
             >
-              Step {activeStepIndex + 1}/{steps.length}
-            </p>
-            <h2
-              style={{
-                fontSize: '1.3rem',
-                marginBottom: '2rem',
-              }}
-            >
-              {steps[activeStepIndex].title}
-            </h2>
-          </div>
-          <div>
-            <UiForm onSubmit={onSubmit} schema={activeSchema}>
-              {({ errors, register, control }) => (
-                <div>
-                  <div className={styles.form_container}>
-                    {activeStepIndex === 0 && (
-                      <RegisterationForm
-                        control={control}
-                        errors={errors}
-                        register={register}
-                      />
-                    )}
-                    {activeStepIndex === 1 && (
-                      <PersonalDetailsForm
-                        control={control}
-                        errors={errors}
-                        register={register}
-                      />
-                    )}
-                    {activeStepIndex === 2 && !inviteToken && (
-                      <CompanyDetailsForm
-                        control={control}
-                        errors={errors}
-                        register={register}
-                      />
-                    )}
-                  </div>
-                  <section className={styles.buttons_container}>
-                    {activeStepIndex === 0 ? (
-                      <Link className={styles.signin_up} href="./login">
-                        Alredy have an account? sign in.
-                      </Link>
-                    ) : (
-                      <UiButton
-                        type="button"
-                        variant="primary-text"
-                        onClick={goPrevious}
-                      >
-                        <UiIcon icon="ArrowLeft" size="24" />
-                        Previous
+              <p
+                style={{
+                  fontSize: '0.875rem',
+                  fontWeight: 'bold',
+                  color: '#3F8CFF',
+                }}
+              >
+                Step {activeStepIndex + 1}/{steps.length}
+              </p>
+              <h2
+                style={{
+                  fontSize: '1.3rem',
+                  marginBottom: '2rem',
+                }}
+              >
+                {steps[activeStepIndex].title}
+              </h2>
+            </div>
+            <div>
+              <UiForm onSubmit={onSubmit} schema={activeSchema}>
+                {({ errors, register, control }) => (
+                  <div>
+                    <div className={styles.form_container}>
+                      {activeStepIndex === 0 && (
+                        <RegisterationForm
+                          control={control}
+                          errors={errors}
+                          register={register}
+                        />
+                      )}
+                      {activeStepIndex === 1 && (
+                        <PersonalDetailsForm
+                          control={control}
+                          errors={errors}
+                          register={register}
+                        />
+                      )}
+                      {activeStepIndex === 2 && !inviteToken && (
+                        <CompanyDetailsForm
+                          control={control}
+                          errors={errors}
+                          register={register}
+                        />
+                      )}
+                    </div>
+                    <section className={styles.buttons_container}>
+                      {activeStepIndex === 0 ? (
+                        <Link className={styles.signin_up} href="./login">
+                          Alredy have an account? sign in.
+                        </Link>
+                      ) : (
+                        <UiButton
+                          type="button"
+                          variant="primary-text"
+                          onClick={goPrevious}
+                        >
+                          <UiIcon icon="ArrowLeft" size="24" />
+                          Previous
+                        </UiButton>
+                      )}
+                      <UiButton loading={isLoading}>
+                        {isLastStep ? 'submit' : 'next'} <ArrowRightSvg />
                       </UiButton>
-                    )}
-                    <UiButton loading={isLoading}>
-                      {isLastStep ? 'submit' : 'next'} <ArrowRightSvg />
-                    </UiButton>
-                  </section>
-                </div>
-              )}
-            </UiForm>
-          </div>
-        </section>
-      </AuthLayout>
-    </div>
+                    </section>
+                  </div>
+                )}
+              </UiForm>
+            </div>
+          </section>
+        </AuthLayout>
+      </div>
+    </Suspense>
   );
 }

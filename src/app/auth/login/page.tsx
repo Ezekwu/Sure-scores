@@ -1,4 +1,6 @@
 'use client'
+
+import { Suspense } from "react";
 import Link from "next/link"
 import { useRouter, useSearchParams } from "next/navigation"
 import '../../../../styles/global.css'
@@ -9,8 +11,7 @@ import UiIcon from '@/src/components/ui/Icon/UiIcon';
 import AuthLayout from "../Authlayout"
 import loginSchema from '../../../utils/validations/loginSchema'
 import styles from './signin.module.scss'
-import { useLoginUserMutation, useAddUserOrganizationMutation } from '@/src/redux/features/Account';
-import { useAddMemberMutation } from "@/src/redux/features/Team";
+import { useLoginUserMutation } from '@/src/redux/features/Account';
 
 
 
@@ -65,48 +66,50 @@ export default function Page() {
   };
 
   return (
-    <AuthLayout>
-      <div className={styles.signin}>
-        <h2
-          style={{
-            textAlign: 'center',
-            fontSize: '1.3rem',
-            marginBottom: '2rem',
-          }}
-        >
-          Sign In to Woorkroom
-        </h2>
-        <div className={styles.form_container}>
-          <UiForm onSubmit={onSubmit} schema={loginSchema}>
-            {({ errors, register }) => (
-              <div>
-                <UiInput
-                  register={register}
-                  error={errors?.email?.message}
-                  name="email"
-                  label="Email Address"
-                  placeholder="enter your email"
-                  type="text"
-                />
-                <UiInput
-                  register={register}
-                  error={errors?.password?.message}
-                  name="password"
-                  label="Password"
-                  placeholder="enter your password"
-                  type="password"
-                />
-                <UiButton>
-                  {isLoading ? 'Loading...' : 'Sign In'}
-                  {!isLoading && <UiIcon size="24" icon="ArrowRight" />}
-                </UiButton>
+    <Suspense>
+      <AuthLayout>
+        <div className={styles.signin}>
+          <h2
+            style={{
+              textAlign: 'center',
+              fontSize: '1.3rem',
+              marginBottom: '2rem',
+            }}
+          >
+            Sign In to Woorkroom
+          </h2>
+          <div className={styles.form_container}>
+            <UiForm onSubmit={onSubmit} schema={loginSchema}>
+              {({ errors, register }) => (
+                <div>
+                  <UiInput
+                    register={register}
+                    error={errors?.email?.message}
+                    name="email"
+                    label="Email Address"
+                    placeholder="enter your email"
+                    type="text"
+                  />
+                  <UiInput
+                    register={register}
+                    error={errors?.password?.message}
+                    name="password"
+                    label="Password"
+                    placeholder="enter your password"
+                    type="password"
+                  />
+                  <UiButton>
+                    {isLoading ? 'Loading...' : 'Sign In'}
+                    {!isLoading && <UiIcon size="24" icon="ArrowRight" />}
+                  </UiButton>
 
-                <Link href="./signup">Dont have an account? sign up</Link>
-              </div>
-            )}
-          </UiForm>
+                  <Link href="./signup">Dont have an account? sign up</Link>
+                </div>
+              )}
+            </UiForm>
+          </div>
         </div>
-      </div>
-    </AuthLayout>
+      </AuthLayout>
+    </Suspense>
   );
 }
