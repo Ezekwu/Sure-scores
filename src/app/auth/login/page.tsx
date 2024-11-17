@@ -1,8 +1,8 @@
 'use client'
 
-import { Suspense } from "react";
+import { Suspense, useEffect, useState } from "react";
 import Link from "next/link"
-import { useRouter, useSearchParams } from "next/navigation"
+import { useRouter } from "next/navigation"
 import '../../../../styles/global.css'
 import UiButton from '@/src/components/ui/Button/UiButton';
 import UiForm from '@/src/components/ui/Form/UiForm';
@@ -14,11 +14,8 @@ import styles from './signin.module.scss'
 import { useLoginUserMutation } from '@/src/redux/features/Account';
 import UiLoader from "@/src/components/ui/Loader/UiLoader";
 
-
-
 export default function Page() {
-  const searchParams = useSearchParams();
-  const inviteToken = searchParams.get('invite-token');
+  const [inviteToken, setIniteToken] = useState<string | null>(null)
   const [loginUser, { isLoading }] = useLoginUserMutation();
   const router = useRouter();
   
@@ -65,6 +62,13 @@ export default function Page() {
         }
       });
   };
+
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      const params = new URLSearchParams(window.location.search);
+      console.log(params.get('invite-token'));
+    }
+  }, []);
 
   return (
     <Suspense fallback={<UiLoader />}>
