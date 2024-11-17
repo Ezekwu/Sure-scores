@@ -17,6 +17,7 @@ import CompanyDetailsSchema from '@/src/utils/validations/CompanyDetailsSchema';
 import PersonalDetailsSchema from '@/src/utils/validations/PersonalDetailsSchema';
 import { useRegisterUserMutation } from '@/src/redux/features/Account';
 import UiIcon from '@/src/components/ui/Icon/UiIcon';
+import UiLoader from '@/src/components/ui/Loader/UiLoader';
 
 const RegisterationForm = dynamic(
   () => import('@/src/components/auth/RegisterationForm'),
@@ -91,7 +92,7 @@ export default function Page() {
   };  
 
   return (
-    <Suspense>
+    <Suspense fallback={<UiLoader/>}>
       <div className={styles.signup}>
         <AuthLayout steps={steps} currentStepIndex={activeStepIndex}>
           <section>

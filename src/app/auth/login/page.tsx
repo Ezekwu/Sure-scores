@@ -12,6 +12,7 @@ import AuthLayout from "../Authlayout"
 import loginSchema from '../../../utils/validations/loginSchema'
 import styles from './signin.module.scss'
 import { useLoginUserMutation } from '@/src/redux/features/Account';
+import UiLoader from "@/src/components/ui/Loader/UiLoader";
 
 
 
@@ -66,7 +67,7 @@ export default function Page() {
   };
 
   return (
-    <Suspense>
+    <Suspense fallback={<UiLoader />}>
       <AuthLayout>
         <div className={styles.signin}>
           <h2
