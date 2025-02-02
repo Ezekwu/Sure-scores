@@ -1,6 +1,6 @@
 
 import {Html, Head, Body, Container, Text, Button, Section} from '@react-email/components';
-import Logo from '@/public/assets/svg/Logo';
+import Logo from 'public/assets/svg/Logo';
 
 interface Props {
   inviter: string;

@@ -1,15 +1,15 @@
 'use client';
 
 import styles from './page.module.scss';
-import UiIcon from '@/src/components/ui/Icon/UiIcon';
+import UiIcon from '@/components/ui/Icon/UiIcon';
 import Link from 'next/link';
-import EventDetailsCard from '@/src/components/Event/EventDetailsCard/EventDetailsCard';
-import MemberCard from '@/src/components/Team/MemberCard/MemberCard';
-import { useGetLoggedInUserQuery } from '@/src/redux/features/Account';
-import { useGetMembersQuery } from '@/src/redux/features/Team';
+import EventDetailsCard from '@/components/Event/EventDetailsCard/EventDetailsCard';
+import MemberCard from '@/components/Team/MemberCard/MemberCard';
+import { useGetLoggedInUserQuery } from '@/redux/features/Account';
+import { useGetMembersQuery } from '@/redux/features/Team';
 import { getAuth } from 'firebase/auth';
-import { formatDate } from '@/src/utils/helperFunctions';
-import { useGetEventsQuery } from '@/src/redux/features/Events';
+import { formatDate } from '@/utils/helperFunctions';
+import { useGetEventsQuery } from '@/redux/features/Events';
 import { getCookie } from 'cookies-next';
 import { useEffect, useState } from 'react';
 

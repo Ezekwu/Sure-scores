@@ -3,10 +3,10 @@ import Avatar from '@/public/assets/images/avatar.png';
 import Image from 'next/image';
 import UiButton from '../../ui/Button/UiButton';
 import UiIcon from '../../ui/Icon/UiIcon';
-import CompanyMember from '@/src/types/CompanyMember';
-import { useGetCompanyRefQuery } from '@/src/redux/features/Team';
+import CompanyMember from '@/types/CompanyMember';
+import { useGetCompanyRefQuery } from '@/redux/features/Team';
 import { getCookie } from 'cookies-next';
-import { Icons } from '@/src/components/ui/Icon/UiIcon';
+import { Icons } from '@/components/ui/Icon/UiIcon';
 
 interface Props {
   user: CompanyMember;

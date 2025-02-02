@@ -2,16 +2,16 @@
 
 import styles from './profileDetails.module.scss';
 import ProfileInfo from '../ProfileDetailsSideBar/ProfileInfo';
-import UiTab from '@/src/components/ui/Tab/UiTab';
+import UiTab from '@/components/ui/Tab/UiTab';
 import MemberCard from '../../Team/MemberCard/MemberCard';
 import { usePathname, useSearchParams } from 'next/navigation';
-import { useGetMemberQuery, useGetMembersQuery } from '@/src/redux/features/Team';
+import { useGetMemberQuery, useGetMembersQuery } from '@/redux/features/Team';
 import { getCookie } from 'cookies-next';
 import Image from 'next/image';
 import NoProject from '@/public/assets/images/no-task.png'
 import UiButton from '../../ui/Button/UiButton';
 import UiIcon from '../../ui/Icon/UiIcon';
-import EmptyState from '@/src/components/ui/EmptyState/EmptyState';
+import EmptyState from '@/components/ui/EmptyState/EmptyState';
 
 interface Props {
   memberId: string

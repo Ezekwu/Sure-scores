@@ -1,20 +1,23 @@
 "use client"
 
-import UiButton from "@/src/components/ui/Button/UiButton";
-import UiIcon from "@/src/components/ui/Icon/UiIcon";
+import { getCookie } from "cookies-next";
+
+import UiButton from "@/components/ui/Button/UiButton";
+import UiIcon from "@/components/ui/Icon/UiIcon";
 import styles from './page.module.scss';
-import EmptyState from "@/src/components/ui/EmptyState/EmptyState";
+import EmptyState from "@/components/ui/EmptyState/EmptyState";
 import NoProgect from '@/public/assets/images/no-task.png';
-import AddProject from "@/src/components/Project/AddProject/AddProject";
-import useToggle from "@/src/utils/hooks/useToggle";
-import { useGetProjectsQuery } from "@/src/redux/features/Projects";
-import UiLoader from "@/src/components/ui/Loader/UiLoader";
-import ProjectList from "@/src/components/Project/ProjectList/ProjectList";
+import SetProject from "@/components/Project/SetProject/SetProject";
+import useToggle from "@/utils/hooks/useToggle";
+import { useGetProjectsQuery } from "@/redux/features/Projects";
+import UiLoader from "@/components/ui/Loader/UiLoader";
+import ProjectList from "@/components/Project/ProjectList/ProjectList";
 
 export default function Page() {
-  const {data: projects, isLoading} = useGetProjectsQuery();
+  const companyId = getCookie('active_companyId');
+  const { data: projects, isLoading } = useGetProjectsQuery(companyId);
   const isAddProjectOpen = useToggle();
-
+  
   if(isLoading){
     return <UiLoader/>
   }
@@ -44,7 +47,7 @@ export default function Page() {
         )}
         {projects?.length! > 0 && <ProjectList projects={projects!} />}
       </main>
-      <AddProject
+      <SetProject
         isOpen={isAddProjectOpen.value}
         onClose={() => isAddProjectOpen.off()}
       />

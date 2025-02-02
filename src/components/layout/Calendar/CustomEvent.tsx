@@ -5,9 +5,9 @@ import styles from './customEvent.module.scss';
 import {
   formatTimeDifference,
   getPriorityArrow,
-} from '@/src/utils/helperFunctions';
-import UiIcon from '@/src/components/ui/Icon/UiIcon';
-import EventResponse from '@/src/types/EventResponse';
+} from '@/utils/helperFunctions';
+import UiIcon from '@/components/ui/Icon/UiIcon';
+import EventResponse from '@/types/EventResponse';
 import { useMemo } from 'react';
 
 export interface CustomEventProps extends EventProps<EventResponse> {

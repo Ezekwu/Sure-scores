@@ -1,7 +1,12 @@
 'use client'
 import { useState } from 'react';
 
+
 export default function useToggle(defaultState = false) {
+
+  console.log(defaultState);
+  
+  
   const [value, setValue] = useState(defaultState);
 
   function on() {

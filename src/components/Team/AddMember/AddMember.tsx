@@ -5,11 +5,11 @@ import UiForm from '../../ui/Form/UiForm';
 import AddMemberImg from '@/public/assets/images/add-member.png';
 import styles from './addmember.module.scss';
 import UiButton from '../../ui/Button/UiButton';
-import AddmemberSchema from '@/src/utils/validations/AddmemberSchema';
-import useToggle from '@/src/utils/hooks/useToggle';
-import { Toast } from '@/src/utils/toast';
-import { useGetLoggedInUserQuery } from '@/src/redux/features/Account';
-import { useGetActiveCompanyQuery } from '@/src/redux/features/Account';
+import AddmemberSchema from '@/utils/validations/AddmemberSchema';
+import useToggle from '@/utils/hooks/useToggle';
+import { Toast } from '@/utils/toast';
+import { useGetLoggedInUserQuery } from '@/redux/features/Account';
+import { useGetActiveCompanyQuery } from '@/redux/features/Account';
 import { getCookie } from 'cookies-next';
 
 interface Props {

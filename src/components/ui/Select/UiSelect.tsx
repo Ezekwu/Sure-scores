@@ -56,7 +56,7 @@ export default function UiSelect({
       <Controller
         name={name}
         control={control}
-        render={({ field: { onChange, value } }) => (
+        render={({ field: { onChange,  value,  } }) => (
           <OutsideClickHandler
             onOutsideClick={() => setOptionsAreVisible(false)}
           >

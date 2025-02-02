@@ -11,12 +11,13 @@ export default interface Project {
   project_number: string;
   name: string;
   avatar: string | undefined;
-  start_date: string;
-  dead_line: string;
+  start_date: Date;
+  dead_line: Date;
   created_at: FieldValue | string;
   priority: Priority;
   links: Link[];
   files: FileData[] | undefined;
   description: string;
   tasks: Task[]
+  reporter_id: string;
 }

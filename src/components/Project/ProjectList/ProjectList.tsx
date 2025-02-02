@@ -1,5 +1,5 @@
 import { useState } from "react";
-import Project from "@/src/types/Project";
+import Project from "@/types/Project";
 import styles from './projectList.module.scss';
 import Link from "next/link";
 import UiIcon from "../../ui/Icon/UiIcon";

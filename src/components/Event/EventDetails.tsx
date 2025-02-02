@@ -1,8 +1,7 @@
-import UiModal from '@/src/components/ui/Modal/UiModal';
+import UiModal from '@/components/ui/Modal/UiModal';
 import EventDetailsCard from "./EventDetailsCard/EventDetailsCard";
-import { formatDate } from '@/src/utils/helperFunctions';
-import EventResponse from '@/src/types/EventResponse';
-import { useDeleteEventMutation } from '@/src/redux/features/Events';
+import { formatDate } from '@/utils/helperFunctions';
+import EventResponse from '@/types/EventResponse';
 
 interface Props {
   event: EventResponse;

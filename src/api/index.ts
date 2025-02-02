@@ -3,12 +3,12 @@ import { doc, getDoc, getDocs, setDoc, addDoc, collection, deleteDoc, QueryConst
 import db from './firebaseConfig';
 import { CookieValueTypes } from 'cookies-next';
 import { getCookie } from 'cookies-next';
-import User from '@/src/types/User';
-import CustomEventType from '@/src/types/CustomEvent';
-import EventResponse from '@/src/types/EventResponse';
-import Company from '@/src/types/Company';
-import CompanyMember from '@/src/types/CompanyMember';
-import CompanyRef from '@/src/types/CompanyRef';
+import User from '@/types/User';
+import CustomEventType from '@/types/CustomEvent';
+import EventResponse from '@/types/EventResponse';
+import Company from '@/types/Company';
+import CompanyMember from '@/types/CompanyMember';
+import CompanyRef from '@/types/CompanyRef';
 import Project from '../types/Project';
 
 const auth = getAuth();
@@ -36,8 +36,8 @@ class ApiService {
     return this.setDoc('users', data.id, data)
   }
 
-  getUser (userId:CookieValueTypes):Promise<User> {
-    return this.getDoc('users', userId!)
+  getUser (userId: string):Promise<User> {
+    return this.getDoc('users', userId)
   }
 
   createCompany(data: Company): Promise<Company> {
@@ -75,7 +75,7 @@ class ApiService {
 
 
   getEvents (companyId:CookieValueTypes): Promise<EventResponse[]> {
-    return this.getDocs(`companies/${companyId}/events`, [orderBy('created_at', 'desc'), ])
+    return this.getDocs(`companies/${companyId}/events`, [orderBy('created_at', 'desc')])
   }
 
   addEvent (data: CustomEventType) {
@@ -90,12 +90,12 @@ class ApiService {
     return this.deleteDoc(`companies/${activeCompanyId}/events`, eventId)
   }
 
-  getProjects(): Promise<Project[]> {
-    return this.getDocs(`companies/${activeCompanyId}/projects`)
+  getProjects(companyId:CookieValueTypes): Promise<Project[]> {
+    return this.getDocs(`companies/${companyId}/projects`)
   }
 
-  getProject(projectId: string): Promise<Project> {
-    return this.getDoc(`companies/${activeCompanyId}/projects`, projectId)
+  getProject(companyId: CookieValueTypes, projectId: string): Promise<Project> {
+    return this.getDoc(`companies/${companyId}/projects`, projectId)
   } 
 
   addProject(project: Project) {    

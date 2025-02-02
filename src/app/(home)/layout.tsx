@@ -2,16 +2,16 @@
 
 import styles from './layout.module.scss';
 import '../../../styles/global.css';
-import Navbar from '@/src/components/layout/Navbar/Navbar';
-import UiDropdown from '@/src/components/ui/Dropdown/UiDropdown';
-import UiIcon from '@/src/components/ui/Icon/UiIcon';
+import Navbar from '@/components/layout/Navbar/Navbar';
+import UiDropdown from '@/components/ui/Dropdown/UiDropdown';
+import UiIcon from '@/components/ui/Icon/UiIcon';
 import {
   useGetLoggedInUserQuery,
   useGetUserCompaniesRefQuery,
-} from '@/src/redux/features/Account';
+} from '@/redux/features/Account';
 import ProfileMenu, {
   Options,
-} from '@/src/components/layout/Profilemenu/ProfileMenu';
+} from '@/components/layout/Profilemenu/ProfileMenu';
 import { useState } from 'react';
 import { getCookie, setCookie } from 'cookies-next';
 

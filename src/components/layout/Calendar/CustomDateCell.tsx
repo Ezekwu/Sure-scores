@@ -2,10 +2,9 @@
 import { useMemo } from 'react';
 import { DateCellWrapperProps, momentLocalizer, } from 'react-big-calendar';
 import styles from './customDateCell.module.scss';
-import CustomEventType from '@/src/types/CustomEvent';
 import CustomEvent from './CustomEvent';
 import moment from 'moment';
-import EventResponse from '@/src/types/EventResponse';
+import EventResponse from '@/types/EventResponse';
 
 interface CustomProps extends DateCellWrapperProps {
   children: React.JSX.Element;

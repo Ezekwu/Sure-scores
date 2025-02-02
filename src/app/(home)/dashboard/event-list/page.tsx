@@ -1,15 +1,15 @@
 'use client';
 import Link from 'next/link';
-import EventDetailsCard from '@/src/components/Event/EventDetailsCard/EventDetailsCard';
-import AddEvent from '@/src/components/Event/AddEvent/AddEvent';
-import UiButton from '@/src/components/ui/Button/UiButton';
-import { useGetEventsQuery } from '@/src/redux/features/Events';
+import EventDetailsCard from '@/components/Event/EventDetailsCard/EventDetailsCard';
+import AddEvent from '@/components/Event/AddEvent/AddEvent';
+import UiButton from '@/components/ui/Button/UiButton';
+import { useGetEventsQuery } from '@/redux/features/Events';
 import styles from './page.module.scss'
-import UiIcon from '@/src/components/ui/Icon/UiIcon';
-import useToggle from '@/src/utils/hooks/useToggle';
-import EventResponse from '@/src/types/EventResponse';
+import UiIcon from '@/components/ui/Icon/UiIcon';
+import useToggle from '@/utils/hooks/useToggle';
+import EventResponse from '@/types/EventResponse';
 import { useState } from 'react';
-import EventDetails from '@/src/components/Event/EventDetails';
+import EventDetails from '@/components/Event/EventDetails';
 import { getCookie } from 'cookies-next';
 
 export default function Page() {

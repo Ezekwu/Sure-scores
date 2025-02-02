@@ -1,6 +1,6 @@
 import styles from './filePreview.module.scss';
 import UiIcon from "../Icon/UiIcon";
-import { formatDate } from '@/src/utils/helperFunctions';
+import { formatDate } from '@/utils/helperFunctions';
 
 export type FileData = {
   name: string;
@@ -28,7 +28,7 @@ export default function UiFilePreview({
   function deleteFile() {
     removeFile!(index!);
   }
-
+  
   return (
     <div
       className={styles.filePreview}

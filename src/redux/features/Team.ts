@@ -1,10 +1,10 @@
-import {Api} from "@/src/api";
+import {Api} from "@/api";
 import { fakeBaseQuery, createApi } from '@reduxjs/toolkit/query/react';
-import CompanyMember from "@/src/types/CompanyMember";
+import CompanyMember from "@/types/CompanyMember";
 import { CookieValueTypes } from "cookies-next";
 import { Timestamp } from "firebase/firestore";
-import { serializeField } from "@/src/utils/helperFunctions";
-import CompanyRef from "@/src/types/CompanyRef";
+import { serializeField } from "@/utils/helperFunctions";
+import CompanyRef from "@/types/CompanyRef";
 
 export const teamSlice = createApi({
   baseQuery: fakeBaseQuery(),

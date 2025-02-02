@@ -1,5 +1,5 @@
 
-import { sendInvite } from '@/src//utils/mail.utils';
+import { sendInvite } from '@/utils/mail.utils';
 import { NextResponse, NextRequest } from 'next/server';
 
 export async function POST(req: NextRequest, res:NextResponse) {    

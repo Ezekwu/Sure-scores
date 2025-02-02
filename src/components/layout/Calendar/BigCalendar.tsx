@@ -7,9 +7,8 @@ import { useCallback, useState } from 'react';
 import CustomDateCell from './CustomDateCell'
 import EventsList from '../../Event/EventList/EventsList';
 import EventDetails from '../../Event/EventDetails';
-import useToggle from '@/src/utils/hooks/useToggle';
-import { useGetEventsQuery } from '@/src/redux/features/Events';
-import EventResponse from '@/src/types/EventResponse';
+import useToggle from '@/utils/hooks/useToggle';
+import EventResponse from '@/types/EventResponse';
 import { getCookie } from 'cookies-next';
 
 interface Props {
@@ -24,7 +23,6 @@ interface Props {
 
 export default function BigCalendar({events, openAddEventModal, getClickedCellValue, getActiveEvent, clearActiveEvent, activeEvent, handleActiveEvent }: Props) {
   const companyId = getCookie('active_companyId');
-  const [compId, setCompId] = useState(companyId);
   // const { data: events, isLoading } = useGetEventsQuery(compId!, {
   //   skip: !compId,
   // });  

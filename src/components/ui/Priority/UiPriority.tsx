@@ -1,6 +1,6 @@
-import { getPriorityArrow } from "@/src/utils/helperFunctions";
+import { getPriorityArrow } from "@/utils/helperFunctions";
 import UiIcon from "../Icon/UiIcon";
-import { Priority } from "@/src/types/enums/Priority";
+import { Priority } from "@/types/enums/Priority";
 import styles from './priority.module.scss'
 
 interface Props {

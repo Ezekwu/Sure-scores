@@ -1,10 +1,10 @@
 import { Control, FieldErrors, FieldValues, UseFormRegister, Controller } from "react-hook-form";
 import UiSelect from "../ui/Select/UiSelect";
 import UidatePicker from "../ui/DatePicker/UiDatePicker";
-import styles from '@/styles/FormStyle.module.scss';
+import styles from 'styles/FormStyle.module.scss';
 import { Option } from "../ui/Select/UiSelect";
-import {  expertiseLevel } from "@/src/utils/constants";
-import { genders } from "@/src/utils/constants";
+import {  expertiseLevel } from "@/utils/constants";
+import { genders } from "@/utils/constants";
 import UiInput from "../ui/Input/UiInput";
 
 

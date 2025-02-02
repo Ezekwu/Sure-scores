@@ -1,18 +1,21 @@
-import {Api} from '@/src/api';
-import Project from '@/src/types/Project';
-import { serializeField } from '@/src/utils/helperFunctions';
+import {Api} from '@/api';
+import Project from '@/types/Project';
+import { serializeField } from '@/utils/helperFunctions';
 import { fakeBaseQuery, createApi } from '@reduxjs/toolkit/query/react';
+import { CookieValueTypes } from 'cookies-next';
 
 export const projectSlice = createApi({
   baseQuery: fakeBaseQuery(),
   reducerPath: 'projectApi',
   tagTypes: ['User'],
   endpoints : (builder) => ({
-    getProjects: builder.query<Project[] , void>({
-      queryFn: async () => {
+    getProjects: builder.query<Project[] , CookieValueTypes>({
+      queryFn: async (companyId: CookieValueTypes) => {
         try {
-          const projects = await Api.getProjects();
+          const projects = await Api.getProjects(companyId);
+          
           const serializedProjects = projects.map((project)=> serializeField(project, 'created_at'))
+          
           return {data: serializedProjects}
         } catch (error) {
           return {error: error}
@@ -21,10 +24,10 @@ export const projectSlice = createApi({
       providesTags: ['User']
     },
   ),
-  getProject: builder.query<Project, string>({
-    queryFn: async (projectId: string) => {
+  getProject: builder.query<Project, { companyId: CookieValueTypes, projectId: string }>({
+    queryFn: async ({companyId, projectId}) => {
       try {
-        const project = await Api.getProject(projectId);
+        const project = await Api.getProject(companyId, projectId);
         const serializedProject = serializeField(project, 'created_at')
         return {data: serializedProject}
       } catch (error) {
@@ -36,7 +39,12 @@ export const projectSlice = createApi({
   addProject: builder.mutation({
     queryFn: async (project: Project) => {
       try {
+        console.log(project, 'got in here');
+        
         const addedProject = await Api.addProject(project);
+
+        console.log(addedProject, 'this is the added project');
+        
         
         return {data: addedProject}
       } catch (error) {

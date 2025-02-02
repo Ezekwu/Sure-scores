@@ -1,6 +1,6 @@
 import React from 'react';
 import styles from './modal.module.scss'
-import CloseSvg from '@/public/assets/icons/CloseSvg';
+import CloseSvg from 'public/assets/icons/CloseSvg';
 
 interface Props {
   isOpen: boolean;

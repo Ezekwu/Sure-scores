@@ -1,52 +1,67 @@
 'use client'
 
 import { useEffect, useMemo, useState } from 'react';
+import { getAuth } from 'firebase/auth';
+
 import UiModal from '../../ui/Modal/UiModal';
 import UiInput from '../../ui/Input/UiInput';
 import UiTextArea from '../../ui/TextArea/UiTextArea';
 import UiForm from '../../ui/Form/UiForm';
 import UidatePicker from '../../ui/DatePicker/UiDatePicker';
 import UiButton from '../../ui/Button/UiButton';
-import styles from './addProject.module.scss';
+import styles from './setProject.module.scss';
 import UiIcon from '../../ui/Icon/UiIcon';
 import Image from 'next/image';
-import UploadImage from '@/public/assets/images/upload-image.png';
+import UploadImage from 'public/assets/images/upload-image.png';
 import InsertLink from '../../InsertLink/InsertLink';
-import useToggle from '@/src/utils/hooks/useToggle';
-import Link from '@/src/types/Link';
-import UiLinkTag from '@/src/components/ui/LinkTag/UiLinkTag';
-import UiFileUpload from '@/src/components/ui/FileUpload/UiFileUpload';
+import useToggle from '@/utils/hooks/useToggle';
+import Link from '@/types/Link';
+import UiLinkTag from '@/components/ui/LinkTag/UiLinkTag';
+import UiFileUpload from '@/components/ui/FileUpload/UiFileUpload';
 import UiFilePreview from '../../ui/FilePreview/UiFilePreview';
 import { FileData } from '../../ui/FilePreview/UiFilePreview';
-import { formatFileSize } from '@/src/utils/helperFunctions';
+import { formatFileSize } from '@/utils/helperFunctions';
 import UiSelect, { Option } from '../../ui/Select/UiSelect';
-import { Priority } from '@/src/types/enums/Priority';
-import AddProjectSchema from '@/src/utils/validations/AddProjectSchema';
-import useCloudinaryUpload from '@/src/utils/hooks/useCloudinaryUpload';
+import { Priority } from '@/types/enums/Priority';
+import AddProjectSchema from '@/utils/validations/AddProjectSchema';
+import useCloudinaryUpload from '@/utils/hooks/useCloudinaryUpload';
 import { serverTimestamp } from 'firebase/firestore';
-import { useAddProjectMutation } from '@/src/redux/features/Projects';
-import Project from '@/src/types/Project';
-import { Toast } from '@/src/utils/toast';
-import { generateProjectNumber } from '@/src/utils/helperFunctions';
+import { useAddProjectMutation } from '@/redux/features/Projects';
+import Project from '@/types/Project';
+import { Toast } from '@/utils/toast';
+import { generateProjectNumber } from '@/utils/helperFunctions';
 
 interface Props {
   isOpen: boolean;
   onClose: () => void;
+  defaultProject?: Project;
 }
 
-export default function AddProject({isOpen, onClose}: Props) {
-  const [links, setLinks] = useState<Link[]>([]);
+export default function SetProject({ isOpen, defaultProject, onClose }: Props) {
+  const [links, setLinks] = useState<Link[]>(defaultProject?.links || []);
   const [uploadedAvatar, setUploadedAvatar] = useState<File[] | null>(null);
-  const [previewUploadedAvatar, setPreviewUploadedAvatar] = useState<string>();
+  const [previewUploadedAvatar, setPreviewUploadedAvatar] = useState<string | undefined>(defaultProject?.avatar);
   const [files, setFiles] = useState<File[]>([]);
-  const [filesPreview, setFilesPreview] = useState<FileData[]>([]);
+  const [filesPreview, setFilesPreview] = useState<FileData[]>(
+    defaultProject?.files || [],
+  );
   const [projectAvatar, setProjectAvatar] = useState<string>();
+
   const isInsertLinkVisible = useToggle();
-  const  isManualLoading = useToggle();
-  const attachmentLength = files.length + links.length;  
-  const { uploadFiles, errors } = useCloudinaryUpload();
-  const [addProject, {isLoading}] = useAddProjectMutation();
+  const isManualLoading = useToggle();
+
+  const attachmentLength = files.length + links.length;
+
+  const { uploadFiles } = useCloudinaryUpload();
+
+  const [addProject, { isLoading }] = useAddProjectMutation();
+
   const loading = isManualLoading.value || isLoading;
+
+  console.log(isLoading, isManualLoading.value);
+  
+  const auth = getAuth();
+  const user = auth.currentUser;
 
   const projectPriorityOptions: Option[] = useMemo(() => {
     return Object.values(Priority).map((priority) => ({
@@ -54,7 +69,7 @@ export default function AddProject({isOpen, onClose}: Props) {
       value: priority,
     }));
   }, []);
-  
+
   function handleSetLinks(link: Link) {
     return setLinks((prevLinks) => [...prevLinks, link]);
   }
@@ -72,7 +87,7 @@ export default function AddProject({isOpen, onClose}: Props) {
   }
 
   function handleUploadedAvatar(img: File[]) {
-    return setUploadedAvatar(img)
+    return setUploadedAvatar(img);
   }
 
   function handleSetFiles(files: File[]) {
@@ -80,58 +95,79 @@ export default function AddProject({isOpen, onClose}: Props) {
   }
 
   function clearAvatars() {
-    setPreviewUploadedAvatar(undefined)
+    setPreviewUploadedAvatar(undefined);
     setProjectAvatar(undefined);
     setUploadedAvatar(null);
   }
 
+  // const formattedDefaultProject = {
+  //   ...defaultProject,
+    
+  //   start_date: new Date(defaultProject?.start_date ),
+  //   dead_line: new Date(defaultProject?.dead_line ),
+  // } as Project
+
   async function onSubmit(data: Project) {
-    isManualLoading.on()
-    let formatedData: Project = { ...data };
-    let uploadedAvatarUrl = undefined;
+    if (!user) throw new Error('No current logged in user');
 
-    if(uploadedAvatar){
-       const avatarUploadData = await uploadFiles(uploadedAvatar);
-       if (avatarUploadData) {
-        uploadedAvatarUrl = avatarUploadData[0].src;
-       }
-    }
+    try {
+      isManualLoading.on();
+      let formatedData: Project = { ...data };
+      let uploadedAvatarUrl = undefined;
+      
+      if (uploadedAvatar) {
+        const avatarUploadData = await uploadFiles(uploadedAvatar);
+        if (avatarUploadData) {
+          uploadedAvatarUrl = avatarUploadData[0].src;
+        }
+      }
 
-    if(files.length > 0){
-      const uploadedFiles = await uploadFiles(files);
+      if (files.length > 0) {
+        const uploadedFiles = await uploadFiles(files);
 
-        formatedData = {
-          ...formatedData,
-          files: uploadedFiles,
-        };
-    }
+        if (uploadedFiles) {
+          formatedData = {
+            ...formatedData,
+            files: [...uploadedFiles],
+          };
+        }
+      }
 
-     formatedData = {
-       ...formatedData,
-       created_at: serverTimestamp(),
-       links: links,
-       avatar: uploadedAvatarUrl || projectAvatar,
-       project_number: generateProjectNumber(),
-       tasks: []
-     };
+      formatedData = {
+        ...formatedData,
+        created_at: serverTimestamp(),
+        links: links,
+        avatar: uploadedAvatarUrl || projectAvatar,
+        project_number: generateProjectNumber(),
+        tasks: [],
+        reporter_id: user?.uid,
+      };
+
+      console.log('step 4', formatedData);
+
 
       if (!uploadedAvatar && !projectAvatar) {
         formatedData = {
           ...formatedData,
-          avatar: 'abstract-sunset.png',
+          avatar: '/assets/images/abstract-sunset.png',
         };
       }
 
-      isManualLoading.off()
+      console.log('step 5', formatedData);
 
-    addProject(formatedData)
-      .then(() => {
-        onClose();
-        Toast.success({ msg: 'event successfully added' });
-      });
+      addProject(formatedData)
+        .unwrap()
+        .then(() => {
+          onClose();
+          Toast.success({ msg: 'event successfully added' });
+        });
+    } catch (error) {
+      isManualLoading.off();
+      console.log(error);
+    }
+    
   }
 
-  
   const projectImages = [
     'abstract-sunset.png',
     'color-splash.png',
@@ -144,7 +180,7 @@ export default function AddProject({isOpen, onClose}: Props) {
     'bubble-pattern-purple.png',
     'bubble-pattern-red.png',
     'bubble-pattern-yellow.png',
-  ];  
+  ];
 
   useEffect(() => {
     function previewFiles() {
@@ -152,7 +188,7 @@ export default function AddProject({isOpen, onClose}: Props) {
         return {
           name: file.name,
           size: formatFileSize(file.size),
-          type:file.type,
+          type: file.type,
           src: URL.createObjectURL(file),
         };
       });
@@ -162,15 +198,22 @@ export default function AddProject({isOpen, onClose}: Props) {
   }, [files]);
 
   useEffect(() => {
-    if (uploadedAvatar){
+    if (uploadedAvatar) {
       const avatarUrl = URL.createObjectURL(uploadedAvatar[0]);
-      setPreviewUploadedAvatar(avatarUrl)
+      setPreviewUploadedAvatar(avatarUrl);
     }
   }, [uploadedAvatar]);
 
   return (
     <UiModal
-      closeModal={onClose}
+      closeModal={() => {
+        onClose();
+        clearAvatars();
+        setFiles([]);
+        setLinks([]);
+        setFilesPreview([]);
+        isManualLoading.off();
+      }}
       isOpen={isOpen}
       isFullWidth={true}
       title={
@@ -179,11 +222,15 @@ export default function AddProject({isOpen, onClose}: Props) {
             fontSize: '2rem',
           }}
         >
-          Add Project
+          {defaultProject ? 'Update' : 'Add'} Project
         </h2>
       }
     >
-      <UiForm schema={AddProjectSchema} onSubmit={onSubmit}>
+      <UiForm
+        defaultValues={defaultProject}
+        schema={AddProjectSchema}
+        onSubmit={onSubmit}
+      >
         {({ errors, register, control }) => (
           <div className={styles.addProject}>
             <section className={styles.top_row}>
@@ -262,12 +309,12 @@ export default function AddProject({isOpen, onClose}: Props) {
                         <Image
                           width={45}
                           height={45}
-                          className={styles.uploadImage}
+                          className={`${styles.uploadImage} ${previewUploadedAvatar && styles.isImageUploaded}`}
                           src={previewUploadedAvatar || UploadImage}
                           alt="upload image"
                           onClick={() => {
                             openFileWindow();
-                            clearAvatars();
+                            // clearAvatars();
                           }}
                         />
                       )}

@@ -1,11 +1,11 @@
 'use client';
 import Image from 'next/image';
-import UiSteps from '@/src/components/ui/Steps/UiSteps';
-import UiIcon from '@/src/components/ui/Icon/UiIcon';
+import UiSteps from '@/components/ui/Steps/UiSteps';
+import UiIcon from '@/components/ui/Icon/UiIcon';
 import styles from './AuthLayout.module.scss';
 import illustration from '@/public/assets/images/Illustration.png';;
 import { usePathname } from 'next/navigation';
-import { Step } from '@/src/components/ui/Steps/UiSteps';
+import { Step } from '@/components/ui/Steps/UiSteps';
 
 interface Props {
   children: React.ReactNode;

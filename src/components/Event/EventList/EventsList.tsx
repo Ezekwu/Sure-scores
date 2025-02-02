@@ -1,12 +1,10 @@
-import CustomEventType from "@/src/types/CustomEvent";
 import CustomEvent from "../../layout/Calendar/CustomEvent";
 import { momentLocalizer } from "react-big-calendar";
 import moment from "moment";
 import styles from './eventList.module.scss';
-import UiModal from '@/src/components/ui/Modal/UiModal';
-import { formatDate } from '@/src/utils/helperFunctions';
-import { Timestamp } from "firebase/firestore";
-import EventResponse from '@/src/types/EventResponse';
+import UiModal from '@/components/ui/Modal/UiModal';
+import { formatDate } from '@/utils/helperFunctions';
+import EventResponse from '@/types/EventResponse';
 
 interface Props {
   isOpen: boolean;

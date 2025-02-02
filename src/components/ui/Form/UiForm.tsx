@@ -1,6 +1,6 @@
 "use client" ;
 
-import { useForm, SubmitHandler, FieldErrors , UseFormRegister, Controller, FieldValues} from 'react-hook-form'
+import { useForm, SubmitHandler } from 'react-hook-form'
 import { yupResolver} from '@hookform/resolvers/yup'
 import styles from './form.module.scss'
 

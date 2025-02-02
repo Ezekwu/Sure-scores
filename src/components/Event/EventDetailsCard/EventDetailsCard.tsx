@@ -1,15 +1,15 @@
-import EventResponse from '@/src/types/EventResponse';
+import EventResponse from '@/types/EventResponse';
 import {
   formatTimeDifference,
   getPriorityArrow,
-} from '@/src/utils/helperFunctions';
+} from '@/utils/helperFunctions';
 import styles from './eventDetails.module.scss';
-import { useDeleteEventMutation } from '@/src/redux/features/Events';
-import UiIcon, { Icons } from '@/src/components/ui/Icon/UiIcon';
-import { formatTo12Hour } from '@/src/utils/helperFunctions';
-import { Toast } from '@/src/utils/toast';
-import { EventCategory } from '@/src/types/enums/EventCategory';
-import UiButton from '@/src/components/ui/Button/UiButton';
+import { useDeleteEventMutation } from '@/redux/features/Events';
+import UiIcon, { Icons } from '@/components/ui/Icon/UiIcon';
+import { formatTo12Hour } from '@/utils/helperFunctions';
+import { Toast } from '@/utils/toast';
+import { EventCategory } from '@/types/enums/EventCategory';
+import UiButton from '@/components/ui/Button/UiButton';
 import { useMemo } from 'react';
 import moment from 'moment';
 
@@ -42,9 +42,9 @@ export default function EventDetailsCard({
 
 
   function onEditClick() {
-     openEditEventModal!();
-     onClose!();
-  }
+    openEditEventModal!();
+    onClose!();
+}
 
   function removeDoc() {
     deleteDoc(event.id).then(() => {
@@ -53,6 +53,9 @@ export default function EventDetailsCard({
       Toast.success({ msg: 'Document succesfullt deleted' });
     });
   }
+
+  console.log(typeof event.date);
+  
 
   function getCategoryIcon(category: EventCategory): Icons {
     if (category === EventCategory.cooperate_event) {

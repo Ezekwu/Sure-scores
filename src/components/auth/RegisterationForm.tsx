@@ -1,5 +1,5 @@
 import UiInput from "../ui/Input/UiInput";
-import styles from '@/styles/FormStyle.module.scss'
+import styles from 'styles/FormStyle.module.scss'
 import { Control, FieldErrors, FieldValues, UseFormRegister } from "react-hook-form";
 
 interface Props {

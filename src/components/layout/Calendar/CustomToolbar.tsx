@@ -1,11 +1,7 @@
-import ArrowLeftSvg from '@/public/assets/icons/ArrowLeftSvg'
-import ArrowRightSvg from '@/public/assets/icons/ArrowRightSvg'
-import UiIcon from '@/src/components/ui/Icon/UiIcon';
+import UiIcon from '@/components/ui/Icon/UiIcon';
 import styles from './CustomToolbar.module.scss'
 
-
-export default function CustomToolbar  ({onNavigate, label}:any) {
-
+export default function CustomToolbar  ({onNavigate, label}: any) {
   return (
     <div className={styles.main}>
       <div className={styles.wrapper}>

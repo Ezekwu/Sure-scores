@@ -1,10 +1,10 @@
 'use client'
 
 import { useParams } from 'next/navigation';
-import ProfileDetails from '@/src/components/Profile/ProfileDetails/ProfileDetails';
+import ProfileDetails from '@/components/Profile/ProfileDetails/ProfileDetails';
 import styles from './page.module.scss'
 import Link from 'next/link';
-import UiIcon from '@/src/components/ui/Icon/UiIcon';
+import UiIcon from '@/components/ui/Icon/UiIcon';
 
 export default function Page(){
   const { member } = useParams();

@@ -4,28 +4,28 @@ import { useMemo, useEffect } from 'react';
 import dynamic from 'next/dynamic';
 import {useRouter} from 'next/navigation';
 import AuthLayout from '../Authlayout';
-import SignUpUser from '@/src/types/SignUpUser';
+import SignUpUser from '@/types/SignUpUser';
 import { useState } from 'react';
-import { Step } from '@/src/components/ui/Steps/UiSteps';
-import UiButton from '@/src/components/ui/Button/UiButton';
+import { Step } from '@/components/ui/Steps/UiSteps';
+import UiButton from '@/components/ui/Button/UiButton';
 import styles from './signup.module.scss';
 import Link from 'next/link';
-import ArrowRightSvg from '@/public/assets/icons/ArrowRightSvg';
-import UiForm from '@/src/components/ui/Form/UiForm';
-import RegistrationSchema from '@/src/utils/validations/RegistrationSchema';
-import CompanyDetailsSchema from '@/src/utils/validations/CompanyDetailsSchema';
-import PersonalDetailsSchema from '@/src/utils/validations/PersonalDetailsSchema';
-import { useRegisterUserMutation } from '@/src/redux/features/Account';
-import UiIcon from '@/src/components/ui/Icon/UiIcon';
+import ArrowRightSvg from 'public/assets/icons/ArrowRightSvg';
+import UiForm from '@/components/ui/Form/UiForm';
+import RegistrationSchema from '@/utils/validations/RegistrationSchema';
+import CompanyDetailsSchema from '@/utils/validations/CompanyDetailsSchema';
+import PersonalDetailsSchema from '@/utils/validations/PersonalDetailsSchema';
+import { useRegisterUserMutation } from '@/redux/features/Account';
+import UiIcon from '@/components/ui/Icon/UiIcon';
 
 const RegisterationForm = dynamic(
-  () => import('@/src/components/auth/RegisterationForm'),
+  () => import('@/components/auth/RegisterationForm'),
 );
 const CompanyDetailsForm = dynamic(
-  () => import('@/src/components/auth/CompanyDetailsForm'),
+  () => import('@/components/auth/CompanyDetailsForm'),
 );
 const PersonalDetailsForm = dynamic(
-  () => import('@/src/components/auth/PersonalDetailsForm'),
+  () => import('@/components/auth/PersonalDetailsForm'),
 );
 
 export default function Page() {

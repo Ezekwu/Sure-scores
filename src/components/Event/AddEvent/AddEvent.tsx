@@ -2,21 +2,21 @@ import React, { useMemo } from 'react';
 import UiForm from '../../ui/Form/UiForm';
 import UiModal from '../../ui/Modal/UiModal';
 import styles from './addEvent.module.scss';
-import eventSchema from '@/src/utils/validations/eventSchema';
-import UiInput from '@/src/components/ui/Input/UiInput';
-import UiSelect, { Option } from '@/src/components/ui/Select/UiSelect';
-import UidatePicker from '@/src/components/ui/DatePicker/UiDatePicker';
-import UiTimeInput from '@/src/components/ui/TimeInput/UiTimeInput';
-import UiTextArea from '@/src/components/ui/TextArea/UiTextArea';
-import UiButton from '@/src/components/ui/Button/UiButton';
-import { Priority } from '@/src/types/enums/Priority';
+import eventSchema from '@/utils/validations/eventSchema';
+import UiInput from '@/components/ui/Input/UiInput';
+import UiSelect, { Option } from '@/components/ui/Select/UiSelect';
+import UidatePicker from '@/components/ui/DatePicker/UiDatePicker';
+import UiTimeInput from '@/components/ui/TimeInput/UiTimeInput';
+import UiTextArea from '@/components/ui/TextArea/UiTextArea';
+import UiButton from '@/components/ui/Button/UiButton';
+import { Priority } from '@/types/enums/Priority';
 import {
   useAddEventMutation,
   useEditEventMutation,
-} from '@/src/redux/features/Events';
-import CustomEventType from '@/src/types/CustomEvent';
-import { Toast } from '@/src/utils/toast';
-import EventResponse from '@/src/types/EventResponse';
+} from '@/redux/features/Events';
+import CustomEventType from '@/types/CustomEvent';
+import { Toast } from '@/utils/toast';
+import EventResponse from '@/types/EventResponse';
 import { serverTimestamp } from 'firebase/firestore';
 
 interface Props {
@@ -29,7 +29,9 @@ interface Props {
 
 export default function AddEvent({ isOpen, date, onClose, closeEventDetailsModal, defaultEvent }: Props) {
   const [addEvent, {isLoading}] = useAddEventMutation();
+
   const [editEvent, {isLoading: isEditEventLoading}] = useEditEventMutation();
+
   const eventCategoryOptions: Option[] = [
     {
       label: 'cooperate event',
@@ -48,6 +50,7 @@ export default function AddEvent({ isOpen, date, onClose, closeEventDetailsModal
       value: 'leisure',
     },
   ];
+
   const eventPriorityOptions: Option[] = useMemo(() => {
     return Object.values(Priority).map((priority) => ({
       label: priority,
@@ -65,7 +68,7 @@ export default function AddEvent({ isOpen, date, onClose, closeEventDetailsModal
     if (defaultEvent) {      
       editEvent(event)
       .unwrap()
-      .then(()=>{
+      .then(() => {
         onClose();
         closeEventDetailsModal()
         Toast.success({ msg: 'event successfully updated' });
@@ -75,6 +78,7 @@ export default function AddEvent({ isOpen, date, onClose, closeEventDetailsModal
         ...event,
         created_at: serverTimestamp()
       }
+            
       addEvent(timeStampedEvent)
         .unwrap()
         .then(() => {

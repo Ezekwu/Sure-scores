@@ -1,6 +1,6 @@
 'use server';
 
-import InviteTemplate from '@/Emails/InviteTemplate';
+import InviteTemplate from 'Emails/InviteTemplate';
 import { render } from '@react-email/render';
 import nodemailer from 'nodemailer';
 

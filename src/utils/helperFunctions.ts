@@ -1,11 +1,12 @@
-import { Icons } from "@/src/components/ui/Icon/UiIcon";
-import { Priority } from "@/src/types/enums/Priority";
+import { Icons } from "@/components/ui/Icon/UiIcon";
+import { Priority } from "@/types/enums/Priority";
 import moment from "moment";
 import { Timestamp } from "firebase/firestore";
 import { customAlphabet } from 'nanoid';
 
 export function formatDate(date: string | Date, format: string) {
-  const dateObject = moment(date);
+  const jsDate = new Date(date)
+  const dateObject = moment(jsDate);
   if (!dateObject.isValid()) {
     return
   }

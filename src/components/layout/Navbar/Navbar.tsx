@@ -1,21 +1,21 @@
 "use client"
-import DashboardSvg from '@/public/assets/icons/DashboardSvg';
-import ProjectsSvg from '@/public/assets/icons/ProjectsSvg';
-import CalenderSvg from '@/public/assets/icons/CalenderSvg';
-import FileSvg from '@/public/assets/icons/FileSvg';
-import ExitSvg from '@/public/assets/icons/ExitSvg';
+import DashboardSvg from 'public/assets/icons/DashboardSvg';
+import ProjectsSvg from 'public/assets/icons/ProjectsSvg';
+import CalenderSvg from 'public/assets/icons/CalenderSvg';
+import FileSvg from 'public/assets/icons/FileSvg';
+import ExitSvg from 'public/assets/icons/ExitSvg';
 import Logo from '@/public/assets/images/logo-blue.png';
 import supportIllustration from '@/public/assets/images/support-illustration.png';
-import UiButton from '@/src/components/ui/Button/UiButton';
-import { removeAuthToken, removeActiveOrgToken } from '@/src/utils/cookieMthods';
+import UiButton from '@/components/ui/Button/UiButton';
+import { removeAuthToken, removeActiveOrgToken } from '@/utils/cookieMthods';
 import { useRouter } from 'next/navigation';
 
 import Link from "next/link";
 import Image from 'next/image';
 import { usePathname } from 'next/navigation';
 import styles from './Navbar.module.scss';
-import MessageSvg from '@/public/assets/icons/MessageSvg';
-import UiIcon from '@/src/components/ui/Icon/UiIcon';
+import MessageSvg from 'public/assets/icons/MessageSvg';
+import UiIcon from '@/components/ui/Icon/UiIcon';
 
 interface NavLinks {  
   name: string,

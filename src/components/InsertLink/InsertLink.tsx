@@ -4,7 +4,7 @@ import UiForm from '../ui/Form/UiForm';
 import UiInput from '../ui/Input/UiInput';
 import UiButton from '../ui/Button/UiButton';
 import UiIcon from '../ui/Icon/UiIcon';
-import Link from '@/src/types/Link';
+import Link from '@/types/Link';
 
 interface Props {
   onClose: () => void;

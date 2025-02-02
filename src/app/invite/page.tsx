@@ -2,11 +2,10 @@
 import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import { getCookie, setCookie } from 'cookies-next';
-import { useGetLoggedInUserQuery, useAddUserOrganizationMutation } from '@/src/redux/features/Account';
+import { useGetLoggedInUserQuery, useAddUserOrganizationMutation } from '@/redux/features/Account';
 import { useDispatch } from 'react-redux';
-import { useAddMemberMutation } from '@/src/redux/features/Team';
-import {Api} from '@/src/api';
-import UiLoader from '@/src/components/ui/Loader/UiLoader';
+import { useAddMemberMutation } from '@/redux/features/Team';
+import {Api} from '@/api';
 
 
 export default function Invite() {

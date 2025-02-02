@@ -5,7 +5,7 @@ import './Timeinput.css'
 import 'react-time-picker/dist/TimePicker.css';
 import 'react-clock/dist/Clock.css';
 import { Controller, FieldValues, Control, FieldError, FieldErrorsImpl, Merge } from 'react-hook-form';
-import ClockSvg from '@/public/assets/icons/ClockSvg';
+import ClockSvg from 'public/assets/icons/ClockSvg';
 
 interface Props {
   control: Control<FieldValues>;

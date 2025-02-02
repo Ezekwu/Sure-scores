@@ -2,9 +2,8 @@ import OutsideClickHandler from "react-outside-click-handler";
 import Calendar from "react-calendar"
 import { Controller, FieldValues, Control, FieldError, Merge, FieldErrorsImpl } from 'react-hook-form';
 import 'react-calendar/dist/Calendar.css';
-import { useState } from "react";
-import CalendarThinSvg from "@/public/assets/icons/CalendarThinSvg";
-import useToggle from '@/src/utils/hooks/useToggle';
+import CalendarThinSvg from "public/assets/icons/CalendarThinSvg";
+import useToggle from '@/utils/hooks/useToggle';
 
 import styles from './datepicker.module.scss'
 import './datepicker.css'
@@ -27,7 +26,10 @@ export default function UidatePicker ({ control, name, label, error, date }: Pro
   function hideCalendar() {
     return isCalendarVisible.off()
   }
+  
+  console.log(date);
 
+  
   function toggleCalendar() {
     return isCalendarVisible.toggle()
   }  
@@ -47,7 +49,7 @@ export default function UidatePicker ({ control, name, label, error, date }: Pro
           control={control}
           defaultValue={date}
           render={({ field }) => (
-            <div  className={styles.input_calendar_wrapper}>
+            <div className={styles.input_calendar_wrapper}>
               <div
                 onClick={toggleCalendar}
                 className={`${styles.date_picker} ${isCalendarVisible.value && styles.picker_visible}`}
@@ -57,7 +59,7 @@ export default function UidatePicker ({ control, name, label, error, date }: Pro
               </div>
               <div className={styles.calendar_wrapper}>
                 {isCalendarVisible.value && (
-                  <Calendar  onChange={field.onChange} value={field.value} />
+                  <Calendar onChange={field.onChange} value={field.value} />
                 )}
               </div>
             </div>

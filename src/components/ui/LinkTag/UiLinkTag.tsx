@@ -1,5 +1,5 @@
 import styles from './linkTag.module.scss';
-import Link from '@/src/types/Link';
+import Link from '@/types/Link';
 import UiIcon from '../Icon/UiIcon';
 
 interface Props {

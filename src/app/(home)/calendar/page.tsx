@@ -1,15 +1,15 @@
 "use client"
 
 import { useEffect, useState } from "react"
-import BigCalendar from "@/src/components/layout/Calendar/BigCalendar"
-import UiButton from '@/src/components/ui/Button/UiButton';
-import AddEvent from '@/src/components/Event/AddEvent/AddEvent';
+import BigCalendar from "@/components/layout/Calendar/BigCalendar"
+import UiButton from '@/components/ui/Button/UiButton';
+import AddEvent from '@/components/Event/AddEvent/AddEvent';
 import './calendar.css'
-import PlusSvg from "@/public/assets/icons/PlusSvg"
+import PlusSvg from "public/assets/icons/PlusSvg"
 import styles from './calendar.module.scss'
-import useToggle from '@/src/utils/hooks/useToggle';
-import EventResponse from '@/src/types/EventResponse';
-import { useGetEventsQuery } from "@/src/redux/features/Events";
+import useToggle from '@/utils/hooks/useToggle';
+import EventResponse from '@/types/EventResponse';
+import { useGetEventsQuery } from "@/redux/features/Events";
 import { getCookie } from "cookies-next";
 
 export default function Page() {

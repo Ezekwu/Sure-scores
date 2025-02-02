@@ -1,7 +1,7 @@
 import './globals.css'
 import type { Metadata } from 'next'
 import  { Nunito_Sans }   from 'next/font/google'
-import { ReduxProvider } from '@/src/redux/provider';
+import { ReduxProvider } from '@/redux/provider';
 import 'react-big-calendar/lib/css/react-big-calendar.css';
 import { Toaster } from 'react-hot-toast';
 

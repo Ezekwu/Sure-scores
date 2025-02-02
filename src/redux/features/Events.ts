@@ -1,6 +1,6 @@
-import {Api} from '@/src/api';
-import CustomEventType from '@/src/types/CustomEvent';
-import EventResponse from '@/src/types/EventResponse';
+import {Api} from '@/api';
+import CustomEventType from '@/types/CustomEvent';
+import EventResponse from '@/types/EventResponse';
 import { fakeBaseQuery, createApi } from '@reduxjs/toolkit/query/react';
 import { CookieValueTypes } from 'cookies-next';
 
@@ -23,13 +23,13 @@ export const eventSlice = createApi({
     }),
 
     addEvent: builder.mutation({
-      queryFn: async (event: CustomEventType) => {        
+      queryFn: async (event: CustomEventType) => {                
         try {
-           await Api.addEvent(event)
+           const addedEvent = await Api.addEvent(event)
+           return {data: addedEvent}
         } catch (error) {
           return {error: error}
         }
-        return {data: null};
       },
       invalidatesTags: ['Event'],
     }),

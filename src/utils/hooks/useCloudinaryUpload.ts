@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { FileData } from "@/src/components/ui/FilePreview/UiFilePreview";
+import { FileData } from "@/components/ui/FilePreview/UiFilePreview";
 
  export type CloudinaryResponse = {
   created_at: string;

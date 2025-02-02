@@ -1,10 +1,9 @@
 import UiInput from '../ui/Input/UiInput';
-import styles from '@/styles/FormStyle.module.scss';
+import styles from 'styles/FormStyle.module.scss';
 import { Option } from '../ui/Select/UiSelect';
-import { companyFields } from '@/src/utils/constants';
+import { companyFields } from '@/utils/constants';
 import {
   Control,
-  Controller,
   FieldErrors,
   FieldValues,
   UseFormRegister,

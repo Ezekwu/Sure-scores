@@ -1,4 +1,4 @@
-import CompanyMember from '@/src/types/CompanyMember';
+import CompanyMember from '@/types/CompanyMember';
 import styles from './memberCard.module.scss';
 import LevelPill from '../LevelPill/LevelPill';
 import Avatar from '@/public/assets/images/avatar.png';

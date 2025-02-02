@@ -1,7 +1,7 @@
 import { Option } from "../Select/UiSelect"
 import OutsideClickHandler from 'react-outside-click-handler';
 import styles from './dropdown.module.scss';
-import useToggle from "@/src/utils/hooks/useToggle";
+import useToggle from "@/utils/hooks/useToggle";
 import UiIcon from "../Icon/UiIcon";
 import { useMemo } from "react";
 

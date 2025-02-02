@@ -1,7 +1,7 @@
 'use client';
 
 import styles from './steps.module.scss';
-import CheckMarkSvg from '@/public/assets/icons/CheckMarkSvg';
+import CheckMarkSvg from 'public/assets/icons/CheckMarkSvg';
 
 export type Step = {
   content: string;

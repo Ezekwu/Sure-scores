@@ -1,16 +1,16 @@
 import { fakeBaseQuery, createApi } from '@reduxjs/toolkit/query/react';
-import User from '@/src/types/User';
-import Company from '@/src/types/Company';
-import SignUpUser from '@/src/types/SignUpUser';
+import User from '@/types/User';
+import Company from '@/types/Company';
+import SignUpUser from '@/types/SignUpUser';
 import {Api} from '../../api/index';
-import { Toast } from '@/src/utils/toast';
+import { Toast } from '@/utils/toast';
 import { CookieValueTypes, getCookie } from 'cookies-next'
-import { setAuthToken } from '@/src/utils/cookieMthods';
-import CompanyMember from '@/src/types/CompanyMember';
-import CompanyRef from '@/src/types/CompanyRef';
-import { doc, updateDoc, arrayUnion, Timestamp } from "firebase/firestore";
-import db from '@/src/api/firebaseConfig';
-import { serializeField } from '@/src/utils/helperFunctions';
+import { setAuthToken } from '@/utils/cookieMthods';
+import CompanyMember from '@/types/CompanyMember';
+import CompanyRef from '@/types/CompanyRef';
+import { doc, updateDoc, arrayUnion } from "firebase/firestore";
+import db from '@/api/firebaseConfig';
+import { serializeField } from '@/utils/helperFunctions';
 
 export const accountSlice = createApi({
   baseQuery: fakeBaseQuery(),
@@ -102,6 +102,19 @@ export const accountSlice = createApi({
       providesTags: ['User']
     }),
 
+    getUser: builder.query({
+      queryFn: async (userId: string) => {
+        try {
+          const user = await Api.getUser(userId);
+          const serializedUser = serializeField(user, 'birthday');
+          
+          return {data: serializedUser}
+        } catch (error) {
+          return { error: {data: error as Error}};
+        }
+      }
+    }),
+
     loginUser: builder.mutation({
       queryFn: async (authUser: {email: string, password: string}) => {
         try {
@@ -169,6 +182,7 @@ export const {
   useCreateOrUpdateUserMutation, 
   useLazyGetLoggedInUserQuery,
   useGetLoggedInUserQuery, 
+  useGetUserQuery,
   useLoginUserMutation,
   useGetUserCompaniesRefQuery,
   useGetActiveCompanyQuery,

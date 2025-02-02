@@ -1,22 +1,22 @@
 'use client';
 
-import UiButton from '@/src/components/ui/Button/UiButton';
-import UiIcon from '@/src/components/ui/Icon/UiIcon';
-import UiTable from '@/src/components/ui/Table/UiTable';
-import UiTab from '@/src/components/ui/Tab/UiTab';
-import LevelPill from '@/src/components/Team/LevelPill/LevelPill';
-import MemberCard from '@/src/components/Team/MemberCard/MemberCard';
+import UiButton from '@/components/ui/Button/UiButton';
+import UiIcon from '@/components/ui/Icon/UiIcon';
+import UiTable from '@/components/ui/Table/UiTable';
+import UiTab from '@/components/ui/Tab/UiTab';
+import LevelPill from '@/components/Team/LevelPill/LevelPill';
+import MemberCard from '@/components/Team/MemberCard/MemberCard';
 import styles from './page.module.scss';
 import Avatar from '@/public/assets/images/avatar.png';
-import { useGetMembersQuery } from '@/src/redux/features/Team';
-import { useGetLoggedInUserQuery } from '@/src/redux/features/Account';
+import { useGetMembersQuery } from '@/redux/features/Team';
+import { useGetLoggedInUserQuery } from '@/redux/features/Account';
 import Image from 'next/image';
-import AddMember from '@/src/components/Team/AddMember/AddMember';
-import useToggle from '@/src/utils/hooks/useToggle';
+import AddMember from '@/components/Team/AddMember/AddMember';
+import useToggle from '@/utils/hooks/useToggle';
 import { getCookie } from 'cookies-next';
 import { useState } from 'react';
 import { usePathname, useSearchParams } from 'next/navigation';
-import { formatDate } from '@/src/utils/helperFunctions';
+import { formatDate } from '@/utils/helperFunctions';
 import Link from 'next/link';
 
 export default function Page() {

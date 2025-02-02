@@ -1,7 +1,7 @@
 'use client';
 import styles from './profilemenu.module.scss';
 import UiIcon from '../../ui/Icon/UiIcon';
-import useToggle from '@/src/utils/hooks/useToggle';
+import useToggle from '@/utils/hooks/useToggle';
 import OutsideClickHandler from 'react-outside-click-handler';
 
 export type Options = {
